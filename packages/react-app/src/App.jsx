@@ -1,7 +1,7 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
-import { Alert, Button, Col, Menu, Row } from "antd";
+import { Alert, Button, Col, Menu, Row, Layout } from "antd";
 import "antd/dist/antd.css";
 import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
@@ -20,8 +20,7 @@ import {
 } from "eth-hooks";
 import { useEventListener } from "eth-hooks/events/useEventListener";
 import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
-// import Hints from "./Hints";
-import { ExampleUI, Hints, Subgraph } from "./views";
+import { Dashboard, Initiatives } from "./views";
 
 import { useContractConfig } from "./hooks";
 import Portis from "@portis/web3";
@@ -172,6 +171,8 @@ function App(props) {
 
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
+
+  const { Content } = Layout;
 
   const logoutOfWeb3Modal = async () => {
     await web3Modal.clearCachedProvider();
@@ -446,7 +447,7 @@ function App(props) {
       <Header />
       {networkDisplay}
       <BrowserRouter>
-        <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
+        <Menu style={{ textAlign: "left", padding: "0 50px" }} selectedKeys={[route]} mode="horizontal">
           <Menu.Item key="/">
             <Link
               onClick={() => {
@@ -454,28 +455,28 @@ function App(props) {
               }}
               to="/"
             >
-              YourContract
+              CitizenDao Contract
             </Link>
           </Menu.Item>
-          <Menu.Item key="/hints">
+          <Menu.Item key="/dashboard">
             <Link
               onClick={() => {
-                setRoute("/hints");
+                setRoute("/dashboard");
               }}
-              to="/hints"
+              to="/dashboard"
             >
-              Hints
+              Dashboard
             </Link>
           </Menu.Item>
-          <Menu.Item key="/exampleui">
-            <Link
-              onClick={() => {
-                setRoute("/exampleui");
-              }}
-              to="/exampleui"
-            >
-              ExampleUI
-            </Link>
+          <Menu.Item>
+              <Link
+                onClick={() => {
+                  setRoute("/initiatives");
+                }}
+                to="/initiatives"
+              >
+                Initiatives
+              </Link>
           </Menu.Item>
           <Menu.Item key="/mainnetdai">
             <Link
@@ -487,18 +488,8 @@ function App(props) {
               Mainnet DAI
             </Link>
           </Menu.Item>
-          <Menu.Item key="/subgraph">
-            <Link
-              onClick={() => {
-                setRoute("/subgraph");
-              }}
-              to="/subgraph"
-            >
-              Subgraph
-            </Link>
-          </Menu.Item>
         </Menu>
-
+        <Content style={{ padding: '50px 50px' }} >
         <Switch>
           <Route exact path="/">
             {/*
@@ -516,16 +507,8 @@ function App(props) {
               contractConfig={contractConfig}
             />
           </Route>
-          <Route path="/hints">
-            <Hints
-              address={address}
-              yourLocalBalance={yourLocalBalance}
-              mainnetProvider={mainnetProvider}
-              price={price}
-            />
-          </Route>
-          <Route path="/exampleui">
-            <ExampleUI
+          <Route path="/dashboard">
+            <Dashboard
               address={address}
               userSigner={userSigner}
               mainnetProvider={mainnetProvider}
@@ -538,6 +521,9 @@ function App(props) {
               purpose={purpose}
               setPurposeEvents={setPurposeEvents}
             />
+          </Route>
+          <Route path="/initiatives">
+            <Initiatives />
           </Route>
           <Route path="/mainnetdai">
             <Contract
@@ -561,15 +547,8 @@ function App(props) {
             />
             */}
           </Route>
-          <Route path="/subgraph">
-            <Subgraph
-              subgraphUri={props.subgraphUri}
-              tx={tx}
-              writeContracts={writeContracts}
-              mainnetProvider={mainnetProvider}
-            />
-          </Route>
         </Switch>
+        </Content>
       </BrowserRouter>
 
       <ThemeSwitch />
