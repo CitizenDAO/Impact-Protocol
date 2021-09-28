@@ -489,7 +489,7 @@ function App(props) {
             </Link>
           </Menu.Item>
         </Menu>
-        <Content style={{ padding: '50px 50px' }} >
+        <Content style={{ padding: '50px', maxWidth: '1280px', marginLeft: 'auto', marginRight: 'auto' }} >
         <Switch>
           <Route exact path="/">
             {/*
@@ -521,6 +521,11 @@ function App(props) {
               purpose={purpose}
               setPurposeEvents={setPurposeEvents}
             />
+          </Route>
+          <Route path="/initiatives/health">
+            <div>
+              <h1>health</h1>
+            </div>
           </Route>
           <Route path="/initiatives">
             <Initiatives />
