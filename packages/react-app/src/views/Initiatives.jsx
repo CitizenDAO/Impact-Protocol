@@ -28,9 +28,9 @@ export default function Initiative({
 
     return (
     <div>
-      <Row gutter={[16, 16]}>
-        <Col span={8} >
-          <Card style={{ width: 300 }}>
+      <Row gutter={[16, 16]} justify="center">
+        <Col flex={8} >
+          <Card style={{ width: 333 }}>
             <Row>
               <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Health</b></Title></Col>
               <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ0.1</Title></Col>
@@ -55,12 +55,137 @@ export default function Initiative({
           </Link>
           </Card>
         </Col>
-        <Col span={8} />
-        <Col span={8} />
+        <Col flex={8}>
+          <Card style={{ width: 333 }}>
+            <Row>
+              <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Housing</b></Title></Col>
+              <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ0.1</Title></Col>
+            </Row>
+            <Divider/>
+            <List
+              style={{ textAlign: 'left'}}
+              header={<div>Stats:</div>}
+              bordered
+              dataSource={healthData}
+              renderItem={item => (
+                  <List.Item>
+                      <b>{item.value}</b> {item.text}
+                  </List.Item>
+              )}
+            />
+            <br/>
+            <Link to="/initiatives/housing">
+              <Button>
+                Learn More
+              </Button>
+            </Link>
+          </Card>
+        </Col>
+        <Col flex={8}>
+          <Card style={{ width: 333 }}>
+            <Row>
+              <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Education</b></Title></Col>
+              <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ0.1</Title></Col>
+            </Row>
+            <Divider/>
+            <List
+              style={{ textAlign: 'left'}}
+              header={<div>Stats:</div>}
+              bordered
+              dataSource={healthData}
+              renderItem={item => (
+                  <List.Item>
+                      <b>{item.value}</b> {item.text}
+                  </List.Item>
+              )}
+            />
+            <br/>
+            <Link to="/initiatives/education">
+              <Button>
+                Learn More
+              </Button>
+            </Link>
+          </Card>
+        </Col>
 
-        <Col span={8} />
-        <Col span={8} />
-        <Col span={8} />
+        <Col flex={8}>
+        <Card style={{ width: 333 }}>
+            <Row>
+              <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Climate</b></Title></Col>
+              <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ0.1</Title></Col>
+            </Row>
+            <Divider/>
+            <List
+              style={{ textAlign: 'left'}}
+              header={<div>Stats:</div>}
+              bordered
+              dataSource={healthData}
+              renderItem={item => (
+                  <List.Item>
+                      <b>{item.value}</b> {item.text}
+                  </List.Item>
+              )}
+            />
+            <br/>
+            <Link to="/initiatives/climate">
+              <Button>
+                Learn More
+              </Button>
+            </Link>
+          </Card>
+        </Col>
+        <Col flex={8}>
+        <Card style={{ width: 333 }}>
+            <Row>
+              <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Finance</b></Title></Col>
+              <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ0.1</Title></Col>
+            </Row>
+            <Divider/>
+            <List
+              style={{ textAlign: 'left'}}
+              header={<div>Stats:</div>}
+              bordered
+              dataSource={healthData}
+              renderItem={item => (
+                  <List.Item>
+                      <b>{item.value}</b> {item.text}
+                  </List.Item>
+              )}
+            />
+            <br/>
+            <Link to="/initiatives/finance">
+              <Button>
+                Learn More
+              </Button>
+            </Link>
+          </Card>
+        </Col>
+        <Col flex={8}>
+        <Card style={{ width: 333 }}>
+            <Row>
+              <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Governance</b></Title></Col>
+              <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ0.1</Title></Col>
+            </Row>
+            <Divider/>
+            <List
+              style={{ textAlign: 'left'}}
+              header={<div>Stats:</div>}
+              bordered
+              dataSource={healthData}
+              renderItem={item => (
+                  <List.Item>
+                      <b>{item.value}</b> {item.text}
+                  </List.Item>
+              )}
+            />
+            <br/>
+            <Link to="/initiatives/governance">
+              <Button>
+                Learn More
+              </Button>
+            </Link>
+          </Card>
+        </Col>
     </Row>
   </div>
   )

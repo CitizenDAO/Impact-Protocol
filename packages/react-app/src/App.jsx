@@ -1,10 +1,24 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
-import { Alert, Button, Col, Menu, Row, Layout } from "antd";
+import { Alert, Button, Col, Menu, Row, Layout, Breadcrumb } from "antd";
 import "antd/dist/antd.css";
 import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import {
+  AppstoreOutlined,
+  BarChartOutlined,
+  CloudOutlined,
+  ShopOutlined,
+  TeamOutlined,
+  DashboardOutlined,
+  UserOutlined,
+  ExperimentOutlined,
+  FileTextOutlined,
+  SwapOutlined,
+  FundOutlined,
+  UploadOutlined,
+} from '@ant-design/icons';
 import Web3Modal from "web3modal";
 import "./App.css";
 import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
@@ -172,7 +186,9 @@ function App(props) {
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
 
-  const { Content } = Layout;
+  const [collapsed, setCollapsed] = useState(true);
+
+  const { Content, Sider } = Layout;
 
   const logoutOfWeb3Modal = async () => {
     await web3Modal.clearCachedProvider();
@@ -202,6 +218,10 @@ function App(props) {
     }
     getAddress();
   }, [userSigner]);
+
+  useEffect(() => {
+    setCollapsed(!collapsed)
+  }, [])
 
   // You can warn the user if you would like them to be on a specific network
   const localChainId = localProvider && localProvider._network && localProvider._network.chainId;
@@ -411,8 +431,11 @@ function App(props) {
     setRoute(window.location.pathname);
   }, [setRoute]);
 
+  
+
   let faucetHint = "";
   const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf("local") !== -1;
+
 
   const [faucetClicked, setFaucetClicked] = useState(false);
   if (
@@ -444,175 +467,179 @@ function App(props) {
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
-      <Header />
-      {networkDisplay}
-      <BrowserRouter>
-        <Menu style={{ textAlign: "left", padding: "0 50px" }} selectedKeys={[route]} mode="horizontal">
-          <Menu.Item key="/">
-            <Link
-              onClick={() => {
-                setRoute("/");
-              }}
-              to="/"
-            >
-              CitizenDao Contract
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/dashboard">
-            <Link
-              onClick={() => {
-                setRoute("/dashboard");
-              }}
-              to="/dashboard"
-            >
-              Dashboard
-            </Link>
-          </Menu.Item>
-          <Menu.Item>
-              <Link
+      <Layout style={{ minHeight: '100vh' }}>
+        <BrowserRouter>
+        <Sider
+          collapsible collapsed={collapsed} onCollapse={setCollapsed}
+          style={{
+            overflow: 'auto',
+            height: '100vh',
+            position: 'fixed',
+            left: 0,
+          }}
+        >
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={['/']}>
+              <Menu.Item key="/" icon={<FileTextOutlined />}>
+                <Link
+                    to="/"
+                  >
+                    Contract
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/dashboard" icon={<DashboardOutlined/>}>
+                <Link
+                  to="/dashboard"
+                >
+                  Dashboard
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/initiatives" icon={<ExperimentOutlined/>}>
+                <Link
+                  to="/initiatives"
+                >
+                  Initiatives
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/swap" icon={<SwapOutlined />}>
+                <Link
+                  to="/swap"
+                >
+                  Swap
+                </Link>
+              </Menu.Item>
+            </Menu>
+        </Sider>
+      <Layout style={{ marginLeft: 200 }}>
+        <Header />
+        {networkDisplay}
+          
+          <Content style={{ padding: '50px' }} >
+            <Switch>
+              <Route exact path="/">
+                {/*
+                    🎛 this scaffolding is full of commonly used components
+                    this <Contract/> component will automatically parse your ABI
+                    and give you a form to interact with it locally
+                */}
+
+                <Contract
+                  name="YourContract"
+                  signer={userSigner}
+                  provider={localProvider}
+                  address={address}
+                  blockExplorer={blockExplorer}
+                  contractConfig={contractConfig}
+                />
+              </Route>
+              <Route path="/dashboard">
+                <Dashboard
+                  address={address}
+                  userSigner={userSigner}
+                  mainnetProvider={mainnetProvider}
+                  localProvider={localProvider}
+                  yourLocalBalance={yourLocalBalance}
+                  price={price}
+                  tx={tx}
+                  writeContracts={writeContracts}
+                  readContracts={readContracts}
+                  purpose={purpose}
+                  setPurposeEvents={setPurposeEvents}
+                />
+              </Route>
+              <Route path="/initiatives/health">
+                <div>
+                  <h1>health</h1>
+                </div>
+              </Route>
+              <Route path="/initiatives">
+                <Initiatives />
+              </Route>
+              <Route path="/mainnetdai">
+                <Contract
+                  name="DAI"
+                  customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.DAI}
+                  signer={userSigner}
+                  provider={mainnetProvider}
+                  address={address}
+                  blockExplorer="https://etherscan.io/"
+                  contractConfig={contractConfig}
+                  chainId={1}
+                />
+                {/*
+                <Contract
+                  name="UNI"
+                  customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.UNI}
+                  signer={userSigner}
+                  provider={mainnetProvider}
+                  address={address}
+                  blockExplorer="https://etherscan.io/"
+                />
+                */}
+              </Route>
+            </Switch>
+          </Content>
+        
+
+        <ThemeSwitch />
+
+        {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
+        <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
+          <Account
+            address={address}
+            localProvider={localProvider}
+            userSigner={userSigner}
+            mainnetProvider={mainnetProvider}
+            price={price}
+            web3Modal={web3Modal}
+            loadWeb3Modal={loadWeb3Modal}
+            logoutOfWeb3Modal={logoutOfWeb3Modal}
+            blockExplorer={blockExplorer}
+          />
+          {faucetHint}
+        </div>
+
+        {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
+        <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
+          <Row align="middle" gutter={[4, 4]}>
+            <Col span={8}>
+              <Ramp price={price} address={address} networks={NETWORKS} />
+            </Col>
+
+            <Col span={8} style={{ textAlign: "center", opacity: 0.8 }}>
+              <GasGauge gasPrice={gasPrice} />
+            </Col>
+            <Col span={8} style={{ textAlign: "center", opacity: 1 }}>
+              <Button
                 onClick={() => {
-                  setRoute("/initiatives");
+                  window.open("https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA");
                 }}
-                to="/initiatives"
+                size="large"
+                shape="round"
               >
-                Initiatives
-              </Link>
-          </Menu.Item>
-          <Menu.Item key="/mainnetdai">
-            <Link
-              onClick={() => {
-                setRoute("/mainnetdai");
-              }}
-              to="/mainnetdai"
-            >
-              Mainnet DAI
-            </Link>
-          </Menu.Item>
-        </Menu>
-        <Content style={{ padding: '50px', maxWidth: '1280px', marginLeft: 'auto', marginRight: 'auto' }} >
-        <Switch>
-          <Route exact path="/">
-            {/*
-                🎛 this scaffolding is full of commonly used components
-                this <Contract/> component will automatically parse your ABI
-                and give you a form to interact with it locally
-            */}
+                <span style={{ marginRight: 8 }} role="img" aria-label="support">
+                  💬
+                </span>
+                Support
+              </Button>
+            </Col>
+          </Row>
 
-            <Contract
-              name="YourContract"
-              signer={userSigner}
-              provider={localProvider}
-              address={address}
-              blockExplorer={blockExplorer}
-              contractConfig={contractConfig}
-            />
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard
-              address={address}
-              userSigner={userSigner}
-              mainnetProvider={mainnetProvider}
-              localProvider={localProvider}
-              yourLocalBalance={yourLocalBalance}
-              price={price}
-              tx={tx}
-              writeContracts={writeContracts}
-              readContracts={readContracts}
-              purpose={purpose}
-              setPurposeEvents={setPurposeEvents}
-            />
-          </Route>
-          <Route path="/initiatives/health">
-            <div>
-              <h1>health</h1>
-            </div>
-          </Route>
-          <Route path="/initiatives">
-            <Initiatives />
-          </Route>
-          <Route path="/mainnetdai">
-            <Contract
-              name="DAI"
-              customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.DAI}
-              signer={userSigner}
-              provider={mainnetProvider}
-              address={address}
-              blockExplorer="https://etherscan.io/"
-              contractConfig={contractConfig}
-              chainId={1}
-            />
-            {/*
-            <Contract
-              name="UNI"
-              customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.UNI}
-              signer={userSigner}
-              provider={mainnetProvider}
-              address={address}
-              blockExplorer="https://etherscan.io/"
-            />
-            */}
-          </Route>
-        </Switch>
-        </Content>
-      </BrowserRouter>
-
-      <ThemeSwitch />
-
-      {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-      <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
-        <Account
-          address={address}
-          localProvider={localProvider}
-          userSigner={userSigner}
-          mainnetProvider={mainnetProvider}
-          price={price}
-          web3Modal={web3Modal}
-          loadWeb3Modal={loadWeb3Modal}
-          logoutOfWeb3Modal={logoutOfWeb3Modal}
-          blockExplorer={blockExplorer}
-        />
-        {faucetHint}
-      </div>
-
-      {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
-      <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
-        <Row align="middle" gutter={[4, 4]}>
-          <Col span={8}>
-            <Ramp price={price} address={address} networks={NETWORKS} />
-          </Col>
-
-          <Col span={8} style={{ textAlign: "center", opacity: 0.8 }}>
-            <GasGauge gasPrice={gasPrice} />
-          </Col>
-          <Col span={8} style={{ textAlign: "center", opacity: 1 }}>
-            <Button
-              onClick={() => {
-                window.open("https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA");
-              }}
-              size="large"
-              shape="round"
-            >
-              <span style={{ marginRight: 8 }} role="img" aria-label="support">
-                💬
-              </span>
-              Support
-            </Button>
-          </Col>
-        </Row>
-
-        <Row align="middle" gutter={[4, 4]}>
-          <Col span={24}>
-            {
-              /*  if the local provider has a signer, let's show the faucet:  */
-              faucetAvailable ? (
-                <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
-              ) : (
-                ""
-              )
-            }
-          </Col>
-        </Row>
-      </div>
+          <Row align="middle" gutter={[4, 4]}>
+            <Col span={24}>
+              {
+                /*  if the local provider has a signer, let's show the faucet:  */
+                faucetAvailable ? (
+                  <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
+                ) : (
+                  ""
+                )
+              }
+            </Col>
+          </Row>
+        </div>
+        </Layout>
+        </BrowserRouter>
+      </Layout>
     </div>
   );
 }

@@ -8,7 +8,7 @@ export default function Header() {
     <a href="/" target="_blank" rel="noopener noreferrer">
       <PageHeader
         title="CitizenDao"
-        subTitle="Fund Humanity"
+        subTitle="Moonshots for Humanity"
         style={{ cursor: "pointer" }}
       />
     </a>
