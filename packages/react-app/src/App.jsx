@@ -1,6 +1,7 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
+import Health from './views/Health';
 import { Alert, Button, Col, Menu, Row, Layout, Breadcrumb } from "antd";
 import "antd/dist/antd.css";
 import React, { useCallback, useEffect, useState } from "react";
@@ -547,9 +548,7 @@ function App(props) {
                 />
               </Route>
               <Route path="/initiatives/health">
-                <div>
-                  <h1>health</h1>
-                </div>
+                <Health />
               </Route>
               <Route path="/initiatives">
                 <Initiatives />
