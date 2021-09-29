@@ -16,6 +16,8 @@ jobs:
 
       - run: yarn
       - run: yarn build
+        env: 
+          CI: false
 
       - name: "Deploy to Skynet"
         uses: SkynetLabs/deploy-to-skynet-action@v2
