@@ -82,6 +82,7 @@
     "less-plugin-npm-import": "^2.1.0",
     "prettier": "^2.0.5",
     "s3-folder-upload": "^2.3.1",
+    "skynet-js": "^3.0.2",
     "surge": "^0.21.5"
   },
   "eslintConfig": {
