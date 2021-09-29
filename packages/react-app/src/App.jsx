@@ -579,7 +579,7 @@ function App(props) {
                   setPurposeEvents={setPurposeEvents}
                 />
               </Route>
-              <Route>
+              <Route path="/bond">
                 <Bond 
                   address={address}
                   mainnetProvider={mainnetProvider}

@@ -29,7 +29,7 @@ export default function Initiative({
     return (
     <div>
       <Row gutter={[16, 16]} justify="center">
-        <Col flex={8} >
+        <Col flex="auto" >
           <Card style={{ width: 333 }}>
             <Row>
               <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Health</b></Title></Col>
@@ -55,7 +55,7 @@ export default function Initiative({
           </Link>
           </Card>
         </Col>
-        <Col flex={8}>
+        <Col flex="auto">
           <Card style={{ width: 333 }}>
             <Row>
               <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Housing</b></Title></Col>
@@ -81,7 +81,7 @@ export default function Initiative({
             </Link>
           </Card>
         </Col>
-        <Col flex={8}>
+        <Col flex="auto">
           <Card style={{ width: 333 }}>
             <Row>
               <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Education</b></Title></Col>
@@ -108,7 +108,7 @@ export default function Initiative({
           </Card>
         </Col>
 
-        <Col flex={8}>
+        <Col flex="auto">
         <Card style={{ width: 333 }}>
             <Row>
               <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Climate</b></Title></Col>
@@ -134,7 +134,7 @@ export default function Initiative({
             </Link>
           </Card>
         </Col>
-        <Col flex={8}>
+        <Col flex="auto">
         <Card style={{ width: 333 }}>
             <Row>
               <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Finance</b></Title></Col>
@@ -160,7 +160,7 @@ export default function Initiative({
             </Link>
           </Card>
         </Col>
-        <Col flex={8}>
+        <Col flex="auto">
         <Card style={{ width: 333 }}>
             <Row>
               <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Governance</b></Title></Col>
