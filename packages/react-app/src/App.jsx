@@ -2,9 +2,10 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
 import Health from './views/Health';
-import { Alert, Button, Col, Menu, Row, Layout, Breadcrumb } from "antd";
+import { Alert, Button, Col, Menu, Row, Layout, Breadcrumb, Divider } from "antd";
 import "antd/dist/antd.css";
 import React, { useCallback, useEffect, useState } from "react";
+import detectEthereumProvider from '@metamask/detect-provider'
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import {
   AppstoreOutlined,
@@ -17,6 +18,7 @@ import {
   ExperimentOutlined,
   FileTextOutlined,
   SwapOutlined,
+  ExportOutlined,
   FundOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
@@ -508,13 +510,27 @@ function App(props) {
                   Initiatives
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/swap" icon={<SwapOutlined />}>
-                <Link
-                  to="/swap"
-                >
-                  Swap
-                </Link>
-              </Menu.Item>
+              <Menu.SubMenu key="/swap" icon={<SwapOutlined />} title="CDAO">
+                <Menu.Item key="1">Buy on Uniswap <ExportOutlined style={{marginLeft: '0.5rem'}}/></Menu.Item>
+                <Menu.Item key="2">Buy on Sushiswap <ExportOutlined style={{marginLeft: '0.5rem'}}/></Menu.Item>
+                <Menu.Item key="3" onClick={async (event) => {
+                  const provider = await detectEthereumProvider();
+                  provider.sendAsync({
+                    method: 'metamask_watchAsset',
+                    params: {
+                      "type": "ERC20",
+                      "options": {
+                        "address": "",
+                        "symbol": "CDAO",
+                        "decimals": "",
+                        "image": "",
+                      }
+                    }
+                  })
+                }}>
+                  Add CDAO to wallet
+                </Menu.Item>
+              </Menu.SubMenu>
             </Menu>
         </Sider>
       <Layout style={{ marginLeft: 200 }}>
