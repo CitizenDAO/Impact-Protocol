@@ -2,6 +2,7 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
 import Health from './views/Health';
+import Bond from './components/Bond';
 import { Alert, Button, Col, Menu, Row, Layout, Breadcrumb, Divider } from "antd";
 import "antd/dist/antd.css";
 import React, { useCallback, useEffect, useState } from "react";
@@ -19,6 +20,7 @@ import {
   FileTextOutlined,
   SwapOutlined,
   ExportOutlined,
+  BankOutlined,
   FundOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
@@ -510,6 +512,13 @@ function App(props) {
                   Initiatives
                 </Link>
               </Menu.Item>
+              <Menu.Item key="/bond" icon={<BankOutlined />}>
+                <Link
+                  to="/bond"
+                >
+                  Bond
+                </Link>
+              </Menu.Item>
               <Menu.SubMenu key="/swap" icon={<SwapOutlined />} title="CDAO">
                 <Menu.Item key="1">Buy on Uniswap <ExportOutlined style={{marginLeft: '0.5rem'}}/></Menu.Item>
                 <Menu.Item key="2">Buy on Sushiswap <ExportOutlined style={{marginLeft: '0.5rem'}}/></Menu.Item>
@@ -559,6 +568,20 @@ function App(props) {
                 <Dashboard
                   address={address}
                   userSigner={userSigner}
+                  mainnetProvider={mainnetProvider}
+                  localProvider={localProvider}
+                  yourLocalBalance={yourLocalBalance}
+                  price={price}
+                  tx={tx}
+                  writeContracts={writeContracts}
+                  readContracts={readContracts}
+                  purpose={purpose}
+                  setPurposeEvents={setPurposeEvents}
+                />
+              </Route>
+              <Route>
+                <Bond 
+                  address={address}
                   mainnetProvider={mainnetProvider}
                   localProvider={localProvider}
                   yourLocalBalance={yourLocalBalance}
