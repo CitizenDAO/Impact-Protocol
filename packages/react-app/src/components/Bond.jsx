@@ -11,81 +11,39 @@ import {
   Table,
   List
 } from 'antd';
+import Balance from './Balance';
+import { useBalance } from "eth-hooks";
+const { utils } = require("ethers");
+import useLocalStorage from '../hooks/LocalStorage';
 
-export default function Bond() {
-  const { Title, Text } = Typography;
+export default function Bond({
+  purpose,
+  setPurposeEvents,
+  address,
+  mainnetProvider,
+  localProvider,
+  yourLocalBalance,
+  price,
+  tx,
+  readContracts,
+  writeContracts,
+}) {
+  const { Title } = Typography;
 
-  const columns = [
-    {
-      dataIndex: 'name',
-    },
-    {
-      dataIndex: 'borrow',
-    },
-  ];
-  
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      borrow: 10,
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      borrow: 100,
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      borrow: 10,
-    },
-    {
-      key: '4',
-      name: 'Jim Red',
-      borrow: 75,
-    },
-  ];
-  
-  const fixedColumns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      fixed: true,
-      width: 100,
-    },
-    {
-      title: 'Description',
-      dataIndex: 'description',
-    },
-  ];
-  
-  const fixedData = [];
-  for (let i = 0; i < 20; i += 1) {
-    fixedData.push({
-      key: i,
-      name: ['Light', 'Bamboo', 'Little'][i % 3],
-      description: 'Everything that has a beginning, has an end.',
-    });
-  }
+  const [name, setName] = useLocalStorage("name", "Bob");
 
-  const gridStyle = {
-    width: '100%',
-    textAlign: 'left',
-  };
   
-
   return (
     <div>
-      <Card title="wETH" bordered={false}>
+      <Card title="ETH" bordered={false}>
         <Row>
           <Col flex={3}>
             <Title level={4}>Bond Price</Title>
-            <Title level={5}>$3</Title>
+            <Title level={5}>$X</Title>
           </Col>
           <Col flex={3}>
             <Title level={4}>Market Price</Title>
-            <Title level={5}>$3.33</Title>
+            <Title level={5}>$XX</Title>
           </Col>
         </Row>
         <Divider orientation="left">Bond Purchase</Divider>
@@ -109,28 +67,28 @@ export default function Bond() {
               style={{textAlign: 'left'}}
               title={<p>Your Balance</p>}
             />
-            <div>0.0 wETH</div>
+            <div>{yourLocalBalance ? utils.formatEther(yourLocalBalance) : "..."}</div>
           </List.Item>
-          <List.Item key={1}>
+          <List.Item key={2}>
             <List.Item.Meta
               style={{textAlign: 'left'}}
               title={<p>You Will Get</p>}
             />
-            <div>0.0 wETH</div>
+            <div>X.X CDAO</div>
           </List.Item>
-          <List.Item key={1}>
+          <List.Item key={3}>
             <List.Item.Meta
               style={{textAlign: 'left'}}
               title={<p>ROI</p>}
             />
-            <div>0.0 wETH</div>
+            <div>X.XX %</div>
           </List.Item>
-          <List.Item key={1}>
+          <List.Item key={4}>
             <List.Item.Meta
               style={{textAlign: 'left'}}
               title={<p>Vesting Term</p>}
             />
-            <div>0.0 wETH</div>
+            <div>X Days</div>
           </List.Item>
         </List>
       </Card>

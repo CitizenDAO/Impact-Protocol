@@ -22,6 +22,7 @@ import {
 } from '@ant-design/icons';
 import Web3Modal from "web3modal";
 import "./App.css";
+import useLocalStorage from './hooks/LocalStorage';
 import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
 import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
 import { Transactor } from "./helpers";
@@ -239,6 +240,12 @@ function App(props) {
 
   // 🏗 scaffold-eth is full of handy hooks like this one to get your balance:
   const yourLocalBalance = useBalance(localProvider, address);
+  // const [_localProvider, setLocalProvider] = useLocalStorage('localProvider', localProvider);
+  // setLocalProvider(localProvider);
+  const [_address, setLocalAddress] = useLocalStorage('address', address);
+  // setLocalAddress(address);
+  // const yourLocalBalance = useLocalStorage('localBalance', _yourLocalBalance)
+
 
   // Just plug in different 🛰 providers to get your balance on different chains:
   const yourMainnetBalance = useBalance(mainnetProvider, address);
@@ -548,7 +555,19 @@ function App(props) {
                 />
               </Route>
               <Route path="/initiatives/health">
-                <Health />
+                <Health 
+                  address={address}
+                  userSigner={userSigner}
+                  mainnetProvider={mainnetProvider}
+                  localProvider={localProvider}
+                  yourLocalBalance={yourLocalBalance}
+                  price={price}
+                  tx={tx}
+                  writeContracts={writeContracts}
+                  readContracts={readContracts}
+                  purpose={purpose}
+                  setPurposeEvents={setPurposeEvents}
+                />
               </Route>
               <Route path="/initiatives">
                 <Initiatives />
