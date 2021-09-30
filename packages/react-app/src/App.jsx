@@ -7,7 +7,7 @@ import { Alert, Button, Col, Menu, Row, Layout, Breadcrumb, Divider } from "antd
 import "antd/dist/antd.css";
 import React, { useCallback, useEffect, useState } from "react";
 import detectEthereumProvider from '@metamask/detect-provider'
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import { BrowserRouter, HashRouter, Link, Route, Switch } from "react-router-dom";
 import {
   AppstoreOutlined,
   BarChartOutlined,
@@ -480,7 +480,7 @@ function App(props) {
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
       <Layout style={{ minHeight: '100vh' }}>
-        <BrowserRouter>
+        <HashRouter>
         <Sider
           collapsible collapsed={collapsed} onCollapse={setCollapsed}
           style={{
@@ -695,7 +695,7 @@ function App(props) {
           </Row>
         </div>
         </Layout>
-        </BrowserRouter>
+        </HashRouter>
       </Layout>
     </div>
   );
