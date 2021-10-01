@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Card, 
   Divider, 
@@ -9,7 +9,8 @@ import {
   Button, 
   Space,
   Table,
-  List
+  List,
+  Skeleton,
 } from 'antd';
 import Balance from './Balance';
 import { useBalance } from "eth-hooks";
@@ -30,7 +31,12 @@ export default function Bond({
 }) {
   const { Title } = Typography;
 
-  const [name, setName] = useLocalStorage("name", "Bob");
+  const [ethBondAmount, setEthBondAmount] = useState(0)
+
+  // useEffect(() => {
+  //     setEthBondAmount(yourLocalBalance);
+  //     console.log(yourLocalBalance)
+  // },[ethBondAmount])
 
   
   return (
@@ -39,11 +45,13 @@ export default function Bond({
         <Row>
           <Col flex={3}>
             <Title level={4}>Bond Price</Title>
-            <Title level={5}>$X</Title>
+            <Title level={5}>
+              $ <Skeleton.Button active={true} size='small' shape='default' />
+            </Title>
           </Col>
           <Col flex={3}>
             <Title level={4}>Market Price</Title>
-            <Title level={5}>$XX</Title>
+            <Title level={5}>$ <Skeleton.Button active={true} size='small' shape='default' /></Title>
           </Col>
         </Row>
         <Divider orientation="left">Bond Purchase</Divider>
@@ -51,8 +59,12 @@ export default function Bond({
           <Col flex={1}>
             <Space direction="vertical" style={{width: '100%'}}>
             <Row>
-              <Col flex={5}><InputNumber type="number" style={{width: '100%'}} addonBefore="+" addonAfter="$" size="large"/></Col>
-              <Col flex={2}><Button size="large" style={{width: '100%'}} >Max</Button></Col>
+              <Col flex={5}>
+                <InputNumber type="number" style={{width: '100%'}} addonBefore="+" addonAfter="$" size="large" value={ethBondAmount} />
+              </Col>
+              <Col flex={2}>
+                <Button size="large" style={{width: '100%'}} onClick={() => {setEthBondAmount(utils.formatEther(yourLocalBalance))}}>Max</Button>
+              </Col>
             </Row>
             <Button type="primary" size="large" block>
               Approve
@@ -67,28 +79,28 @@ export default function Bond({
               style={{textAlign: 'left'}}
               title={<p>Your Balance</p>}
             />
-            <div>{yourLocalBalance ? utils.formatEther(yourLocalBalance) : "..."}</div>
+            <div>{yourLocalBalance ? utils.formatEther(yourLocalBalance) : <Skeleton.Button active={true} size='small' shape='default' />}</div>
           </List.Item>
           <List.Item key={2}>
             <List.Item.Meta
               style={{textAlign: 'left'}}
               title={<p>You Will Get</p>}
             />
-            <div>X.X CDAO</div>
+            <div><Skeleton.Button active={true} size='small' shape='default' /> CDAO</div>
           </List.Item>
           <List.Item key={3}>
             <List.Item.Meta
               style={{textAlign: 'left'}}
               title={<p>ROI</p>}
             />
-            <div>X.XX %</div>
+            <div><Skeleton.Button active={true} size='small' shape='default' /> %</div>
           </List.Item>
           <List.Item key={4}>
             <List.Item.Meta
               style={{textAlign: 'left'}}
               title={<p>Vesting Term</p>}
             />
-            <div>X Days</div>
+            <div><Skeleton.Button active={true} size='small' shape='default' /> Days</div>
           </List.Item>
         </List>
       </Card>
