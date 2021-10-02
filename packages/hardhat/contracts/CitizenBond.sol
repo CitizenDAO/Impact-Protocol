@@ -60,7 +60,7 @@ contract CitizenBond is ERC1155, AccessControl, Pausable, ERC1155Burnable, ERC11
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(ERC1155, AccessControl)
+        override(ERC1155, AccessControl, ERC1155Receiver)
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
