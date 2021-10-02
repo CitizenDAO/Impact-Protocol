@@ -1,21 +1,12 @@
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
-contract IBondContract {
+interface IBondContract {
 
-    uint256 apy;
-    address fundingContract;
-    address treasury;
-    uint256 percentToTreasury;
-
-    function mint() returns (uint256){
-        // funds in -> (treasury / funding);
-    };
-    function canMint(uint256 value);
-    function claim() ;
-    function canClaim(int);
-
-
-    function getCDAOValue(uint value) returns (cdaoAmount);
-
-    function addAPY(uint cdaoAmount) return (matureAmount);
+    // Mint the bond as an NFT and returns tokenId
+    function mint() external payable returns (uint256);
+    
+    // Claim CDAO tokens
+    function claim(uint256 tokenId) external;
+    
 }
