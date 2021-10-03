@@ -13,7 +13,13 @@ import "@openzeppelin/contracts/utils/Address.sol";
 // TODO - Direct Ether receive and default non-present function call checks
 // TODO - events
 // TODO - getters
-contract CitizenFixedBond is ERC721, ERC721Enumerable, AccessControl, ReentrancyGuard, IBondContract {
+contract CitizenFixedBond is
+    ERC721,
+    ERC721Enumerable,
+    AccessControl,
+    ReentrancyGuard,
+    IBondContract
+{
     using Counters for Counters.Counter;
     using Address for address;
 
@@ -46,43 +52,68 @@ contract CitizenFixedBond is ERC721, ERC721Enumerable, AccessControl, Reentrancy
     struct BondProp {
         // Is Bond CDAO tokens claimed
         bool isClaimed;
-
         // CDAO tokens in the Bond
         uint256 maturityCDAOAmount;
-
         // Bond start time
         uint256 startTime;
-
         // Bond purchase price in ethers
         uint256 purchasePrice;
     }
 
-    constructor(address citizenBondManagerContract, string memory name, uint256 categoryId, uint256 vestingPeriod,
-        address fundingContract, address treasury, address liquidityPoolContract, uint256 fundingContractSplit,
-        uint256 treasurySplit, uint256 liquidityPoolContractSplit) ERC721("CitizenFixedBond", "CFBND") {
+    constructor(
+        address citizenBondManagerContract,
+        string memory name,
+        uint256 categoryId,
+        uint256 vestingPeriod,
+        address fundingContract,
+        address treasury,
+        address liquidityPoolContract,
+        uint256 fundingContractSplit,
+        uint256 treasurySplit,
+        uint256 liquidityPoolContractSplit
+    ) ERC721("CitizenFixedBond", "CFBND") {
+        {
+            // Consistent Splits
+            require(
+                fundingContractSplit <= 100 &&
+                    treasurySplit <= 100 &&
+                    liquidityPoolContractSplit <= 100,
+                "Split more than 100"
+            );
+            require(
+                fundingContractSplit +
+                    treasurySplit +
+                    liquidityPoolContractSplit ==
+                    100,
+                "Inconsistent splits"
+            );
+        }
 
-        // Consistent Splits
-        require(fundingContractSplit <= 100 && treasurySplit <= 100 && liquidityPoolContractSplit <= 100,
-            "Split more than 100");
-        require(fundingContractSplit + treasurySplit + liquidityPoolContractSplit == 100, "Inconsistent splits");
+        {
+            _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+            _setupRole(MINTER_ROLE, msg.sender);
+            grantRole(MINTER_ROLE, citizenBondManagerContract);
+        }
 
-        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _setupRole(MINTER_ROLE, msg.sender);
-        grantRole(MINTER_ROLE, citizenBondManagerContract);
+        {
+            // Initialize Bond variables
+            _name = name;
+            _categoryId = categoryId;
+            _vestingPeriod = vestingPeriod;
+        }
 
-        // Initialize Bond variables
-        _name = name;
-        _categoryId = categoryId;
-        _vestingPeriod = vestingPeriod;
+        {
+            // TODO - check 'payable' usage - JAMES
+            _fundingContract = payable(fundingContract);
+            _treasury = payable(treasury);
+            _liquidityPoolContract = payable(liquidityPoolContract);
+        }
 
-        // TODO - check 'payable' usage - JAMES
-        _fundingContract = payable(fundingContract);
-        _treasury = payable(treasury);
-        _liquidityPoolContract = payable(liquidityPoolContract);
-
-        _fundingContractSplit = fundingContractSplit;
-        _treasurySplit = treasurySplit;
-        _liquidityPoolContractSplit = liquidityPoolContractSplit;
+        {
+            _fundingContractSplit = fundingContractSplit;
+            _treasurySplit = treasurySplit;
+            _liquidityPoolContractSplit = liquidityPoolContractSplit;
+        }
     }
 
     // TODO - claim logic - will mint maturityCDAOAmount from CDAO contract to the user
@@ -92,7 +123,9 @@ contract CitizenFixedBond is ERC721, ERC721Enumerable, AccessControl, Reentrancy
     // Can claim CDAO tokens? Check for vesting
     function canClaim(uint256 tokenId) external view returns (bool) {
         require(_exists(tokenId), "Bond does not exist");
-        return _bondProperties[tokenId].startTime + _vestingPeriod > block.timestamp;
+        return
+            _bondProperties[tokenId].startTime + _vestingPeriod >
+            block.timestamp;
     }
 
     // Get Maturity CDAO amount
@@ -102,7 +135,7 @@ contract CitizenFixedBond is ERC721, ERC721Enumerable, AccessControl, Reentrancy
     //function getPurchasePrice(uint256 tokenId) external view returns (uint256);
 
     // Mint the bond as an NFT and returns tokenId
-    function mint() external override nonReentrant() payable returns (uint256) {
+    function mint() external payable override nonReentrant returns (uint256) {
         require(msg.value > 0, "Cannot purchase bonds for free");
 
         BondProp memory bondProp;
@@ -118,21 +151,40 @@ contract CitizenFixedBond is ERC721, ERC721Enumerable, AccessControl, Reentrancy
         // TODO - check the splits logic. E.g can it happen that this.balance < any split value because of roundoff - James
         // TODO - check why address(this).sendValue throwing error
 
-        (bool success1, ) = _fundingContract.call{value: (msg.value * _fundingContractSplit)/100}("");
-        require(success1, "Address: unable to send value, recipient may have reverted");
+        (bool success1, ) = _fundingContract.call{
+            value: (msg.value * _fundingContractSplit) / 100
+        }("");
+        require(
+            success1,
+            "Address: unable to send value, recipient may have reverted"
+        );
 
-        (bool success2, ) = _treasury.call{value: (msg.value * _treasurySplit)/100}("");
-        require(success2, "Address: unable to send value, recipient may have reverted");
+        (bool success2, ) = _treasury.call{
+            value: (msg.value * _treasurySplit) / 100
+        }("");
+        require(
+            success2,
+            "Address: unable to send value, recipient may have reverted"
+        );
 
-        (bool success3, ) = _liquidityPoolContract.call{value: (msg.value * _liquidityPoolContractSplit)/100}("");
-        require(success3, "Address: unable to send value, recipient may have reverted");
+        (bool success3, ) = _liquidityPoolContract.call{
+            value: (msg.value * _liquidityPoolContractSplit) / 100
+        }("");
+        require(
+            success3,
+            "Address: unable to send value, recipient may have reverted"
+        );
 
         return tokenId;
     }
 
     // TODO - check usage of 'memory' - - JAMES-
     // TODO - check whether MinterRole for contract will work this way or not - - JAMES
-    function _mint(address to, BondProp memory _bondProp) internal onlyRole(MINTER_ROLE) returns (uint256) {
+    function _mint(address to, BondProp memory _bondProp)
+        internal
+        onlyRole(MINTER_ROLE)
+        returns (uint256)
+    {
         uint256 tokenId = _tokenIdCounter.current();
 
         _bondProperties[tokenId] = _bondProp;
@@ -149,10 +201,11 @@ contract CitizenFixedBond is ERC721, ERC721Enumerable, AccessControl, Reentrancy
 
     // The following functions are overrides required by Solidity.
 
-    function _beforeTokenTransfer(address from, address to, uint256 tokenId)
-        internal
-        override(ERC721, ERC721Enumerable)
-    {
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal override(ERC721, ERC721Enumerable) {
         super._beforeTokenTransfer(from, to, tokenId);
     }
 
