@@ -2,10 +2,12 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
 import Health from './views/Health';
-import { Alert, Button, Col, Menu, Row, Layout, Breadcrumb } from "antd";
+import Bond from './components/Bond';
+import { Alert, Button, Col, Menu, Row, Layout, Breadcrumb, Divider } from "antd";
 import "antd/dist/antd.css";
 import React, { useCallback, useEffect, useState } from "react";
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import detectEthereumProvider from '@metamask/detect-provider'
+import { BrowserRouter, HashRouter, Link, Route, Switch } from "react-router-dom";
 import {
   AppstoreOutlined,
   BarChartOutlined,
@@ -17,11 +19,14 @@ import {
   ExperimentOutlined,
   FileTextOutlined,
   SwapOutlined,
+  ExportOutlined,
+  BankOutlined,
   FundOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
 import Web3Modal from "web3modal";
 import "./App.css";
+import useLocalStorage from './hooks/LocalStorage';
 import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
 import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
 import { Transactor } from "./helpers";
@@ -239,6 +244,12 @@ function App(props) {
 
   // 🏗 scaffold-eth is full of handy hooks like this one to get your balance:
   const yourLocalBalance = useBalance(localProvider, address);
+  // const [_localProvider, setLocalProvider] = useLocalStorage('localProvider', localProvider);
+  // setLocalProvider(localProvider);
+  const [_address, setLocalAddress] = useLocalStorage('address', address);
+  // setLocalAddress(address);
+  // const yourLocalBalance = useLocalStorage('localBalance', _yourLocalBalance)
+
 
   // Just plug in different 🛰 providers to get your balance on different chains:
   const yourMainnetBalance = useBalance(mainnetProvider, address);
@@ -469,7 +480,7 @@ function App(props) {
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
       <Layout style={{ minHeight: '100vh' }}>
-        <BrowserRouter>
+        <HashRouter>
         <Sider
           collapsible collapsed={collapsed} onCollapse={setCollapsed}
           style={{
@@ -501,13 +512,34 @@ function App(props) {
                   Initiatives
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/swap" icon={<SwapOutlined />}>
+              <Menu.Item key="/bond" icon={<BankOutlined />}>
                 <Link
-                  to="/swap"
+                  to="/bond"
                 >
-                  Swap
+                  Bond
                 </Link>
               </Menu.Item>
+              <Menu.SubMenu key="/swap" icon={<SwapOutlined />} title="CDAO">
+                <Menu.Item key="1">Buy on Uniswap <ExportOutlined style={{marginLeft: '0.5rem'}}/></Menu.Item>
+                <Menu.Item key="2">Buy on Sushiswap <ExportOutlined style={{marginLeft: '0.5rem'}}/></Menu.Item>
+                <Menu.Item key="3" onClick={async (event) => {
+                  const provider = await detectEthereumProvider();
+                  provider.sendAsync({
+                    method: 'metamask_watchAsset',
+                    params: {
+                      "type": "ERC20",
+                      "options": {
+                        "address": "",
+                        "symbol": "CDAO",
+                        "decimals": "",
+                        "image": "",
+                      }
+                    }
+                  })
+                }}>
+                  Add CDAO to wallet
+                </Menu.Item>
+              </Menu.SubMenu>
             </Menu>
         </Sider>
       <Layout style={{ marginLeft: 200 }}>
@@ -547,8 +579,34 @@ function App(props) {
                   setPurposeEvents={setPurposeEvents}
                 />
               </Route>
+              <Route path="/bond">
+                <Bond 
+                  address={address}
+                  mainnetProvider={mainnetProvider}
+                  localProvider={localProvider}
+                  yourLocalBalance={yourLocalBalance}
+                  price={price}
+                  tx={tx}
+                  writeContracts={writeContracts}
+                  readContracts={readContracts}
+                  purpose={purpose}
+                  setPurposeEvents={setPurposeEvents}
+                />
+              </Route>
               <Route path="/initiatives/health">
-                <Health />
+                <Health 
+                  address={address}
+                  userSigner={userSigner}
+                  mainnetProvider={mainnetProvider}
+                  localProvider={localProvider}
+                  yourLocalBalance={yourLocalBalance}
+                  price={price}
+                  tx={tx}
+                  writeContracts={writeContracts}
+                  readContracts={readContracts}
+                  purpose={purpose}
+                  setPurposeEvents={setPurposeEvents}
+                />
               </Route>
               <Route path="/initiatives">
                 <Initiatives />
@@ -637,7 +695,7 @@ function App(props) {
           </Row>
         </div>
         </Layout>
-        </BrowserRouter>
+        </HashRouter>
       </Layout>
     </div>
   );
