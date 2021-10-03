@@ -31,7 +31,7 @@ contract CitizenFixedBond is IBondContract, ERC721, ERC721URIStorage, Pausable, 
     uint256 private _categoryId;
 
     // Bond vesting period in seconds
-    uint256 vestingPeriod;
+    uint256 private _vestingPeriod;
 
     // Contracts handling the funds
     address payable private _fundingContract;
@@ -97,7 +97,7 @@ contract CitizenFixedBond is IBondContract, ERC721, ERC721URIStorage, Pausable, 
     // Can claim CDAO tokens? Check for vesting
     function canClaim(uint256 tokenId) external view returns (bool) {
         require(_exists(tokenId), "Bond does not exist");
-        return _bondProperties[tokenId].startTime + vestingPeriod > block.timestamp;
+        return _bondProperties[tokenId].startTime + _vestingPeriod > block.timestamp;
     }
 
     // Get Maturity CDAO amount
