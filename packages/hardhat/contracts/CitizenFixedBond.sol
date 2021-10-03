@@ -123,62 +123,6 @@ contract CitizenFixedBond is
         }
     }
 
-    /* constructor(
-        address citizenBondManagerContract,
-        string memory name,
-        uint256 categoryId,
-        uint256 vestingPeriod,
-        address fundingContract,
-        address treasury,
-        address liquidityPoolContract,
-        uint256 fundingContractSplit,
-        uint256 treasurySplit,
-        uint256 liquidityPoolContractSplit
-    ) ERC721("CitizenFixedBond", "CFBND") {
-        {
-            // Consistent Splits
-            require(
-                fundingContractSplit <= 100 &&
-                    treasurySplit <= 100 &&
-                    liquidityPoolContractSplit <= 100,
-                "Split more than 100"
-            );
-            require(
-                fundingContractSplit +
-                    treasurySplit +
-                    liquidityPoolContractSplit ==
-                    100,
-                "Inconsistent splits"
-            );
-        }
-
-        {
-            _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
-            _setupRole(MINTER_ROLE, msg.sender);
-            grantRole(MINTER_ROLE, citizenBondManagerContract);
-        }
-
-        {
-            // Initialize Bond variables
-            _name = name;
-            _categoryId = categoryId;
-            _vestingPeriod = vestingPeriod;
-        }
-
-        {
-            // TODO - check 'payable' usage - JAMES
-            _fundingContract = payable(fundingContract);
-            _treasury = payable(treasury);
-            _liquidityPoolContract = payable(liquidityPoolContract);
-        }
-
-        {
-            _fundingContractSplit = fundingContractSplit;
-            _treasurySplit = treasurySplit;
-            _liquidityPoolContractSplit = liquidityPoolContractSplit;
-        }
-    } */
-
     // TODO - claim logic - will mint maturityCDAOAmount from CDAO contract to the user
     // Claim CDAO tokens
     //function claim(uint256 tokenId) external;
