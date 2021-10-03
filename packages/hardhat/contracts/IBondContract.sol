@@ -7,6 +7,6 @@ interface IBondContract {
     function mint() external payable returns (uint256);
     
     // Claim CDAO tokens
-    function claim(uint256 tokenId) external;
+    // function claim(uint256 tokenId) external;
     
 }
