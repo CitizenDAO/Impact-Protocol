@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.2;
 
+import "hardhat/console.sol";
 import "./IBondContract.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
@@ -60,7 +61,69 @@ contract CitizenFixedBond is
         uint256 purchasePrice;
     }
 
-    constructor(
+    constructor() ERC721("CitizenFixedBond", "CFBND") {
+        //console.log(msg.sender);
+        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _setupRole(MINTER_ROLE, msg.sender);
+    }
+
+    // MUST be called after constructing - this way is to avoid Stack too deep in constructor
+    // TODO - apply enforcing logic
+    function initializeBond(
+        address citizenBondManagerContract,
+        string memory name,
+        uint256 categoryId,
+        uint256 vestingPeriod,
+        address fundingContract,
+        address treasury,
+        address liquidityPoolContract,
+        uint256 fundingContractSplit,
+        uint256 treasurySplit,
+        uint256 liquidityPoolContractSplit
+    ) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        // Using Block technique to avoid Stack too deep
+        // Inspired from Uinswap V2 Production contracts
+        {
+            // Consistent Splits
+            require(
+                fundingContractSplit <= 100 &&
+                    treasurySplit <= 100 &&
+                    liquidityPoolContractSplit <= 100,
+                "Split more than 100"
+            );
+            require(
+                fundingContractSplit +
+                    treasurySplit +
+                    liquidityPoolContractSplit ==
+                    100,
+                "Inconsistent splits"
+            );
+        }
+
+        grantRole(MINTER_ROLE, citizenBondManagerContract);
+
+        {
+            // Initialize Bond variables
+            _name = name;
+            _categoryId = categoryId;
+            _vestingPeriod = vestingPeriod;
+        }
+
+        {
+            // TODO - check 'payable' usage - JAMES
+            _fundingContract = payable(fundingContract);
+            _treasury = payable(treasury);
+            _liquidityPoolContract = payable(liquidityPoolContract);
+        }
+
+        {
+            _fundingContractSplit = fundingContractSplit;
+            _treasurySplit = treasurySplit;
+            _liquidityPoolContractSplit = liquidityPoolContractSplit;
+        }
+    }
+
+    /* constructor(
         address citizenBondManagerContract,
         string memory name,
         uint256 categoryId,
@@ -114,7 +177,7 @@ contract CitizenFixedBond is
             _treasurySplit = treasurySplit;
             _liquidityPoolContractSplit = liquidityPoolContractSplit;
         }
-    }
+    } */
 
     // TODO - claim logic - will mint maturityCDAOAmount from CDAO contract to the user
     // Claim CDAO tokens
@@ -139,6 +202,7 @@ contract CitizenFixedBond is
         require(msg.value > 0, "Cannot purchase bonds for free");
 
         BondProp memory bondProp;
+
         bondProp.isClaimed = false;
         // TODO - calculate from liquidity pool
         bondProp.maturityCDAOAmount = 1000;
@@ -150,32 +214,25 @@ contract CitizenFixedBond is
         // Send the split amounts
         // TODO - check the splits logic. E.g can it happen that this.balance < any split value because of roundoff - James
         // TODO - check why address(this).sendValue throwing error
+        _transferSplits(
+            _fundingContract,
+            (msg.value * _fundingContractSplit) / 100
+        );
+        _transferSplits(_treasury, (msg.value * _treasurySplit) / 100);
+        _transferSplits(
+            _liquidityPoolContract,
+            (msg.value * _liquidityPoolContractSplit) / 100
+        );
 
-        (bool success1, ) = _fundingContract.call{
-            value: (msg.value * _fundingContractSplit) / 100
-        }("");
+        return tokenId;
+    }
+
+    function _transferSplits(address payable to, uint256 amount) private {
+        (bool success1, ) = to.call{value: amount}("");
         require(
             success1,
             "Address: unable to send value, recipient may have reverted"
         );
-
-        (bool success2, ) = _treasury.call{
-            value: (msg.value * _treasurySplit) / 100
-        }("");
-        require(
-            success2,
-            "Address: unable to send value, recipient may have reverted"
-        );
-
-        (bool success3, ) = _liquidityPoolContract.call{
-            value: (msg.value * _liquidityPoolContractSplit) / 100
-        }("");
-        require(
-            success3,
-            "Address: unable to send value, recipient may have reverted"
-        );
-
-        return tokenId;
     }
 
     // TODO - check usage of 'memory' - - JAMES-
@@ -193,11 +250,6 @@ contract CitizenFixedBond is
 
         return tokenId;
     }
-
-    /*function safeMint(address to) public onlyRole(MINTER_ROLE) {
-        _safeMint(to, _tokenIdCounter.current());
-        _tokenIdCounter.increment();
-    }*/
 
     // The following functions are overrides required by Solidity.
 
