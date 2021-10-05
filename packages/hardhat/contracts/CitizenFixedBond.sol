@@ -30,11 +30,21 @@ contract CitizenFixedBond is
     // Bond Name
     string private _name;
 
-    // Bond Category i.e. Health, Climate etc.
-    uint256 private _categoryId;
+    // Bond Pool Id - MUST BE SAME AS MANAGER CONTRACT POOL ID
+    uint256 private _poolId;
+
+    // Pool ExpiryDate
+    uint256 private _expiryTime;
+
+    // Whether the bond isExpired either because it ran out of allocated CDAO or expiry time
+    bool private _isExpired = false;
 
     // Bond vesting period in seconds
     uint256 private _vestingPeriod;
+
+    // CDAO tokens accounting
+    uint256 private _tokensAllocated;
+    uint256 private _tokensRemaining;
 
     // Contracts handling the funds
     address payable private _fundingContract;
@@ -72,17 +82,18 @@ contract CitizenFixedBond is
     function initializeBond(
         address citizenBondManagerContract,
         string memory name,
-        uint256 categoryId,
+        uint256 poolId,
         uint256 vestingPeriod,
         address fundingContract,
         address treasury,
         address liquidityPoolContract,
         uint256 fundingContractSplit,
         uint256 treasurySplit,
-        uint256 liquidityPoolContractSplit
+        uint256 liquidityPoolContractSplit,
+        uint256 tokensAllocated
     ) external onlyRole(DEFAULT_ADMIN_ROLE) {
-        // Using Block technique to avoid Stack too deep
-        // Inspired from Uinswap V2 Production contracts
+        // Using Block technique to avoid Stack too deep exception
+        // Inspired from UniswapV2 Production contracts
         {
             // Consistent Splits
             require(
@@ -105,7 +116,7 @@ contract CitizenFixedBond is
         {
             // Initialize Bond variables
             _name = name;
-            _categoryId = categoryId;
+            _poolId = poolId;
             _vestingPeriod = vestingPeriod;
         }
 
@@ -121,11 +132,31 @@ contract CitizenFixedBond is
             _treasurySplit = treasurySplit;
             _liquidityPoolContractSplit = liquidityPoolContractSplit;
         }
+
+        {
+            _tokensAllocated = tokensAllocated;
+            // At start all tokens are remaining
+            _tokensRemaining = tokensAllocated;
+        }
     }
 
     // TODO - claim logic - will mint maturityCDAOAmount from CDAO contract to the user
     // Claim CDAO tokens
     //function claim(uint256 tokenId) external;
+
+    // Is the pool expired
+    function isPoolExpired() external override returns (bool) {
+        // If its already expired then return true
+        if (_isExpired) return true;
+
+        // If expired because of time or allocated quota over
+        if (_expiryTime > block.timestamp || _tokensRemaining == 0) {
+            _isExpired = true;
+            return true;
+        }
+
+        return false;
+    }
 
     // Can claim CDAO tokens? Check for vesting
     function canClaim(uint256 tokenId) external view returns (bool) {
@@ -153,7 +184,7 @@ contract CitizenFixedBond is
         bondProp.startTime = block.timestamp;
         bondProp.purchasePrice = msg.value;
 
-        uint256 tokenId = _mint(msg.sender, bondProp);
+        uint256 tokenId = _mintInternal(msg.sender, bondProp);
 
         // Send the split amounts
         // TODO - check the splits logic. E.g can it happen that this.balance < any split value because of roundoff - James
@@ -179,9 +210,8 @@ contract CitizenFixedBond is
         );
     }
 
-    // TODO - check usage of 'memory' - - JAMES-
     // TODO - check whether MinterRole for contract will work this way or not - - JAMES
-    function _mint(address to, BondProp memory _bondProp)
+    function _mintInternal(address to, BondProp memory _bondProp)
         internal
         onlyRole(MINTER_ROLE)
         returns (uint256)
