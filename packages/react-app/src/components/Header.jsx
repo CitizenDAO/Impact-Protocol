@@ -5,10 +5,10 @@ import React from "react";
 
 export default function Header() {
   return (
-    <a href="https://github.com/austintgriffith/scaffold-eth" target="_blank" rel="noopener noreferrer">
-      <PageHeader
-        title="🏗 scaffold-eth"
-        subTitle="forkable Ethereum dev stack focused on fast product iteration"
+    <a href="/">
+     <PageHeader
+        title="CitizenDao"
+        subTitle="Moonshots for Humanity"
         style={{ cursor: "pointer" }}
       />
     </a>
