@@ -3,6 +3,7 @@ pragma solidity ^0.8.2;
 
 import "hardhat/console.sol";
 import "./IBondContract.sol";
+import "./ICitizenToken.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
@@ -30,9 +31,6 @@ contract CitizenFixedBond is
     // Bond Name
     string private _name;
 
-    // Bond Pool Id - MUST BE SAME AS MANAGER CONTRACT POOL ID
-    uint256 private _poolId;
-
     // Pool ExpiryDate
     uint256 private _expiryTime;
 
@@ -45,6 +43,22 @@ contract CitizenFixedBond is
     // CDAO tokens accounting
     uint256 private _tokensAllocated;
     uint256 private _tokensRemaining;
+    uint256 private _tokensClaimed;
+
+    function getTokensAllocated() external view returns (uint256) {
+        return _tokensAllocated;
+    }
+
+    function getTokensRemaining() external view returns (uint256) {
+        return _tokensRemaining;
+    }
+
+    function getTokensClaimed() external view returns (uint256) {
+        return _tokensClaimed;
+    }
+
+    // Ethereum received through pools
+    uint256 private _etherRecv;
 
     // Contracts handling the funds
     address payable private _fundingContract;
@@ -55,6 +69,13 @@ contract CitizenFixedBond is
     uint256 private _fundingContractSplit;
     uint256 private _treasurySplit;
     uint256 private _liquidityPoolContractSplit;
+
+    // CitizenDAO token address
+    address payable private _citizenTokenContract;
+
+    function getFundingCS() external view returns (uint256) {
+        return _fundingContractSplit;
+    }
 
     // mapping  from tokenId to its bondProperties
     mapping(uint256 => BondProp) private _bondProperties;
@@ -72,7 +93,6 @@ contract CitizenFixedBond is
     }
 
     constructor() ERC721("CitizenFixedBond", "CFBND") {
-        //console.log(msg.sender);
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _setupRole(MINTER_ROLE, msg.sender);
     }
@@ -81,8 +101,7 @@ contract CitizenFixedBond is
     // TODO - apply enforcing logic
     function initializeBond(
         address citizenBondManagerContract,
-        string memory name,
-        uint256 poolId,
+        string memory bondName,
         uint256 vestingPeriod,
         address fundingContract,
         address treasury,
@@ -90,7 +109,8 @@ contract CitizenFixedBond is
         uint256 fundingContractSplit,
         uint256 treasurySplit,
         uint256 liquidityPoolContractSplit,
-        uint256 tokensAllocated
+        uint256 tokensAllocated,
+        address citizenTokenContract
     ) external onlyRole(DEFAULT_ADMIN_ROLE) {
         // Using Block technique to avoid Stack too deep exception
         // Inspired from UniswapV2 Production contracts
@@ -115,8 +135,7 @@ contract CitizenFixedBond is
 
         {
             // Initialize Bond variables
-            _name = name;
-            _poolId = poolId;
+            _name = bondName;
             _vestingPeriod = vestingPeriod;
         }
 
@@ -134,15 +153,28 @@ contract CitizenFixedBond is
         }
 
         {
-            _tokensAllocated = tokensAllocated;
+            _tokensAllocated = tokensAllocated * (10**18);
             // At start all tokens are remaining
-            _tokensRemaining = tokensAllocated;
+            _tokensRemaining = tokensAllocated * (10**18);
         }
+
+        _citizenTokenContract = payable(citizenTokenContract);
     }
 
-    // TODO - claim logic - will mint maturityCDAOAmount from CDAO contract to the user
+    // TODO - should limit access to owners? i think anyone should be able to claim - to provide third party tools to build strategies on top of CitizenDAO - james
     // Claim CDAO tokens
-    //function claim(uint256 tokenId) external;
+    function claim(uint256 tokenId) external override {
+        require(_exists(tokenId), "Bond does not exist");
+        require(!_bondProperties[tokenId].isClaimed, "Bond Already claimed");
+
+        ICitizenToken citizenToken = ICitizenToken(_citizenTokenContract);
+
+        BondProp storage bondProp = _bondProperties[tokenId];
+        _tokensClaimed = _tokensClaimed + bondProp.maturityCDAOAmount;
+        bondProp.isClaimed = true;
+
+        citizenToken.mint(ownerOf(tokenId), bondProp.maturityCDAOAmount);
+    }
 
     // Is the pool expired
     function isPoolExpired() external override returns (bool) {
@@ -160,10 +192,11 @@ contract CitizenFixedBond is
 
     // Can claim CDAO tokens? Check for vesting
     function canClaim(uint256 tokenId) external view returns (bool) {
-        require(_exists(tokenId), "Bond does not exist");
         return
-            _bondProperties[tokenId].startTime + _vestingPeriod >
-            block.timestamp;
+            _exists(tokenId) &&
+            !_bondProperties[tokenId].isClaimed &&
+            (_bondProperties[tokenId].startTime + _vestingPeriod >
+                block.timestamp);
     }
 
     // Get Maturity CDAO amount
@@ -173,18 +206,31 @@ contract CitizenFixedBond is
     //function getPurchasePrice(uint256 tokenId) external view returns (uint256);
 
     // Mint the bond as an NFT and returns tokenId
-    function mint() external payable override nonReentrant returns (uint256) {
+    function mint(address to)
+        external
+        payable
+        override
+        nonReentrant
+        returns (uint256)
+    {
         require(msg.value > 0, "Cannot purchase bonds for free");
+        _etherRecv = _etherRecv + msg.value;
 
         BondProp memory bondProp;
-
         bondProp.isClaimed = false;
-        // TODO - calculate from liquidity pool
-        bondProp.maturityCDAOAmount = 1000;
         bondProp.startTime = block.timestamp;
         bondProp.purchasePrice = msg.value;
+        // TODO - calculate from liquidity pool
+        // TODO - Right to hardcode 10**18? as CDAO contract is already deployed - james
+        bondProp.maturityCDAOAmount = 1000 * (10**18);
+        console.log("Maturity Amount", bondProp.maturityCDAOAmount);
+        require(
+            _tokensRemaining >= bondProp.maturityCDAOAmount,
+            "Not enough CDAO tokens to allocate to bond"
+        );
+        _tokensRemaining = _tokensRemaining - bondProp.maturityCDAOAmount;
 
-        uint256 tokenId = _mintInternal(msg.sender, bondProp);
+        uint256 tokenId = _mintInternal(to, bondProp);
 
         // Send the split amounts
         // TODO - check the splits logic. E.g can it happen that this.balance < any split value because of roundoff - James

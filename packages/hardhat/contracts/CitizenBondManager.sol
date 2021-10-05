@@ -7,7 +7,6 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 
-// TODO - add pauseable modifers
 // TODO - Receiver functionality
 // TODO - Direct Ether receive and default non-present function call checks
 // TODO - events
@@ -46,7 +45,7 @@ contract CitizenBondManager is Pausable, AccessControl {
     mapping(uint256 => Category) private _categories;
     mapping(uint256 => Pool) private _pools;
 
-    function purchaseBond(uint256 poolId) external payable {
+    function purchaseBond(uint256 poolId) external payable whenNotPaused {
         require(msg.value > 0, "Cannot purchase 0 ether bonds");
 
         Pool storage pool = _pools[poolId];
@@ -57,7 +56,7 @@ contract CitizenBondManager is Pausable, AccessControl {
 
         if (poolContract.isPoolExpired()) revert("Pool Expired");
 
-        pool.lastBondIssuedId = poolContract.mint{value: msg.value}();
+        pool.lastBondIssuedId = poolContract.mint{value: msg.value}(msg.sender);
     }
 
     function addPool(uint256 categoryId, address poolAddress)
