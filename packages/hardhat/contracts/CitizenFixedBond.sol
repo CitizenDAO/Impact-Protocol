@@ -31,14 +31,26 @@ contract CitizenFixedBond is
     // Bond Name
     string private _name;
 
-    // Pool ExpiryDate
-    uint256 private _expiryTime;
+    function getName() external view returns (string memory) {
+        return _name;
+    }
 
     // Whether the bond isExpired either because it ran out of allocated CDAO or expiry time
     bool private _isExpired = false;
 
+    // Pool Expiry Time
+    uint256 private _expiryTime;
+
+    function getExpiryTime() external view returns (uint256) {
+        return _expiryTime;
+    }
+
     // Bond vesting period in seconds
     uint256 private _vestingPeriod;
+
+    function getVestingPeriod() external view returns (uint256) {
+        return _vestingPeriod;
+    }
 
     // CDAO tokens accounting
     uint256 private _tokensAllocated;
@@ -59,6 +71,10 @@ contract CitizenFixedBond is
 
     // Ethereum received through pools
     uint256 private _etherRecv;
+
+    function getEtherReceived() external view returns (uint256) {
+        return _etherRecv;
+    }
 
     // Contracts handling the funds
     address payable private _fundingContract;
@@ -223,7 +239,6 @@ contract CitizenFixedBond is
         // TODO - calculate from liquidity pool
         // TODO - Right to hardcode 10**18? as CDAO contract is already deployed - james
         bondProp.maturityCDAOAmount = 1000 * (10**18);
-        console.log("Maturity Amount", bondProp.maturityCDAOAmount);
         require(
             _tokensRemaining >= bondProp.maturityCDAOAmount,
             "Not enough CDAO tokens to allocate to bond"

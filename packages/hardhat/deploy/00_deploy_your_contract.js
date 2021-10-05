@@ -25,7 +25,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const citizenBondManager = await ethers.getContract("CitizenBondManager", deployer);
   const citizenToken = await ethers.getContract("CitizenToken", deployer);
   
-  await citizenFixedBond.initializeBond(
+  // Uncomment for local testing - james
+  /*await citizenFixedBond.initializeBond(
     citizenBondManager.address,
     "Test Help",
     180,
@@ -41,7 +42,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
   await citizenBondManager.addCategory("Health");
   await citizenBondManager.addPool(0, citizenFixedBond.address);
-  await citizenToken.grantRole(web3.utils.soliditySha3("MINTER_ROLE"), citizenFixedBond.address);
+  await citizenToken.grantRole(web3.utils.soliditySha3("MINTER_ROLE"), citizenFixedBond.address); */
 
 
   

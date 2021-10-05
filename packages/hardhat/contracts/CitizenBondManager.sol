@@ -101,6 +101,28 @@ contract CitizenBondManager is Pausable, AccessControl {
         _categoryIdCounter.increment();
     }
 
+    function getCategories() public view returns (Category[] memory) {
+        Category[] memory categories;
+        for (uint16 i = 0; i < _categoryIdCounter.current(); i++) {
+            if (_categories[i].isExist) {
+                Category memory category = _categories[i];
+                categories[i] = category;
+            }
+        }
+        return categories;
+    }
+
+    function getPools() public view returns (Pool[] memory) {
+        Pool[] memory pools;
+        for (uint16 i = 0; i < _poolIdCounter.current(); i++) {
+            if (_pools[i].isExist) {
+                Pool memory pool = _pools[i];
+                pools[i] = pool;
+            }
+        }
+        return pools;
+    }
+
     constructor() {
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _setupRole(PAUSER_ROLE, msg.sender);
