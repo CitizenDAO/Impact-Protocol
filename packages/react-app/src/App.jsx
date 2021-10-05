@@ -1,5 +1,7 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Bond from './components/Bond';
+import Health from './views/Health';
+import Initiatives from './views/Initiatives';
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
 import { 
@@ -486,6 +488,16 @@ function App(props) {
                 CitizenFixedBond
               </Link>
             </Menu.Item>
+            <Menu.Item key="/initiatives" icon={<ExperimentOutlined/>}>
+                <Link
+                  onClick={() => {
+                    setRoute("/initiatives");
+                  }}
+                  to="/initiatives"
+                >
+                  Initiatives
+                </Link>
+              </Menu.Item>
             <Menu.Item key="/bond" icon={<BankOutlined />}>
               <Link
                 onClick={() => {
@@ -536,6 +548,24 @@ function App(props) {
                   blockExplorer={blockExplorer}
                   contractConfig={contractConfig}
                 />
+              </Route>
+              <Route path="/initiatives/health">
+                <Health 
+                  address={address}
+                  userSigner={userSigner}
+                  mainnetProvider={mainnetProvider}
+                  localProvider={localProvider}
+                  yourLocalBalance={yourLocalBalance}
+                  price={price}
+                  tx={tx}
+                  writeContracts={writeContracts}
+                  readContracts={readContracts}
+                  purpose={purpose}
+                  setPurposeEvents={setPurposeEvents}
+                />
+              </Route>
+              <Route path="/initiatives">
+                <Initiatives />
               </Route>
               <Route path="/bond">
                 <Bond 

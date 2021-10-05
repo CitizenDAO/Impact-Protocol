@@ -12,6 +12,8 @@ import {
   List,
   Skeleton,
   Menu,
+  Progress,
+  Slider
 } from 'antd';
 import Balance from './Balance';
 import { useBalance } from "eth-hooks";
@@ -32,22 +34,24 @@ export default function Bond({
   const { Title } = Typography;
 
   const [ethBondAmount, setEthBondAmount] = useState(0)
+  const [remainingSupply, setRemainingSupply] = useState(0);
+  const [totalSupply, setTotalSupply] = useState(0);
+  const [vestingTerm, setVestingTerm] = useState(0);
 
-  // useEffect(() => {
-  //     setEthBondAmount(yourLocalBalance);
-  //     console.log(yourLocalBalance)
-  // },[ethBondAmount])
 
   const [route, setRoute] = useState();
   useEffect(() => {
     setRoute('bond');
   }, [setRoute]);
 
-  // const updateRoute = function(route) {
-  //   useEffect(() => {
-  //     setRoute(route);
-  //   }, [setRoute]);
-  // }
+
+  const marks = {
+    0: '10',
+    25: '30',
+    50: '60',
+    75: '180',
+    100: '360'
+  };
 
   function BondCard(props) {
     const route = props.route
@@ -68,6 +72,23 @@ export default function Bond({
               </Col>
             </Row>
             <Divider orientation="left">Bond Purchase</Divider>
+            <Row>
+              <Title level={5}>{remainingSupply} / {totalSupply} CDAO is remaining</Title>
+              <Progress
+                strokeColor={{
+                  '0%': '#83eb34',
+                  '100%': '#eb4034',
+                }}
+                style={{
+                  
+                }}
+                percent={(remainingSupply / totalSupply) * 100}
+              />
+            </Row>
+            <Divider dashed />
+            <Title style={{textAlign: 'left'}} level={5}>Select days until bond maturity:</Title>
+            <Slider onChange={(value) => { setVestingTerm(value) }} marks={marks} step={null} defaultValue={10} tooltipVisible={false}/>
+            <Divider dashed />
             <Row>
               <Col flex={1}>
                 <Space direction="vertical" style={{width: '100%'}}>
@@ -118,7 +139,7 @@ export default function Bond({
                   style={{textAlign: 'left'}}
                   title={<p>Vesting Term</p>}
                 />
-                <div><Skeleton.Button active={true} size='small' shape='default' /> Days</div>
+                <div><Skeleton.Button active={vestingTerm ? false : true} size='small' shape='default' />{marks[vestingTerm]} Days</div>
               </List.Item>
             </List>
           </Card>
