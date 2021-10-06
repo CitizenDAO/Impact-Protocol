@@ -65,3 +65,5 @@ yarn-error.log*
 .netlify
 *.tsbuildinfo
 *.stackdump
+
+bin/

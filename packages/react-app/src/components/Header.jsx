@@ -6,8 +6,8 @@ import React from "react";
 
 export default function Header() {
   return (
-    <Link to="/">
-      <PageHeader
+    <Link href="/">
+     <PageHeader
         title="CitizenDao"
         subTitle="Moonshots for Humanity"
         style={{ cursor: "pointer" }}

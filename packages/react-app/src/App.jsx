@@ -1,29 +1,21 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import Bond from './components/Bond';
+import Health from './views/Health';
+import Initiatives from './views/Initiatives';
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
-import Health from './views/Health';
-import Bond from './components/Bond';
-import { Alert, Button, Col, Menu, Row, Layout, Breadcrumb, Divider } from "antd";
+import { 
+  Alert, 
+  Button, 
+  Col, 
+  Menu, 
+  Row,
+  Layout,
+  Sider
+} from "antd";
 import "antd/dist/antd.css";
 import React, { useCallback, useEffect, useState } from "react";
-import detectEthereumProvider from '@metamask/detect-provider'
-import { BrowserRouter, HashRouter, Link, Route, Switch } from "react-router-dom";
-import {
-  AppstoreOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  ShopOutlined,
-  TeamOutlined,
-  DashboardOutlined,
-  UserOutlined,
-  ExperimentOutlined,
-  FileTextOutlined,
-  SwapOutlined,
-  ExportOutlined,
-  BankOutlined,
-  FundOutlined,
-  UploadOutlined,
-} from '@ant-design/icons';
+import { HashRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
 import "./App.css";
 import useLocalStorage from './hooks/LocalStorage';
@@ -38,6 +30,14 @@ import {
   useOnBlock,
   useUserProviderAndSigner,
 } from "eth-hooks";
+import {
+  DashboardOutlined,
+  ExperimentOutlined,
+  FileTextOutlined,
+  SwapOutlined,
+  ExportOutlined,
+  BankOutlined,
+} from '@ant-design/icons';
 import { useEventListener } from "eth-hooks/events/useEventListener";
 import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
 import { Dashboard, Initiatives } from "./views";
@@ -188,6 +188,8 @@ function App(props) {
       : scaffoldEthProvider && scaffoldEthProvider._network
       ? scaffoldEthProvider
       : mainnetInfura;
+  
+  const { Content, Sider } = Layout;
 
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
@@ -278,10 +280,10 @@ function App(props) {
   ]);
 
   // keep track of a variable from the contract in the local React state:
-  const purpose = useContractReader(readContracts, "YourContract", "purpose");
+  const purpose = useContractReader(readContracts, "CitizenFixedBond", "purpose");
 
   // 📟 Listen for broadcast events
-  const setPurposeEvents = useEventListener(readContracts, "YourContract", "SetPurpose", localProvider, 1);
+  const setPurposeEvents = useEventListener(readContracts, "CitizenFixedBond", "SetPurpose", localProvider, 1);
 
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
@@ -465,7 +467,7 @@ function App(props) {
           onClick={() => {
             faucetTx({
               to: address,
-              value: ethers.utils.parseEther("0.01"),
+              value: ethers.utils.parseEther("1"),
             });
             setFaucetClicked(true);
           }}
@@ -476,77 +478,61 @@ function App(props) {
     );
   }
 
+  const [collapsed, setCollapsed] = useState(true);
+
   return (
     <div className="App">
-      {/* ✏️ Edit the header and change the title to your project name */}
       <Layout style={{ minHeight: '100vh' }}>
-        <HashRouter>
-        <Sider
-          collapsible collapsed={collapsed} onCollapse={setCollapsed}
+      <HashRouter>
+        <Sider 
+          collapsible 
+          collapsed={collapsed} 
+          onCollapse={setCollapsed}
           style={{
             overflow: 'auto',
             height: '100vh',
             position: 'fixed',
             left: 0,
-          }}
-        >
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['/']}>
-              <Menu.Item key="/" icon={<FileTextOutlined />}>
+          }}>
+          <Menu selectedKeys={[route]} mode="inline" theme="dark">
+            <Menu.Item key="/" icon={<FileTextOutlined />}>
+              <Link
+                onClick={() => {
+                  setRoute("/");
+                }}
+                to="/"
+              >
+                CitizenFixedBond
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="/initiatives" icon={<ExperimentOutlined/>}>
                 <Link
-                    to="/"
-                  >
-                    Contract
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="/dashboard" icon={<DashboardOutlined/>}>
-                <Link
-                  to="/dashboard"
-                >
-                  Dashboard
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="/initiatives" icon={<ExperimentOutlined/>}>
-                <Link
+                  onClick={() => {
+                    setRoute("/initiatives");
+                  }}
                   to="/initiatives"
                 >
                   Initiatives
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/bond" icon={<BankOutlined />}>
-                <Link
-                  to="/bond"
-                >
-                  Bond
-                </Link>
-              </Menu.Item>
-              <Menu.SubMenu key="/swap" icon={<SwapOutlined />} title="CDAO">
-                <Menu.Item key="1">Buy on Uniswap <ExportOutlined style={{marginLeft: '0.5rem'}}/></Menu.Item>
-                <Menu.Item key="2">Buy on Sushiswap <ExportOutlined style={{marginLeft: '0.5rem'}}/></Menu.Item>
-                <Menu.Item key="3" onClick={async (event) => {
-                  const provider = await detectEthereumProvider();
-                  provider.sendAsync({
-                    method: 'metamask_watchAsset',
-                    params: {
-                      "type": "ERC20",
-                      "options": {
-                        "address": "",
-                        "symbol": "CDAO",
-                        "decimals": "",
-                        "image": "",
-                      }
-                    }
-                  })
-                }}>
-                  Add CDAO to wallet
-                </Menu.Item>
-              </Menu.SubMenu>
-            </Menu>
+            <Menu.Item key="/bond" icon={<BankOutlined />}>
+              <Link
+                onClick={() => {
+                  setRoute("/bond");
+                }}
+                to="/bond"
+              >
+                Bond
+              </Link>
+            </Menu.Item>
+          </Menu>
         </Sider>
-      <Layout style={{ marginLeft: 200 }}>
-        <Header />
-        {networkDisplay}
-          
-          <Content style={{ padding: '50px' }} >
+        <Layout style={{
+          marginLeft: collapsed ? '6rem' : '12rem'
+        }}>
+          <Header />
+          {networkDisplay}
+          <Content style={{ padding: '1rem' }}>
             <Switch>
               <Route exact path="/">
                 {/*
@@ -556,41 +542,28 @@ function App(props) {
                 */}
 
                 <Contract
-                  name="YourContract"
+                  name="CitizenFixedBond"
                   signer={userSigner}
                   provider={localProvider}
                   address={address}
                   blockExplorer={blockExplorer}
                   contractConfig={contractConfig}
                 />
-              </Route>
-              <Route path="/dashboard">
-                <Dashboard
+                <Contract
+                  name="CitizenBondManager"
+                  signer={userSigner}
+                  provider={localProvider}
                   address={address}
-                  userSigner={userSigner}
-                  mainnetProvider={mainnetProvider}
-                  localProvider={localProvider}
-                  yourLocalBalance={yourLocalBalance}
-                  price={price}
-                  tx={tx}
-                  writeContracts={writeContracts}
-                  readContracts={readContracts}
-                  purpose={purpose}
-                  setPurposeEvents={setPurposeEvents}
+                  blockExplorer={blockExplorer}
+                  contractConfig={contractConfig}
                 />
-              </Route>
-              <Route path="/bond">
-                <Bond 
+                <Contract
+                  name="CitizenToken"
+                  signer={userSigner}
+                  provider={localProvider}
                   address={address}
-                  mainnetProvider={mainnetProvider}
-                  localProvider={localProvider}
-                  yourLocalBalance={yourLocalBalance}
-                  price={price}
-                  tx={tx}
-                  writeContracts={writeContracts}
-                  readContracts={readContracts}
-                  purpose={purpose}
-                  setPurposeEvents={setPurposeEvents}
+                  blockExplorer={blockExplorer}
+                  contractConfig={contractConfig}
                 />
               </Route>
               <Route path="/initiatives/health">
@@ -611,91 +584,82 @@ function App(props) {
               <Route path="/initiatives">
                 <Initiatives />
               </Route>
-              <Route path="/mainnetdai">
-                <Contract
-                  name="DAI"
-                  customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.DAI}
-                  signer={userSigner}
-                  provider={mainnetProvider}
+              <Route path="/bond">
+                <Bond 
                   address={address}
-                  blockExplorer="https://etherscan.io/"
-                  contractConfig={contractConfig}
-                  chainId={1}
+                  mainnetProvider={mainnetProvider}
+                  localProvider={localProvider}
+                  yourLocalBalance={yourLocalBalance}
+                  price={price}
+                  tx={tx}
+                  writeContracts={writeContracts}
+                  readContracts={readContracts}
+                  purpose={purpose}
+                  setPurposeEvents={setPurposeEvents}
                 />
-                {/*
-                <Contract
-                  name="UNI"
-                  customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.UNI}
-                  signer={userSigner}
-                  provider={mainnetProvider}
-                  address={address}
-                  blockExplorer="https://etherscan.io/"
-                />
-                */}
               </Route>
             </Switch>
           </Content>
-        
-
-        <ThemeSwitch />
-
-        {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-        <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
-          <Account
-            address={address}
-            localProvider={localProvider}
-            userSigner={userSigner}
-            mainnetProvider={mainnetProvider}
-            price={price}
-            web3Modal={web3Modal}
-            loadWeb3Modal={loadWeb3Modal}
-            logoutOfWeb3Modal={logoutOfWeb3Modal}
-            blockExplorer={blockExplorer}
-          />
-          {faucetHint}
-        </div>
-
-        {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
-        <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
-          <Row align="middle" gutter={[4, 4]}>
-            <Col span={8}>
-              <Ramp price={price} address={address} networks={NETWORKS} />
-            </Col>
-
-            <Col span={8} style={{ textAlign: "center", opacity: 0.8 }}>
-              <GasGauge gasPrice={gasPrice} />
-            </Col>
-            <Col span={8} style={{ textAlign: "center", opacity: 1 }}>
-              <Button
-                onClick={() => {
-                  window.open("https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA");
-                }}
-                size="large"
-                shape="round"
-              >
-                <span style={{ marginRight: 8 }} role="img" aria-label="support">
-                  💬
-                </span>
-                Support
-              </Button>
-            </Col>
-          </Row>
-
-          <Row align="middle" gutter={[4, 4]}>
-            <Col span={24}>
-              {
-                /*  if the local provider has a signer, let's show the faucet:  */
-                faucetAvailable ? (
-                  <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
-                ) : (
-                  ""
-                )
-              }
-            </Col>
-          </Row>
-        </div>
         </Layout>
-        </HashRouter>
+      </HashRouter>
+
+      <ThemeSwitch />
+
+      {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
+      <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
+        <Account
+          address={address}
+          localProvider={localProvider}
+          userSigner={userSigner}
+          mainnetProvider={mainnetProvider}
+          price={price}
+          web3Modal={web3Modal}
+          loadWeb3Modal={loadWeb3Modal}
+          logoutOfWeb3Modal={logoutOfWeb3Modal}
+          blockExplorer={blockExplorer}
+        />
+        {faucetHint}
+      </div>
+
+      {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
+      <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
+        <Row align="middle" gutter={[4, 4]}>
+          <Col span={8}>
+            <Ramp price={price} address={address} networks={NETWORKS} />
+          </Col>
+
+          <Col span={8} style={{ textAlign: "center", opacity: 0.8 }}>
+            <GasGauge gasPrice={gasPrice} />
+          </Col>
+          <Col span={8} style={{ textAlign: "center", opacity: 1 }}>
+            <Button
+              onClick={() => {
+                window.open("https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA");
+              }}
+              size="large"
+              shape="round"
+            >
+              <span style={{ marginRight: 8 }} role="img" aria-label="support">
+                💬
+              </span>
+              Support
+            </Button>
+          </Col>
+        </Row>
+
+        <Row align="middle" gutter={[4, 4]}>
+          <Col span={24}>
+            {
+              /*  if the local provider has a signer, let's show the faucet:  */
+              faucetAvailable ? (
+                <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
+              ) : (
+                ""
+              )
+            }
+          </Col>
+        </Row>
+      </div>
       </Layout>
     </div>
   );
