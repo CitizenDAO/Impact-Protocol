@@ -40,7 +40,6 @@ import {
 } from '@ant-design/icons';
 import { useEventListener } from "eth-hooks/events/useEventListener";
 import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
-import { Dashboard, Initiatives } from "./views";
 
 import { useContractConfig } from "./hooks";
 import Portis from "@portis/web3";
@@ -193,10 +192,6 @@ function App(props) {
 
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
-
-  const [collapsed, setCollapsed] = useState(true);
-
-  const { Content, Sider } = Layout;
 
   const logoutOfWeb3Modal = async () => {
     await web3Modal.clearCachedProvider();
