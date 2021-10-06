@@ -511,7 +511,8 @@ function App(props) {
           </Menu>
         </Sider>
         <Layout style={{
-          marginLeft: collapsed ? '6rem' : '12rem'
+          marginLeft: collapsed ? '6rem' : '12rem',
+          marginBottom: '6rem'
         }}>
           <Header />
           {networkDisplay}
