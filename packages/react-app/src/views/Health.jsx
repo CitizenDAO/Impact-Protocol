@@ -1,4 +1,5 @@
 import Bond from '../components/Bond';
+import { Layout, Typography } from 'antd'
 
 export default function Health({
   purpose,
@@ -12,10 +13,15 @@ export default function Health({
   readContracts,
   writeContracts,
 }) {
+
+  const { Content } = Layout;
+  const { Title } = Typography;
+
   return (
-    <div>
-      <h1>Health</h1>
+    <Content>
+      <Title level={2} style={{textAlign: 'left'}}>Health</Title>
       <Bond
+        className="shadow"
         address={address}
         mainnetProvider={mainnetProvider}
         localProvider={localProvider}
@@ -27,6 +33,6 @@ export default function Health({
         purpose={purpose}
         setPurposeEvents={setPurposeEvents}
       />
-    </div>
+    </Content>
   )
 }

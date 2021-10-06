@@ -17,11 +17,10 @@ import {
 } from 'antd';
 import Balance from './Balance';
 import { useBalance } from "eth-hooks";
+import { useLocalStorage } from '../hooks';
 const { utils } = require("ethers");
 
 export default function Bond({
-  purpose,
-  setPurposeEvents,
   address,
   mainnetProvider,
   localProvider,
@@ -33,27 +32,27 @@ export default function Bond({
 }) {
   const { Title } = Typography;
 
-  const [ethBondAmount, setEthBondAmount] = useState(0)
-  const [remainingSupply, setRemainingSupply] = useState(0);
-  const [totalSupply, setTotalSupply] = useState(0);
-  const [vestingTerm, setVestingTerm] = useState(0);
+  
+ 
 
 
-  const [route, setRoute] = useState();
-  useEffect(() => {
-    setRoute('bond');
-  }, [setRoute]);
+  const [route, setRoute] = useState('bond');
 
-
-  const marks = {
-    0: '10',
-    25: '30',
-    50: '60',
-    75: '180',
-    100: '360'
-  };
 
   function BondCard(props) {
+    const [ethBondAmount, setEthBondAmount] = useLocalStorage("ethBondAmount", 0)
+    const [remainingSupply, setRemainingSupply] = useLocalStorage("remainingSupply", 25);
+    const [totalSupply, setTotalSupply] = useLocalStorage("totalSupply", 100);
+    const [vestingTerm, setVestingTerm] = useLocalStorage("vestingTerm", 0);
+    const marks = {
+      0: '10',
+      25: '30',
+      50: '60',
+      75: '180',
+      100: '360'
+    };
+
+    console.log('vesting term', vestingTerm)
     const route = props.route
     switch(route) {
       case 'bond':
@@ -77,24 +76,24 @@ export default function Bond({
               <Progress
                 strokeColor={{
                   '0%': '#83eb34',
-                  '100%': '#eb4034',
+                  '100%': '#4287f5',
                 }}
-                style={{
-                  
-                }}
+                strokeWidth={50}
                 percent={(remainingSupply / totalSupply) * 100}
               />
             </Row>
             <Divider dashed />
             <Title style={{textAlign: 'left'}} level={5}>Select days until bond maturity:</Title>
-            <Slider onChange={(value) => { setVestingTerm(value) }} marks={marks} step={null} defaultValue={10} tooltipVisible={false}/>
+            <Slider onChange={(value) => { setVestingTerm(value) }} marks={marks} step={null} defaultValue={10} tooltipVisible={false} value={vestingTerm}/>
             <Divider dashed />
             <Row>
               <Col flex={1}>
                 <Space direction="vertical" style={{width: '100%'}}>
+                <Title level={5} style={{textAlign: 'left'}}>How much Eth do you want to invest?</Title>
+                <p style={{textAlign: 'left'}}>Your Eth Balance: Ξ {yourLocalBalance ? utils.formatEther(yourLocalBalance) : <Skeleton.Button active={true} size='small' shape='default' />}</p>
                 <Row>
                   <Col flex={5}>
-                    <InputNumber type="number" style={{width: '100%'}} addonBefore="+" addonAfter="$" size="large" value={ethBondAmount} />
+                    <InputNumber type="number" style={{width: '100%'}} size="large" value={ethBondAmount} onChange={(val) => setEthBondAmount(val)}/>
                   </Col>
                   <Col flex={2}>
                     <Button size="large" style={{width: '100%'}} onClick={() => {setEthBondAmount(utils.formatEther(yourLocalBalance))}}>Max</Button>
@@ -102,7 +101,7 @@ export default function Bond({
                 </Row>
                 <Button type="primary" size="large" block onClick={() => { 
                   tx(writeContracts.CitizenFixedBond.mint({
-
+                    address: address
                   })); 
                   console.log(writeContracts);
                 }}>
@@ -112,6 +111,7 @@ export default function Bond({
               </Col>
             </Row>
             <Divider orientation="left">Overview</Divider>
+            <p>3 Eth will give you 3,000,000 CDAO after x days</p>
             <List>
               <List.Item key={1}>
                 <List.Item.Meta
@@ -139,7 +139,10 @@ export default function Bond({
                   style={{textAlign: 'left'}}
                   title={<p>Vesting Term</p>}
                 />
-                <div><Skeleton.Button active={vestingTerm ? false : true} size='small' shape='default' />{marks[vestingTerm]} Days</div>
+                <div>
+                  { vestingTerm ? null : <Skeleton.Button active={true} size='small' shape='default' /> }
+                  {marks[vestingTerm]} Days
+                </div>
               </List.Item>
             </List>
           </Card>
@@ -147,11 +150,6 @@ export default function Bond({
       case 'redeem':
         return (
           <Card title="Redeem">
-            <Button type="primary" size="large" block onClick={() => {
-              tx(writeContracts.CitizenFixedBond.canClaim({
-
-              })); 
-            }}>Claim</Button>
             <List>
             <List.Item key={1}>
                 <List.Item.Meta
@@ -175,6 +173,11 @@ export default function Bond({
                 <div>{yourLocalBalance ? utils.formatEther(yourLocalBalance) : <Skeleton.Button active={true} size='small' shape='default' />}</div>
               </List.Item>
             </List>
+            <Button type="primary" size="large" block onClick={() => {
+              tx(writeContracts.CitizenFixedBond.canClaim({
+
+              })); 
+            }}>Claim</Button>
           </Card>
         )
       default: return <Card title="DEFAULT">{route}</Card>
@@ -183,7 +186,7 @@ export default function Bond({
 
   
   return (
-    <div>
+    <div className="shadow">
 
       <Menu style={{ textAlign: "center" }} selectedKeys={route} mode="horizontal">
         <Menu.Item key="bond" onClick={() => setRoute('bond')}>
