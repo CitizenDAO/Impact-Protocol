@@ -2,7 +2,7 @@ import { Button, Col, Row, Card, List, Divider, Typography, Skeleton } from "ant
 import { Link } from "react-router-dom";
 import React from 'react';
 
-export default class Initiative extends React.Component {
+export default class Initiatives extends React.Component {
 
     state = {
       active: true,
@@ -10,25 +10,119 @@ export default class Initiative extends React.Component {
       size: 'default',
       buttonShape: 'default',
       avatarShape: 'circle',
-      healthData: [
-        {
-          text: 'annual rewards',
-          value: ''
-        },
-        {
-          text: 'team members',
-          value: ''
-        },
-        {
-          text: 'active projects',
-          value: ''
-        },
-        {
-          text: 'requests for proposals',
-          value: ''
-        },
-      ]
+      initiatives: {
+        health: [
+          {
+            text: 'quality life years added',
+            value: '5,232'
+          },
+          {
+            text: 'members',
+            value: '3,734'
+          },
+          {
+            text: 'active projects',
+            value: '17'
+          },
+          {
+            text: 'open proposals',
+            value: '32'
+          },
+        ],
+        housing: [
+          {
+            text: 'quality life years added',
+            value: '5,232'
+          },
+          {
+            text: 'members',
+            value: '3,734'
+          },
+          {
+            text: 'active projects',
+            value: '17'
+          },
+          {
+            text: 'open proposals',
+            value: '32'
+          },
+        ],
+        education: [
+          {
+            text: 'quality life years added',
+            value: '5,232'
+          },
+          {
+            text: 'members',
+            value: '3,734'
+          },
+          {
+            text: 'active projects',
+            value: '17'
+          },
+          {
+            text: 'open proposals',
+            value: '32'
+          },
+        ],
+        climate: [
+          {
+            text: 'quality life years added',
+            value: '5,232'
+          },
+          {
+            text: 'members',
+            value: '3,734'
+          },
+          {
+            text: 'active projects',
+            value: '17'
+          },
+          {
+            text: 'open proposals',
+            value: '32'
+          },
+        ],
+        finance: [
+          {
+            text: 'quality life years added',
+            value: '5,232'
+          },
+          {
+            text: 'members',
+            value: '3,734'
+          },
+          {
+            text: 'active projects',
+            value: '17'
+          },
+          {
+            text: 'open proposals',
+            value: '32'
+          },
+        ],
+        governance: [
+          {
+            text: 'quality life years added',
+            value: '5,232'
+          },
+          {
+            text: 'members',
+            value: '3,734'
+          },
+          {
+            text: 'active projects',
+            value: '17'
+          },
+          {
+            text: 'open proposals',
+            value: '32'
+          },
+        ]
+      }
     };
+
+    
   
     handleActiveChange = checked => {
       this.setState({ active: checked });
@@ -48,18 +142,21 @@ export default class Initiative extends React.Component {
 
     render() {
       const { Title } = Typography;
-      const { active, size, buttonShape, avatarShape, block, healthData } = this.state;
+      const { active, size, buttonShape, avatarShape, block, healthData, initiatives } = this.state;
+      console.log(initiatives)
       return (
       <div>
-        <Row gutter={[16, 16]} justify="center">
-          <Col flex="auto" >
-            <Card style={{ width: 333 }}>
+        <Row gutter={[20, 40]} justify="center">
+          <Col md={8}  xs={24}>
+            <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Health</b></Title></Col>
                 <Col span={12}>
                   <Title level={4} style={{textAlign: 'right'}}>
                   {
-                    <Skeleton.Button active={active} size={size} shape={buttonShape} />
+                    initiatives.health.rewards ? 
+                      <Skeleton.Button active={active} size={size} shape={buttonShape} /> :
+                      initiatives.health.rewards
                   }
                   </Title>
                 </Col>
@@ -69,12 +166,11 @@ export default class Initiative extends React.Component {
                 style={{ textAlign: 'left'}}
                 header={<div>Stats:</div>}
                 bordered
-                dataSource={healthData}
-                renderItem={item => (
-                    <List.Item>
-                       <Skeleton.Button active={active} size='small' shape={buttonShape} />
-                        <b>{item.value}</b> {item.text}
-                    </List.Item>
+                dataSource={initiatives.health}
+                renderItem={(item) => (
+                  <List.Item>
+                    <b>{item.value}</b> {item.text}
+                  </List.Item>
                 )}
               />
             <br/>
@@ -85,8 +181,8 @@ export default class Initiative extends React.Component {
             </Link>
             </Card>
           </Col>
-          <Col flex="auto">
-            <Card style={{ width: 333 }}>
+          <Col md={8} xs={24}>
+            <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Housing</b></Title></Col>
                 <Col span={12}><Title level={4} style={{textAlign: 'right'}}>
@@ -98,11 +194,11 @@ export default class Initiative extends React.Component {
                 style={{ textAlign: 'left'}}
                 header={<div>Stats:</div>}
                 bordered
-                dataSource={healthData}
+                dataSource={initiatives.housing}
                 renderItem={item => (
-                    <List.Item>
-                        <b>{item.value}</b> {item.text}
-                    </List.Item>
+                  <List.Item>
+                    <b>{item.value}</b> {item.text}
+                  </List.Item>
                 )}
               />
               <br/>
@@ -113,8 +209,8 @@ export default class Initiative extends React.Component {
               </Link>
             </Card>
           </Col>
-          <Col flex="auto">
-            <Card style={{ width: 333 }}>
+          <Col md={8} xs={24}>
+            <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Education</b></Title></Col>
                 <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ0.1</Title></Col>
@@ -124,11 +220,11 @@ export default class Initiative extends React.Component {
                 style={{ textAlign: 'left'}}
                 header={<div>Stats:</div>}
                 bordered
-                dataSource={healthData}
-                renderItem={item => (
-                    <List.Item>
-                        <b>{item.value}</b> {item.text}
-                    </List.Item>
+                dataSource={initiatives.education}
+                renderItem={ item => (
+                  <List.Item>
+                    <b>{item.value}</b> {item.text}
+                  </List.Item>
                 )}
               />
               <br/>
@@ -140,8 +236,8 @@ export default class Initiative extends React.Component {
             </Card>
           </Col>
 
-          <Col flex="auto">
-          <Card style={{ width: 333 }}>
+          <Col md={8} xs={24}>
+          <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Climate</b></Title></Col>
                 <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ0.1</Title></Col>
@@ -151,11 +247,11 @@ export default class Initiative extends React.Component {
                 style={{ textAlign: 'left'}}
                 header={<div>Stats:</div>}
                 bordered
-                dataSource={healthData}
+                dataSource={initiatives.climate}
                 renderItem={item => (
-                    <List.Item>
-                        <b>{item.value}</b> {item.text}
-                    </List.Item>
+                  <List.Item>
+                    <b>{item.value}</b> {item.text}
+                  </List.Item>
                 )}
               />
               <br/>
@@ -166,8 +262,8 @@ export default class Initiative extends React.Component {
               </Link>
             </Card>
           </Col>
-          <Col flex="auto">
-          <Card style={{ width: 333 }}>
+          <Col md={8} xs={24}>
+          <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Finance</b></Title></Col>
                 <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ0.1</Title></Col>
@@ -177,11 +273,11 @@ export default class Initiative extends React.Component {
                 style={{ textAlign: 'left'}}
                 header={<div>Stats:</div>}
                 bordered
-                dataSource={healthData}
+                dataSource={initiatives.finance}
                 renderItem={item => (
-                    <List.Item>
-                        <b>{item.value}</b> {item.text}
-                    </List.Item>
+                  <List.Item>
+                    <b>{item.value}</b> {item.text}
+                  </List.Item>
                 )}
               />
               <br/>
@@ -192,8 +288,8 @@ export default class Initiative extends React.Component {
               </Link>
             </Card>
           </Col>
-          <Col flex="auto">
-          <Card style={{ width: 333 }}>
+          <Col md={8} xs={24}>
+          <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Governance</b></Title></Col>
                 <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ0.1</Title></Col>
@@ -203,11 +299,11 @@ export default class Initiative extends React.Component {
                 style={{ textAlign: 'left'}}
                 header={<div>Stats:</div>}
                 bordered
-                dataSource={healthData}
+                dataSource={initiatives.governance}
                 renderItem={item => (
-                    <List.Item>
-                        <b>{item.value}</b> {item.text}
-                    </List.Item>
+                  <List.Item>
+                    <b>{item.value}</b> {item.text}
+                  </List.Item>
                 )}
               />
               <br/>

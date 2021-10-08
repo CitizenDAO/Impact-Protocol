@@ -1,6 +1,7 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Bond from './components/Bond';
-import Health from './views/Health';
+import Health from './views/Initiatives/Health';
+import Housing from './views/Initiatives/Housing';
 import Dashboard from './views/Dashboard';
 import Initiatives from './views/Initiatives';
 //import Torus from "@toruslabs/torus-embed"
@@ -34,7 +35,13 @@ import {
 import {
   DashboardOutlined,
   ExperimentOutlined,
+  BulbOutlined,
   FileTextOutlined,
+  MedicineBoxOutlined,
+  BookOutlined,
+  GlobalOutlined,
+  HomeOutlined,
+  TeamOutlined,
   SwapOutlined,
   ExportOutlined,
   BankOutlined,
@@ -489,38 +496,81 @@ function App(props) {
             height: '100vh',
             position: 'fixed',
             left: 0,
+            zIndex: '999',
           }}>
           <Menu selectedKeys={[route]} mode="inline" theme="dark">
-            <Menu.Item key="/" icon={<FileTextOutlined />}>
+            <Menu.Item key="/contracts" icon={<FileTextOutlined />}>
+              <Link
+                onClick={() => {
+                  setRoute("/contracts");
+                }}
+                to="/contracts"
+              >
+                CitizenFixedBond
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="/" icon={<DashboardOutlined/>}>
               <Link
                 onClick={() => {
                   setRoute("/");
                 }}
                 to="/"
               >
-                CitizenFixedBond
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="/dashboard" icon={<DashboardOutlined/>}>
-              <Link
-                onClick={() => {
-                  setRoute("/dashboard");
-                }}
-                to="/dashboard"
-              >
                 Dashboard
               </Link>
             </Menu.Item>
-            <Menu.Item key="/initiatives" icon={<ExperimentOutlined/>}>
+            <Menu.SubMenu title="Initiatives" icon={<BulbOutlined />}>
+              <Menu.Item key="/initiatives/health" icon={<MedicineBoxOutlined />}>
                 <Link
                   onClick={() => {
-                    setRoute("/initiatives");
+                    setRoute("/initiatives/health");
                   }}
-                  to="/initiatives"
+                  to="/initiatives/health"
                 >
-                  Initiatives
+                  Health
                 </Link>
               </Menu.Item>
+              <Menu.Item key="/initiatives/housing" icon={<HomeOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/initiatives/housing");
+                  }}
+                  to="/initiatives/housing"
+                >
+                  Housing
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/initiatives/education" icon={<BookOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/initiatives/education");
+                  }}
+                  to="/initiatives/education"
+                >
+                  Education
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/initiatives/Climate" icon={<GlobalOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/initiatives/Climate");
+                  }}
+                  to="/initiatives/Climate"
+                >
+                  Climate
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/initiatives/finance" icon={<BankOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/initiatives/finance");
+                  }}
+                  to="/initiatives/finance"
+                >
+                  Finance
+                </Link>
+              </Menu.Item>
+            </Menu.SubMenu>
             <Menu.Item key="/bond" icon={<BankOutlined />}>
               <Link
                 onClick={() => {
@@ -531,17 +581,36 @@ function App(props) {
                 Bond
               </Link>
             </Menu.Item>
+            <Menu.SubMenu title="Community" icon={<TeamOutlined />}>
+              <Menu.Item key="discord">
+                <Link to="https://discord.gg/SVKqEmrnM4">
+                  Discord
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="snapshot">
+                <Link to="#">
+                  Snapshot
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="discource">
+                <Link to="https://ideas.citizendao.com">
+                  Discource
+                </Link>
+              </Menu.Item>
+            </Menu.SubMenu>
           </Menu>
         </Sider>
         <Layout style={{
-          marginLeft: collapsed ? '6rem' : '12rem',
-          marginBottom: '6rem'
+          // marginLeft: collapsed ? '6rem' : '12rem',
+          // marginBottom: '6rem',
+          margin: '0px auto',
         }}>
           <Header />
           {networkDisplay}
-          <Content style={{ padding: '1rem' }}>
+          <Content style={{ padding: '1rem', maxWidth: '1256px', margin: "0px auto" }}>
+            <div className="sider-offset">
             <Switch>
-              <Route exact path="/">
+              <Route exact path="/contracts">
                 {/*
                     🎛 this scaffolding is full of commonly used components
                     this <Contract/> component will automatically parse your ABI
@@ -588,10 +657,25 @@ function App(props) {
                   setPurposeEvents={setPurposeEvents}
                 />
               </Route>
+              <Route path="/initiatives/housing">
+                <Housing 
+                  address={address}
+                  userSigner={userSigner}
+                  mainnetProvider={mainnetProvider}
+                  localProvider={localProvider}
+                  yourLocalBalance={yourLocalBalance}
+                  price={price}
+                  tx={tx}
+                  writeContracts={writeContracts}
+                  readContracts={readContracts}
+                  purpose={purpose}
+                  setPurposeEvents={setPurposeEvents}
+                />
+              </Route>
               <Route path="/initiatives">
                 <Initiatives />
               </Route>
-              <Route path="/dashboard">
+              <Route path="/">
                 <Dashboard />
               </Route>
               <Route path="/bond">
@@ -609,6 +693,7 @@ function App(props) {
                 />
               </Route>
             </Switch>
+            </div>
           </Content>
         </Layout>
       </HashRouter>
@@ -632,7 +717,7 @@ function App(props) {
       </div>
 
       {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
-      <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
+      <div className="sider-offset" style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
         <Row align="middle" gutter={[4, 4]}>
           <Col span={8}>
             <Ramp price={price} address={address} networks={NETWORKS} />
