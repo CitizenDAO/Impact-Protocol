@@ -151,15 +151,7 @@ export default class Initiatives extends React.Component {
             <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Health</b></Title></Col>
-                <Col span={12}>
-                  <Title level={4} style={{textAlign: 'right'}}>
-                  {
-                    initiatives.health.rewards ? 
-                      <Skeleton.Button active={active} size={size} shape={buttonShape} /> :
-                      initiatives.health.rewards
-                  }
-                  </Title>
-                </Col>
+                <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ622</Title></Col>
               </Row>
               <Divider/>
               <List
@@ -185,9 +177,7 @@ export default class Initiatives extends React.Component {
             <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Housing</b></Title></Col>
-                <Col span={12}><Title level={4} style={{textAlign: 'right'}}>
-                  
-                </Title></Col>
+                <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ888</Title></Col>
               </Row>
               <Divider/>
               <List
@@ -213,7 +203,7 @@ export default class Initiatives extends React.Component {
             <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Education</b></Title></Col>
-                <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ0.1</Title></Col>
+                <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ498</Title></Col>
               </Row>
               <Divider/>
               <List
@@ -240,7 +230,7 @@ export default class Initiatives extends React.Component {
           <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Climate</b></Title></Col>
-                <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ0.1</Title></Col>
+                <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ561</Title></Col>
               </Row>
               <Divider/>
               <List
@@ -266,7 +256,7 @@ export default class Initiatives extends React.Component {
           <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Finance</b></Title></Col>
-                <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ0.1</Title></Col>
+                <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ289</Title></Col>
               </Row>
               <Divider/>
               <List
@@ -292,7 +282,7 @@ export default class Initiatives extends React.Component {
           <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Governance</b></Title></Col>
-                <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ0.1</Title></Col>
+                <Col span={12}><Title level={4} style={{textAlign: 'right'}}>Ξ321</Title></Col>
               </Row>
               <Divider/>
               <List
