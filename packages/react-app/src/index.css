@@ -9,3 +9,14 @@ code {
 .shadow { 
   box-shadow: 0px 10px 20px -20px;
 }
+
+.banner-background {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.sider-offset {
+  margin-left: 80px;
+}
+

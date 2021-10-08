@@ -1,7 +1,7 @@
 {
-  "short_name": "CitizenDao App",
+  "short_name": "Citizen DAO App",
   "start_url": ".",
-  "name": "🏗 Scaffold-Eth App",
+  "name": "Citizen DAO App",
   "icons": [
     {
       "src": "favicon.ico",

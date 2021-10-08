@@ -5,12 +5,14 @@ import React from "react";
 
 export default function Header() {
   return (
-    <a href="/">
+    <a href="/" style={{ width: '100%', zIndex: 990, backgroundColor: 'white' }}>
+     <div className="sider-offset">
      <PageHeader
         title="CitizenDao"
         subTitle="Moonshots for Humanity"
-        style={{ cursor: "pointer" }}
+        style={{ cursor: "pointer", maxWidth: '1256px', margin: '0px auto' }}
       />
+      </div>
     </a>
   );
 }
