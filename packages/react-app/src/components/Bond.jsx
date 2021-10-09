@@ -29,6 +29,7 @@ export default function Bond({
   tx,
   readContracts,
   writeContracts,
+  sector,
 }) {
   const { Title } = Typography;
 
@@ -64,6 +65,8 @@ export default function Bond({
       setTotalCDAO(eth * CDAOPerEth * (apy / 365) * vestingTerm)
     }
 
+    const textX = "100";
+
     const route = props.route
     switch(route) {
       case 'bond':
@@ -81,6 +84,25 @@ export default function Bond({
               />
             </Row>
             <Divider dashed />
+            <Row style={{marginBottom: '20px'}}>
+              <Title level={5}>Your NFT</Title>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400 " class="bond-bg-blue">
+                <text x="20" y="35" class="light">Citizen DAO Season 1</text>
+                <text x="280" y="35" class="light tright">Social Impact Bond</text>
+                <text x="20" y="380" class="light">CitizenDAO.com</text>
+                <text x="305" y="380" class="light tright">@CitizenDAO</text>
+                
+                <text x={textX} y="140" class="heavy">${sector} Bond #169</text>
+                <text x={textX} y="160" class="heavy">Minted 11.22.2021</text>
+                
+                <text x={textX} y="200" class="heavy">{marks[vestingTerm]} Days @ 520% APY</text>
+                <text x={textX} y="220" class="heavy">Compounding Daily</text>
+                
+                <text x={textX} y="260" class="heavy">{totalCDAO} CDAO</text>
+                <text x={textX} y="280" class="heavy">By 11.17.2022</text>
+
+              </svg>
+            </Row>
             <Title style={{textAlign: 'left'}} level={5}>Select days until bond maturity:</Title>
             <Slider 
               onChange={
@@ -172,7 +194,7 @@ export default function Bond({
 
   
   return (
-    <div className="shadow">
+    <div className="shadow" style={{maxWidth: '600px', margin: '0 auto'}}>
 
       <Menu style={{ textAlign: "center" }} selectedKeys={route} mode="horizontal">
         <Menu.Item key="bond" onClick={() => setRoute('bond')}>
