@@ -607,7 +607,7 @@ function App(props) {
         }}>
           <Header />
           {networkDisplay}
-          <Content style={{ padding: '1rem', maxWidth: '1256px', margin: "0px auto" }}>
+          <Content style={{ padding: '1rem', maxWidth: '1256px', margin: "0px auto", width: '100%' }}>
             <div className="sider-offset">
             <Switch>
               <Route exact path="/contracts">

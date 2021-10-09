@@ -32,6 +32,7 @@ export default function Health({
         readContracts={readContracts}
         purpose={purpose}
         setPurposeEvents={setPurposeEvents}
+        sector="Housing"
       />
     </Content>
   )
