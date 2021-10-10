@@ -3,6 +3,7 @@ pragma solidity >=0.8.0 <0.9.0;
 
 import "./IFundingPoolManager.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
@@ -32,7 +33,7 @@ contract CitizenNFTBond is ERC721Enumerable, AccessControl {
     mapping (uint256 => Bond) private bonds;
     Counters.Counter private bondCounter;
 
-    constructor() {} // TODO: write me
+    constructor() ERC721("Citizen Bond", "CBOND") {}
 
     function addPool(string memory name, IFundingPoolManager poolManager, uint256 poolId)
         public
@@ -89,14 +90,14 @@ contract CitizenNFTBond is ERC721Enumerable, AccessControl {
         address from,
         address to,
         uint256 tokenId
-    ) internal override(ERC721, ERC721Enumerable) {
+    ) internal override(ERC721Enumerable) {
         super._beforeTokenTransfer(from, to, tokenId);
     }
 
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(ERC721, ERC721Enumerable, AccessControl)
+        override(ERC721Enumerable, AccessControl)
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
