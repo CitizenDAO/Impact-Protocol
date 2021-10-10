@@ -32,7 +32,7 @@ contract FixedTermBondIssuer is AccessControl {
         require(_isValid(to, maturityDate), "FixedTermBondIssuer: invalid bond parameters");
         uint256 payout = _calculateReturn(maturityDate, apy, baseAmount);
         uint256 assetBalance = asset.balanceOf(address(this));
-        require(assetBalance - assignedAssets >= payout, "FixedTermBondIssuer: insufficient asset balance");
+        require(assetBalance - assignedAssets[asset] >= payout, "FixedTermBondIssuer: insufficient asset balance");
         
         assignedAssets[asset] += payout;
         uint256 id = bondId.current();
@@ -49,7 +49,7 @@ contract FixedTermBondIssuer is AccessControl {
     function redeemBond(uint256 id) public returns (bool) {
         require(id < bondId.current(), "FixedTermBondIssuer: invalid bond id");
         require(!bonds[id].redeemed, "FixedTermBondIssuer: bond already redeemed");
-        require(msg.sender == bonds[id].to || hasRole(DEFAULT_ADMIN_ROLE, msg.sender), // needs specific role
+        require(msg.sender == bonds[id].holder || hasRole(DEFAULT_ADMIN_ROLE, msg.sender), // needs specific role
                 "FixedTermBondIssuer: sender cannot redeem bond");
         require(bonds[id].maturityDate <= now, "FixedTermBondIssuer: bond not matured");
 
