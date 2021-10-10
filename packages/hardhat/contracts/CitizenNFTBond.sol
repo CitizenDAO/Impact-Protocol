@@ -10,7 +10,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract CitizenNFTBond is ERC721Enumerable, AccessControl {
     using Counters for Counters.Counter;
 
-    string private _baseURI;
+    string private baseURI;
 
     /**
      * @dev A Pool represents a pool of CDAO tokens from which bonds can be purchased
@@ -73,16 +73,16 @@ contract CitizenNFTBond is ERC721Enumerable, AccessControl {
         uint256 tokenId
     ) internal override {
         super._transfer(from, to, tokenId);
-        bonds[nftId].pool.poolManager.transfer(bonds[nftId].pool.poolId, bonds[nft].bondId, to);
+        bonds[tokenId].pool.poolManager.transfer(bonds[tokenId].pool.poolId, bonds[tokenId].bondId, to);
     }
     
     function setBaseURI(string memory uri) public onlyRole(DEFAULT_ADMIN_ROLE) returns (bool) {
-        _baseURI = uri;
+        baseURI = uri;
         return true;
     }
 
     function _baseURI() internal view override returns (string memory) {
-        return _baseURI;
+        return baseURI;
     }
 
     function _beforeTokenTransfer(
