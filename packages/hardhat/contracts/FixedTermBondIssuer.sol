@@ -80,15 +80,15 @@ contract FixedTermBondIssuer is AccessControl {
     }
 
     function _calculateReturn(uint256 maturityDate, uint256 apy, uint256 baseAmount) internal virtual returns (uint256) {
-        uint256 duration = maturityDate - now;
+        uint256 duration = maturityDate - block.timestamp;
         // TODO: calculation - use PRBMath library
         
         return baseAmount;
     }
 
     function _isValid(address to, uint256 maturityDate) internal virtual returns (bool) {
-        require(to != 0x0, "FixedTermBondIssuer: cannot assign to zero address");
-        require(maturityDate > now, "FixedTermBondIssuer: maturity date cannot be in past");
+        require(to != address(0x0), "FixedTermBondIssuer: cannot assign to zero address");
+        require(maturityDate > block.timestamp, "FixedTermBondIssuer: maturity date cannot be in past");
         return true;
     }
 
