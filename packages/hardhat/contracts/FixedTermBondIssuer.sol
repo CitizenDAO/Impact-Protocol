@@ -49,13 +49,13 @@ contract FixedTermBondIssuer is AccessControl {
     function redeemBond(uint256 id) public returns (bool) {
         require(id < bondId.current(), "FixedTermBondIssuer: invalid bond id");
         require(!bonds[id].redeemed, "FixedTermBondIssuer: bond already redeemed");
-        require(msg.sender == bonds[i].to || hasRole(DEFAULT_ADMIN_ROLE, msg.sender), // needs specific role
+        require(msg.sender == bonds[id].to || hasRole(DEFAULT_ADMIN_ROLE, msg.sender), // needs specific role
                 "FixedTermBondIssuer: sender cannot redeem bond");
         require(bonds[id].maturityDate <= now, "FixedTermBondIssuer: bond not matured");
 
         bonds[id].redeemed = true;
-        (bonds[id].asset).transfer(bond[id].holder, bond[id].payout);
-        assignedAssets[bond[id].asset] -= bond[id].payout;
+        (bonds[id].asset).transfer(bonds[id].holder, bonds[id].payout);
+        assignedAssets[bonds[id].asset] -= bonds[id].payout;
 
         return true;
         
