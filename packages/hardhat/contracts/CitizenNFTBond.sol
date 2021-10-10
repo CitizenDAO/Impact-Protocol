@@ -34,7 +34,7 @@ contract CitizenNFTBond is ERC721Enumerable, AccessControl {
 
     constructor() {} // TODO: write me
 
-    function addPool(string name, IFundingPoolManager poolManager, uint256 poolId)
+    function addPool(string memory name, IFundingPoolManager poolManager, uint256 poolId)
         public
         onlyRole(DEFAULT_ADMIN_ROLE) // TODO: add specific role
         returns (uint256)
