@@ -51,7 +51,7 @@ contract FixedTermBondIssuer is AccessControl {
         require(!bonds[id].redeemed, "FixedTermBondIssuer: bond already redeemed");
         require(msg.sender == bonds[id].holder || hasRole(DEFAULT_ADMIN_ROLE, msg.sender), // needs specific role
                 "FixedTermBondIssuer: sender cannot redeem bond");
-        require(bonds[id].maturityDate <= now, "FixedTermBondIssuer: bond not matured");
+        require(bonds[id].maturityDate <= block.timestamp, "FixedTermBondIssuer: bond not matured");
 
         bonds[id].redeemed = true;
         (bonds[id].asset).transfer(bonds[id].holder, bonds[id].payout);
