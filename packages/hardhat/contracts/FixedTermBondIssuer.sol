@@ -70,7 +70,7 @@ contract FixedTermBondIssuer is AccessControl {
     }
 
     function withdrawUnassignedAssets(IERC20 asset, address to, uint256 amount) public returns (bool) {
-        require(hasRole(msg.sender, DEFAULT_ADMIN_ROLE), "FixedTermBondIssuer: denied");
+        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "FixedTermBondIssuer: denied");
         require(asset.balanceOf(address(this)) - assignedAssets[asset] >= amount,
                                 "FixedTermCompoundingBondIssuer: invalid amount");
 
