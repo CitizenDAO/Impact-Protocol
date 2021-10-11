@@ -9,7 +9,7 @@
 
 ## Social Impact Bonds
 
-The bond *TLDR*: If governments & corporations want money for something, one option is to sell an "IOU" with a promise to pay the principle back with a little interest. 
+The bond *TLDR*: If governments & corporations want money for something, one option is to sell a bond, which is an "IOU" with a promise to pay the principle back with interest. 
 
 Bonds are one of the oldest documented financial instruments dating back to 2400 BC in Mesopotamia. Since then, we've created war bonds, treasury bonds, municipal bonds, & corporate bonds to fund our modern world. The global bond market is ~$120T as of late 2021. 
 
