@@ -5,6 +5,8 @@
 
 **Solution:** A new way to fund public advancement via Social Impact Bonds. SIBs are dynamic NFTs that fund projects both prospectively & retrospectively. 
 
+![Innovative Funding Models](https://ipfs.io/ipfs/QmNhWtsuoATNe5swFZVMGjgfDjrx7ZnbxUAoYy8wAtSSnK)
+
 ## Social Impact Bonds
 
 The bond *TLDR*: If governments & corporations want money for something, one option is to sell an "IOU" with a promise to pay the principle back with a little interest. 
@@ -19,6 +21,7 @@ We at Citizen DAO believe Social Impact Bonds can be much better than they are.
 
 ### Social Impact Bonds meet Web3
 
+![Social Impact Bonds](https://ipfs.io/ipfs/QmZ9RjY94WJoAA6Phuoz3tH6AhG5FjLQhbT7oMGDod1YxS)
 Our bonds are ERC-721 non-fungible tokens. Bonds are unique financial assets that fund projects in the following categories:
 
 $Health
