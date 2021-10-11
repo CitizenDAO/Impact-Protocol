@@ -1,96 +1,89 @@
-# 🏗 Scaffold-ETH
 
-> everything you need to build on Ethereum! 🚀
+# Impact Protocol by Citizen DAO
 
-🧪 Quickly experiment with Solidity using a frontend that adapts to your smart contract:
+**Problem:** Big ideas that could help humanity have a hard time getting funded to become a reality. These types of ideas don't fit into the frameworks of government/foundation grants or VC/Angel investing. These ideas are either too early or too ambitious. 
 
-![image](https://user-images.githubusercontent.com/2653167/124158108-c14ca380-da56-11eb-967e-69cde37ca8eb.png)
+**Solution:** A new way to fund public advancement via Social Impact Bonds. SIBs are dynamic NFTs that fund projects both prospectively & retrospectively. 
+
+## Social Impact Bonds
+
+The bond *TLDR*: If governments & corporations want money for something, one option is to sell an "IOU" with a promise to pay the principle back with a little interest. 
+
+Bonds are one of the oldest documented financial instruments dating back to 2400 BC in Mesopotamia. Since then, we've created war bonds, treasury bonds, municipal bonds, & corporate bonds to fund our modern world. The global bond market is ~$120T as of late 2021. 
+
+"Social Impact Bonds" are a recent creation with the first launched in 2010 to finance a prisoner rehabilitation program in the UK. SIBs are a form of outcomes-based contracting where the project is to improve the social outcomes for a specific group of citizens. As of 2021, there are 194 social impact bonds active with $421M invested. 
+
+While great in theory, SIBs are designed with a poor economic incentive model. For example, investors don't get any money back if the project fails to meet the initial KPIs. It's an "all or nothing" investment that only rewards investors with a few percentage points of interest if successful. Another example is the lack of transparency & validation of the actual work being funded. 
+
+We at Citizen DAO believe Social Impact Bonds can be much better than they are. 
+
+### Social Impact Bonds meet Web3
+
+Our bonds are ERC-721 non-fungible tokens. Bonds are unique financial assets that fund projects in the following categories:
+
+$Health
+$Housing
+$Education
+$Climate
+$Finance
+$Governance
+
+Citizen DAO members will curate, refine, & decide on which projects get funding. Each bond can be minted with any amount of ETH. Yield is in CDAO, which is the governance & utiliity token of Citizen DAO. 
+
+## How it works
+
+1. Go to [app.citizendao.com](https://app.citizendao.com/)
+2. Connect wallet, find the bond you want, & customize it.
+3. When the bond matures, come to the same place to redeem it and claim the CDAO yield.
+4. Or you can sell your bond on secondary markets before maturity.
 
 
-# 🏄‍♂️ Quick Start
+**Here are some important resources:**
 
-Prerequisites: [Node](https://nodejs.org/en/download/) plus [Yarn](https://classic.yarnpkg.com/en/docs/install/) and [Git](https://git-scm.com/downloads)
+- We communicate on [Discord](https://discord.gg/SVKqEmrnM4)
+- We brainstorm on [Miro](https://miro.com/app/board/o9J_lxrWu6c=/?invite_link_id=419363524209)
 
-> clone/fork 🏗 scaffold-eth:
+## Development
 
+### Running Dev Environment
+
+Use the command
 ```bash
-git clone https://github.com/austintgriffith/scaffold-eth.git
+> ./cmd/launch dev -c
 ```
-
-> install and start your 👷‍ Hardhat chain:
-
+to run the compile and migrate contracts to a test network. In lieu of a sensible *nix environment, run the command through python
 ```bash
-cd scaffold-eth
-yarn install
-yarn chain
+> python3 /cmd/launch
 ```
+the following flags are available:
 
-> in a second terminal window, start your 📱 frontend:
+- -c - launch the truffle development console
+- -s - launch a shell environment
+- -b - rebuild the docker images
+- -h - help output
 
-```bash
-cd scaffold-eth
-yarn start
-```
+### Contributing
 
-> in a third terminal window, 🛰 deploy your contract:
+We encourage a [triangle workflow](https://gist.github.com/anjohnson/8994c95ab2a06f7d2339) for development, with pull requests going directly onto the main branch; essentially a [github flow](https://guides.github.com/introduction/flow/) model.
 
-```bash
-cd scaffold-eth
-yarn deploy
-```
-
-🔏 Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
-
-📝 Edit your frontend `App.jsx` in `packages/react-app/src`
-
-💼 Edit your deployment scripts in `packages/hardhat/deploy`
-
-📱 Open http://localhost:3000 to see the app
-
-# 📚 Documentation
-
-Documentation, tutorials, challenges, and many more resources, visit: [docs.scaffoldeth.io](https://docs.scaffoldeth.io)
-
-# 🔭 Learning Solidity
-
-📕 Read the docs: https://docs.soliditylang.org
-
-📚 Go through each topic from [solidity by example](https://solidity-by-example.org) editing `YourContract.sol` in **🏗 scaffold-eth**
-
-- [Primitive Data Types](https://solidity-by-example.org/primitives/)
-- [Mappings](https://solidity-by-example.org/mapping/)
-- [Structs](https://solidity-by-example.org/structs/)
-- [Modifiers](https://solidity-by-example.org/function-modifier/)
-- [Events](https://solidity-by-example.org/events/)
-- [Inheritance](https://solidity-by-example.org/inheritance/)
-- [Payable](https://solidity-by-example.org/payable/)
-- [Fallback](https://solidity-by-example.org/fallback/)
-
-📧 Learn the [Solidity globals and units](https://solidity.readthedocs.io/en/v0.6.6/units-and-global-variables.html)
-
-# 🛠 Buidl
-
-Check out all the [active branches](https://github.com/austintgriffith/scaffold-eth/branches/active), [open issues](https://github.com/austintgriffith/scaffold-eth/issues), and join/fund the 🏰 [BuidlGuidl](https://BuidlGuidl.com)!
-
-  
- - 🚤  [Follow the full Ethereum Speed Run](https://medium.com/@austin_48503/%EF%B8%8Fethereum-dev-speed-run-bd72bcba6a4c)
+### Requirements
 
 
- - 🎟  [Create your first NFT](https://github.com/austintgriffith/scaffold-eth/tree/simple-nft-example)
- - 🥩  [Build a staking smart contract](https://github.com/austintgriffith/scaffold-eth/tree/challenge-1-decentralized-staking)
- - 🏵  [Deploy a token and vendor](https://github.com/austintgriffith/scaffold-eth/tree/challenge-2-token-vendor)
- - 🎫  [Extend the NFT example to make a "buyer mints" marketplace](https://github.com/austintgriffith/scaffold-eth/tree/buyer-mints-nft)
- - 🎲  [Learn about commit/reveal](https://github.com/austintgriffith/scaffold-eth/tree/commit-reveal-with-frontend)
- - ✍️  [Learn how ecrecover works](https://github.com/austintgriffith/scaffold-eth/tree/signature-recover)
- - 👩‍👩‍👧‍👧  [Build a multi-sig that uses off-chain signatures](https://github.com/austintgriffith/scaffold-eth/tree/meta-multi-sig)
- - ⏳  [Extend the multi-sig to stream ETH](https://github.com/austintgriffith/scaffold-eth/tree/streaming-meta-multi-sig)
- - ⚖️  [Learn how a simple DEX works](https://medium.com/@austin_48503/%EF%B8%8F-minimum-viable-exchange-d84f30bd0c90)
- - 🦍  [Ape into learning!](https://github.com/austintgriffith/scaffold-eth/tree/aave-ape)
 
-# 💬 Support Chat
+## Maintainers
 
-Join the telegram [support chat 💬](https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA) to ask questions and find others building with 🏗 scaffold-eth!
+On Discord: 
 
----
+Brennen Hodge#5274
+james-c#6086
+TusharDev#2494
+deevolution#9729
 
-🙏 Please check out our [Gitcoin grant](https://gitcoin.co/grants/2851/scaffold-eth) too!
+
+## Tech
+
+
+### Dependencies
+We will make the dev environment Docker-based for consistency / ease-of-use, so requirements for use should be limited to:
+
+
