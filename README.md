@@ -19,7 +19,7 @@ While great in theory, SIBs are designed with a poor economic incentive model. F
 
 We at Citizen DAO believe Social Impact Bonds can be much better than they are. 
 
-### Social Impact Bonds meet Web3
+### Enter Web3
 
 ![Social Impact Bonds](https://ipfs.io/ipfs/QmZ9RjY94WJoAA6Phuoz3tH6AhG5FjLQhbT7oMGDod1YxS)
 Our bonds are ERC-721 non-fungible tokens. Bonds are unique financial assets that fund projects in the following categories of health, housing, education, climate, finance, & governance.
