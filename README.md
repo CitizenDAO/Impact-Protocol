@@ -22,14 +22,7 @@ We at Citizen DAO believe Social Impact Bonds can be much better than they are.
 ### Social Impact Bonds meet Web3
 
 ![Social Impact Bonds](https://ipfs.io/ipfs/QmZ9RjY94WJoAA6Phuoz3tH6AhG5FjLQhbT7oMGDod1YxS)
-Our bonds are ERC-721 non-fungible tokens. Bonds are unique financial assets that fund projects in the following categories:
-
-$Health
-$Housing
-$Education
-$Climate
-$Finance
-$Governance
+Our bonds are ERC-721 non-fungible tokens. Bonds are unique financial assets that fund projects in the following categories of health, housing, education, climate, finance, & governance.
 
 Citizen DAO members will curate, refine, & decide on which projects get funding. Each bond can be minted with any amount of ETH. Yield is in CDAO, which is the governance & utiliity token of Citizen DAO. 
 
@@ -77,10 +70,11 @@ We encourage a [triangle workflow](https://gist.github.com/anjohnson/8994c95ab2a
 
 On Discord: 
 
-Brennen Hodge#5274
-james-c#6086
-TusharDev#2494
-deevolution#9729
+- james-c#6086
+- TusharDev#2494
+- deevolution#9729
+- SkarfaceLee#0280
+- Brennen Hodge#5274
 
 
 ## Tech
