@@ -2,8 +2,11 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import React from "react";
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
 import ReactDOM from "react-dom";
+import { Provider } from 'react-redux';
+import configureStore from './configureStore';
 import App from "./App";
 import "./index.css";
+import { config } from "dotenv";
 
 const themes = {
   dark: `${process.env.PUBLIC_URL}/dark-theme.css`,
@@ -19,10 +22,14 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const store = configureStore();
+
 ReactDOM.render(
   <ApolloProvider client={client}>
     <ThemeSwitcherProvider themeMap={themes} defaultTheme={prevTheme || "light"}>
-      <App subgraphUri={subgraphUri} />
+      <Provider store={store}>
+        <App subgraphUri={subgraphUri} />
+      </Provider>
     </ThemeSwitcherProvider>
   </ApolloProvider>,
   document.getElementById("root"),

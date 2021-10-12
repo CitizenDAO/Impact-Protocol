@@ -5,3 +5,28 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+.shadow { 
+  box-shadow: 0px 10px 20px -20px;
+}
+
+.banner-background {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.sider-offset {
+  margin-left: 80px;
+}
+
+.heavy { font: bold 20px sans-serif; }
+.light { font: 12px sans-serif; }
+
+.tright {
+  text-align: right;
+}
+
+.bond-bg-blue {
+  background-color: #348feb;
+}

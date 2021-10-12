@@ -1,12 +1,26 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import Bond from './components/Bond';
+import Health from './views/Initiatives/Health';
+import Housing from './views/Initiatives/Housing';
+import Dashboard from './views/Dashboard';
+import Initiatives from './views/Initiatives';
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
-import { Alert, Button, Col, Menu, Row } from "antd";
+import { 
+  Alert, 
+  Button, 
+  Col, 
+  Menu, 
+  Row,
+  Layout,
+  Sider
+} from "antd";
 import "antd/dist/antd.css";
 import React, { useCallback, useEffect, useState } from "react";
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import { HashRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
 import "./App.css";
+import useLocalStorage from './hooks/LocalStorage';
 import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
 import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
 import { Transactor } from "./helpers";
@@ -18,10 +32,22 @@ import {
   useOnBlock,
   useUserProviderAndSigner,
 } from "eth-hooks";
+import {
+  DashboardOutlined,
+  ExperimentOutlined,
+  BulbOutlined,
+  FileTextOutlined,
+  MedicineBoxOutlined,
+  BookOutlined,
+  GlobalOutlined,
+  HomeOutlined,
+  TeamOutlined,
+  SwapOutlined,
+  ExportOutlined,
+  BankOutlined,
+} from '@ant-design/icons';
 import { useEventListener } from "eth-hooks/events/useEventListener";
 import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
-// import Hints from "./Hints";
-import { ExampleUI, Hints, Subgraph } from "./views";
 
 import { useContractConfig } from "./hooks";
 import Portis from "@portis/web3";
@@ -169,6 +195,8 @@ function App(props) {
       : scaffoldEthProvider && scaffoldEthProvider._network
       ? scaffoldEthProvider
       : mainnetInfura;
+  
+  const { Content, Sider } = Layout;
 
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
@@ -202,6 +230,10 @@ function App(props) {
     getAddress();
   }, [userSigner]);
 
+  useEffect(() => {
+    setCollapsed(!collapsed)
+  }, [])
+
   // You can warn the user if you would like them to be on a specific network
   const localChainId = localProvider && localProvider._network && localProvider._network.chainId;
   const selectedChainId =
@@ -217,6 +249,12 @@ function App(props) {
 
   // 🏗 scaffold-eth is full of handy hooks like this one to get your balance:
   const yourLocalBalance = useBalance(localProvider, address);
+  // const [_localProvider, setLocalProvider] = useLocalStorage('localProvider', localProvider);
+  // setLocalProvider(localProvider);
+  const [_address, setLocalAddress] = useLocalStorage('address', address);
+  // setLocalAddress(address);
+  // const yourLocalBalance = useLocalStorage('localBalance', _yourLocalBalance)
+
 
   // Just plug in different 🛰 providers to get your balance on different chains:
   const yourMainnetBalance = useBalance(mainnetProvider, address);
@@ -245,10 +283,10 @@ function App(props) {
   ]);
 
   // keep track of a variable from the contract in the local React state:
-  const purpose = useContractReader(readContracts, "YourContract", "purpose");
+  const purpose = useContractReader(readContracts, "CitizenFixedBond", "purpose");
 
   // 📟 Listen for broadcast events
-  const setPurposeEvents = useEventListener(readContracts, "YourContract", "SetPurpose", localProvider, 1);
+  const setPurposeEvents = useEventListener(readContracts, "CitizenFixedBond", "SetPurpose", localProvider, 1);
 
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
@@ -410,8 +448,11 @@ function App(props) {
     setRoute(window.location.pathname);
   }, [setRoute]);
 
+  
+
   let faucetHint = "";
   const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf("local") !== -1;
+
 
   const [faucetClicked, setFaucetClicked] = useState(false);
   if (
@@ -429,7 +470,7 @@ function App(props) {
           onClick={() => {
             faucetTx({
               to: address,
-              value: ethers.utils.parseEther("0.01"),
+              value: ethers.utils.parseEther("1"),
             });
             setFaucetClicked(true);
           }}
@@ -440,137 +481,222 @@ function App(props) {
     );
   }
 
+  const [collapsed, setCollapsed] = useState(true);
+
   return (
     <div className="App">
-      {/* ✏️ Edit the header and change the title to your project name */}
-      <Header />
-      {networkDisplay}
-      <BrowserRouter>
-        <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
-          <Menu.Item key="/">
-            <Link
-              onClick={() => {
-                setRoute("/");
-              }}
-              to="/"
-            >
-              YourContract
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/hints">
-            <Link
-              onClick={() => {
-                setRoute("/hints");
-              }}
-              to="/hints"
-            >
-              Hints
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/exampleui">
-            <Link
-              onClick={() => {
-                setRoute("/exampleui");
-              }}
-              to="/exampleui"
-            >
-              ExampleUI
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/mainnetdai">
-            <Link
-              onClick={() => {
-                setRoute("/mainnetdai");
-              }}
-              to="/mainnetdai"
-            >
-              Mainnet DAI
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/subgraph">
-            <Link
-              onClick={() => {
-                setRoute("/subgraph");
-              }}
-              to="/subgraph"
-            >
-              Subgraph
-            </Link>
-          </Menu.Item>
-        </Menu>
+      <Layout style={{ minHeight: '100vh' }}>
+      <HashRouter>
+        <Sider 
+          collapsible 
+          collapsed={collapsed} 
+          onCollapse={setCollapsed}
+          style={{
+            overflow: 'auto',
+            height: '100vh',
+            position: 'fixed',
+            left: 0,
+            zIndex: '999',
+          }}>
+          <Menu selectedKeys={[route]} mode="inline" theme="dark">
+            <Menu.Item key="/contracts" icon={<FileTextOutlined />}>
+              <Link
+                onClick={() => {
+                  setRoute("/contracts");
+                }}
+                to="/contracts"
+              >
+                CitizenFixedBond
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="/" icon={<DashboardOutlined/>}>
+              <Link
+                onClick={() => {
+                  setRoute("/");
+                }}
+                to="/"
+              >
+                Dashboard
+              </Link>
+            </Menu.Item>
+            <Menu.SubMenu title="Initiatives" icon={<BulbOutlined />}>
+              <Menu.Item key="/initiatives/health" icon={<MedicineBoxOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/initiatives/health");
+                  }}
+                  to="/initiatives/health"
+                >
+                  Health
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/initiatives/housing" icon={<HomeOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/initiatives/housing");
+                  }}
+                  to="/initiatives/housing"
+                >
+                  Housing
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/initiatives/education" icon={<BookOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/initiatives/education");
+                  }}
+                  to="/initiatives/education"
+                >
+                  Education
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/initiatives/Climate" icon={<GlobalOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/initiatives/Climate");
+                  }}
+                  to="/initiatives/Climate"
+                >
+                  Climate
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/initiatives/finance" icon={<BankOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/initiatives/finance");
+                  }}
+                  to="/initiatives/finance"
+                >
+                  Finance
+                </Link>
+              </Menu.Item>
+            </Menu.SubMenu>
+            <Menu.Item key="/bond" icon={<BankOutlined />}>
+              <Link
+                onClick={() => {
+                  setRoute("/bond");
+                }}
+                to="/bond"
+              >
+                Bond
+              </Link>
+            </Menu.Item>
+            <Menu.SubMenu title="Community" icon={<TeamOutlined />}>
+              <Menu.Item key="discord">
+                <Link to="https://discord.gg/SVKqEmrnM4">
+                  Discord
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="snapshot">
+                <Link to="#">
+                  Snapshot
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="discource">
+                <Link to="https://ideas.citizendao.com">
+                  Discource
+                </Link>
+              </Menu.Item>
+            </Menu.SubMenu>
+          </Menu>
+        </Sider>
+        <Layout style={{
+          // marginLeft: collapsed ? '6rem' : '12rem',
+          // marginBottom: '6rem',
+          margin: '0px auto',
+        }}>
+          <Header />
+          {networkDisplay}
+          <Content style={{ padding: '1rem', maxWidth: '1256px', margin: "0px auto", width: '100%' }}>
+            <div className="sider-offset">
+            <Switch>
+              <Route exact path="/contracts">
+                {/*
+                    🎛 this scaffolding is full of commonly used components
+                    this <Contract/> component will automatically parse your ABI
+                    and give you a form to interact with it locally
+                */}
 
-        <Switch>
-          <Route exact path="/">
-            {/*
-                🎛 this scaffolding is full of commonly used components
-                this <Contract/> component will automatically parse your ABI
-                and give you a form to interact with it locally
-            */}
-
-            <Contract
-              name="YourContract"
-              signer={userSigner}
-              provider={localProvider}
-              address={address}
-              blockExplorer={blockExplorer}
-              contractConfig={contractConfig}
-            />
-          </Route>
-          <Route path="/hints">
-            <Hints
-              address={address}
-              yourLocalBalance={yourLocalBalance}
-              mainnetProvider={mainnetProvider}
-              price={price}
-            />
-          </Route>
-          <Route path="/exampleui">
-            <ExampleUI
-              address={address}
-              userSigner={userSigner}
-              mainnetProvider={mainnetProvider}
-              localProvider={localProvider}
-              yourLocalBalance={yourLocalBalance}
-              price={price}
-              tx={tx}
-              writeContracts={writeContracts}
-              readContracts={readContracts}
-              purpose={purpose}
-              setPurposeEvents={setPurposeEvents}
-            />
-          </Route>
-          <Route path="/mainnetdai">
-            <Contract
-              name="DAI"
-              customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.DAI}
-              signer={userSigner}
-              provider={mainnetProvider}
-              address={address}
-              blockExplorer="https://etherscan.io/"
-              contractConfig={contractConfig}
-              chainId={1}
-            />
-            {/*
-            <Contract
-              name="UNI"
-              customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.UNI}
-              signer={userSigner}
-              provider={mainnetProvider}
-              address={address}
-              blockExplorer="https://etherscan.io/"
-            />
-            */}
-          </Route>
-          <Route path="/subgraph">
-            <Subgraph
-              subgraphUri={props.subgraphUri}
-              tx={tx}
-              writeContracts={writeContracts}
-              mainnetProvider={mainnetProvider}
-            />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+                <Contract
+                  name="CitizenFixedBond"
+                  signer={userSigner}
+                  provider={localProvider}
+                  address={address}
+                  blockExplorer={blockExplorer}
+                  contractConfig={contractConfig}
+                />
+                <Contract
+                  name="CitizenBondManager"
+                  signer={userSigner}
+                  provider={localProvider}
+                  address={address}
+                  blockExplorer={blockExplorer}
+                  contractConfig={contractConfig}
+                />
+                <Contract
+                  name="CitizenToken"
+                  signer={userSigner}
+                  provider={localProvider}
+                  address={address}
+                  blockExplorer={blockExplorer}
+                  contractConfig={contractConfig}
+                />
+              </Route>
+              <Route path="/initiatives/health">
+                <Health 
+                  address={address}
+                  userSigner={userSigner}
+                  mainnetProvider={mainnetProvider}
+                  localProvider={localProvider}
+                  yourLocalBalance={yourLocalBalance}
+                  price={price}
+                  tx={tx}
+                  writeContracts={writeContracts}
+                  readContracts={readContracts}
+                  purpose={purpose}
+                  setPurposeEvents={setPurposeEvents}
+                />
+              </Route>
+              <Route path="/initiatives/housing">
+                <Housing 
+                  address={address}
+                  userSigner={userSigner}
+                  mainnetProvider={mainnetProvider}
+                  localProvider={localProvider}
+                  yourLocalBalance={yourLocalBalance}
+                  price={price}
+                  tx={tx}
+                  writeContracts={writeContracts}
+                  readContracts={readContracts}
+                  purpose={purpose}
+                  setPurposeEvents={setPurposeEvents}
+                />
+              </Route>
+              <Route path="/initiatives">
+                <Initiatives />
+              </Route>
+              <Route path="/">
+                <Dashboard />
+              </Route>
+              <Route path="/bond">
+                <Bond 
+                  address={address}
+                  mainnetProvider={mainnetProvider}
+                  localProvider={localProvider}
+                  yourLocalBalance={yourLocalBalance}
+                  price={price}
+                  tx={tx}
+                  writeContracts={writeContracts}
+                  readContracts={readContracts}
+                  purpose={purpose}
+                  setPurposeEvents={setPurposeEvents}
+                />
+              </Route>
+            </Switch>
+            </div>
+          </Content>
+        </Layout>
+      </HashRouter>
 
       <ThemeSwitch />
 
@@ -591,7 +717,7 @@ function App(props) {
       </div>
 
       {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
-      <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
+      <div className="sider-offset" style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
         <Row align="middle" gutter={[4, 4]}>
           <Col span={8}>
             <Ramp price={price} address={address} networks={NETWORKS} />
@@ -629,6 +755,7 @@ function App(props) {
           </Col>
         </Row>
       </div>
+      </Layout>
     </div>
   );
 }

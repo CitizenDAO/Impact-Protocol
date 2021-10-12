@@ -52,6 +52,7 @@ artifacts
 # misc
 .DS_Store
 .env*
+.production.env
 
 # debug
 npm-debug.log*
@@ -64,3 +65,5 @@ yarn-error.log*
 .netlify
 *.tsbuildinfo
 *.stackdump
+
+bin/
