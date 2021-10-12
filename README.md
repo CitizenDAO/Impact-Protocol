@@ -45,20 +45,64 @@ Citizen DAO members will curate, refine, & decide on which projects get funding.
 
 ### Running Dev Environment
 
-Use the command
-```bash
-> ./cmd/launch dev -c
-```
-to run the compile and migrate contracts to a test network. In lieu of a sensible *nix environment, run the command through python
-```bash
-> python3 /cmd/launch
-```
-the following flags are available:
+Prerequisites: [Node](https://nodejs.org/en/download/) plus [Yarn](https://classic.yarnpkg.com/en/docs/install/) and [Git](https://git-scm.com/downloads)
 
-- -c - launch the truffle development console
-- -s - launch a shell environment
-- -b - rebuild the docker images
-- -h - help output
+> clone/fork 🏗 scaffold-eth:
+
+```bash
+git clone https://github.com/austintgriffith/scaffold-eth.git
+```
+
+> install and start your 👷‍ Hardhat chain:
+
+```bash
+cd scaffold-eth
+yarn install
+yarn chain
+```
+
+> in a second terminal window, start your 📱 frontend:
+
+```bash
+cd scaffold-eth
+yarn start
+```
+
+> in a third terminal window, 🛰 deploy your contract:
+
+```bash
+cd scaffold-eth
+yarn deploy
+```Prerequisites: [Node](https://nodejs.org/en/download/) plus [Yarn](https://classic.yarnpkg.com/en/docs/install/) and [Git](https://git-scm.com/downloads)
+
+> clone/fork 🏗 scaffold-eth:
+
+```bash
+git clone https://github.com/austintgriffith/scaffold-eth.git
+```
+
+> install and start your Hardhat chain:
+
+```bash
+cd scaffold-eth
+yarn install
+yarn chain
+```
+
+> in a second terminal window, start your frontend:
+
+```bash
+cd scaffold-eth
+yarn start
+```
+
+> in a third terminal window, deploy your contract:
+
+```bash
+cd scaffold-eth
+yarn deploy
+```
+
 
 ### Contributing
 
