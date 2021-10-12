@@ -84,3 +84,8 @@ On Discord:
 
 ### Dependencies
 We will make the dev environment Docker-based for consistency / ease-of-use, so requirements for use should be limited to:
+
+## Frontend Release Instructions
+- When frontend changes are ready, send a pull request and merge with `fe-skynet-deploy` branch.
+- This will use github actions and auto deploy to skynet.
+- Information: [Skynet Github Action](!https://docs.siasky.net/developer-guides/deploy-github-actions)
