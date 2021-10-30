@@ -7,7 +7,7 @@
 
 **Solution:** A new way to fund public advancement via Social Impact Bonds. SIBs are dynamic NFTs that fund projects both prospectively & retrospectively. 
 
-![Innovative Funding Models](https://ipfs.io/ipfs/QmNhWtsuoATNe5swFZVMGjgfDjrx7ZnbxUAoYy8wAtSSnK)
+![Innovative Funding Models](https://citizendao.com/wp-content/uploads/2021/10/Innovative-Funding-Models.jpg)
 
 ## Social Impact Bonds
 
@@ -23,13 +23,13 @@ We at Citizen DAO believe Social Impact Bonds can be much better than they are.
 
 ### Enter Web3
 
-![Social Impact Bonds](https://ipfs.io/ipfs/QmaDWJDM6L9ggydXd5nGzuVWrZWeVVDZUKf4rxAoAp7Pmn)
+![Social Impact Bonds](https://citizendao.com/wp-content/uploads/2021/10/Crypto-Philanthropy3.jpg)
 
 Our bonds are ERC-721 non-fungible tokens. Bonds are unique financial assets that fund projects in the following categories of health, housing, education, climate, finance, & governance.
 
 Citizen DAO members will curate, refine, & decide on which projects get funding. Each bond can be minted with any amount of ETH. Yield is in CDAO, which is the governance & utiliity token of Citizen DAO. 
 
-![Bond Revenue Flow](https://ipfs.io/ipfs/QmauZTKyVdmqKAizCNdMkJMh3qHo6pzsNop4C15Uam68bh)
+![Bond Revenue Flow](https://citizendao.com/wp-content/uploads/2021/10/Dynamic-NFTs-1.jpg)
 
 ## How it works
 
