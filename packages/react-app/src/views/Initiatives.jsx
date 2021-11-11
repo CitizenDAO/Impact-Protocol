@@ -147,7 +147,7 @@ export default class Initiatives extends React.Component {
       return (
       <div>
         <Row gutter={[20, 40]} justify="center">
-          <Col md={8}  xs={24}>
+          <Col lg={8} md={24}>
             <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Health</b></Title></Col>
@@ -173,7 +173,7 @@ export default class Initiatives extends React.Component {
             </Link>
             </Card>
           </Col>
-          <Col md={8} xs={24}>
+          <Col lg={8} md={24}>
             <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Housing</b></Title></Col>
@@ -199,7 +199,7 @@ export default class Initiatives extends React.Component {
               </Link>
             </Card>
           </Col>
-          <Col md={8} xs={24}>
+          <Col lg={8} md={24}>
             <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Education</b></Title></Col>
@@ -226,7 +226,7 @@ export default class Initiatives extends React.Component {
             </Card>
           </Col>
 
-          <Col md={8} xs={24}>
+          <Col lg={8} md={24}>
           <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Climate</b></Title></Col>
@@ -252,7 +252,7 @@ export default class Initiatives extends React.Component {
               </Link>
             </Card>
           </Col>
-          <Col md={8} xs={24}>
+          <Col lg={8} md={24}>
           <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Finance</b></Title></Col>
@@ -278,7 +278,7 @@ export default class Initiatives extends React.Component {
               </Link>
             </Card>
           </Col>
-          <Col md={8} xs={24}>
+          <Col lg={8} md={24}>
           <Card style={{ width: 'auto' }}>
               <Row>
                 <Col span={12}><Title level={4} style={{textAlign: 'left'}}><b>$Governance</b></Title></Col>

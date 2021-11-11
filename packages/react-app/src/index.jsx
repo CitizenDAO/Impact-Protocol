@@ -7,6 +7,7 @@ import configureStore from './configureStore';
 import App from "./App";
 import "./index.css";
 import { config } from "dotenv";
+import Modal from 'react-modal';
 
 const themes = {
   dark: `${process.env.PUBLIC_URL}/dark-theme.css`,
@@ -23,6 +24,8 @@ const client = new ApolloClient({
 });
 
 const store = configureStore();
+
+Modal.setAppElement("#root");
 
 ReactDOM.render(
   <ApolloProvider client={client}>

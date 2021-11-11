@@ -6,15 +6,7 @@ import Dashboard from './views/Dashboard';
 import Initiatives from './views/Initiatives';
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
-import { 
-  Alert, 
-  Button, 
-  Col, 
-  Menu, 
-  Row,
-  Layout,
-  Sider
-} from "antd";
+import { Alert, Button, Col, Menu, Row, Layout, Sider } from "antd";
 import "antd/dist/antd.css";
 import React, { useCallback, useEffect, useState } from "react";
 import { HashRouter, Link, Route, Switch } from "react-router-dom";
