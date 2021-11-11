@@ -93,9 +93,11 @@ export default function Dashboard({
                   hoverable
                   style={{ width: "auto" }}
                   cover={
-                    <img
-                      alt="example"
-                      src="https://lh3.googleusercontent.com/bVYrO8ESmiNfln5jB7kXZASmSSusEIa4eCWSO4zkEjRYrVIJ7tUPXRKzqsNGu2MIvIfIDfM-hMg9nZCWiBmorwGx=w600"
+                    <video
+                      controls
+                      loop
+                      alt="CitizenDAO Founder Citizenship NFT"
+                      src="https://bafybeidzgyqfbvl4k7xw2jcu7bwystio3h7ebjvoy3qhixkwz32lw3t2ti.ipfs.dweb.link/"
                     />
                   }
                 >
@@ -108,9 +110,11 @@ export default function Dashboard({
                   hoverable
                   style={{ width: "auto" }}
                   cover={
-                    <img
-                      alt="example"
-                      src="https://lh3.googleusercontent.com/bVYrO8ESmiNfln5jB7kXZASmSSusEIa4eCWSO4zkEjRYrVIJ7tUPXRKzqsNGu2MIvIfIDfM-hMg9nZCWiBmorwGx=w600" 
+                    <video
+                      controls
+                      loop
+                      alt="CitizenDAO Pioneer Citizenship NFT"
+                      src="https://bafybeidzgyqfbvl4k7xw2jcu7bwystio3h7ebjvoy3qhixkwz32lw3t2ti.ipfs.dweb.link/" 
                     />
                   }
                 >
