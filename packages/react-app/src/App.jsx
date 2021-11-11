@@ -1,29 +1,21 @@
-import WalletConnectProvider from "@walletconnect/web3-provider";
+import WalletConnectProvider from '@walletconnect/web3-provider';
 import Bond from './components/Bond';
 import Health from './views/Initiatives/Health';
 import Housing from './views/Initiatives/Housing';
 import Dashboard from './views/Dashboard';
 import Initiatives from './views/Initiatives';
 //import Torus from "@toruslabs/torus-embed"
-import WalletLink from "walletlink";
-import { 
-  Alert, 
-  Button, 
-  Col, 
-  Menu, 
-  Row,
-  Layout,
-  Sider
-} from "antd";
-import "antd/dist/antd.css";
-import React, { useCallback, useEffect, useState } from "react";
-import { HashRouter, Link, Route, Switch } from "react-router-dom";
-import Web3Modal from "web3modal";
-import "./App.css";
+import WalletLink from 'walletlink';
+import { Alert, Button, Col, Menu, Row, Layout, Slider } from 'antd';
+import 'antd/dist/antd.css';
+import React, { useCallback, useEffect, useState } from 'react';
+import { HashRouter, Link, Route, Switch } from 'react-router-dom';
+import Web3Modal from 'web3modal';
+import './App.css';
 import useLocalStorage from './hooks/LocalStorage';
-import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
-import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
-import { Transactor } from "./helpers";
+import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from './components';
+import { INFURA_ID, NETWORK, NETWORKS } from './constants';
+import { Transactor } from './helpers';
 import {
   useBalance,
   useContractLoader,
@@ -31,7 +23,7 @@ import {
   useGasPrice,
   useOnBlock,
   useUserProviderAndSigner,
-} from "eth-hooks";
+} from 'eth-hooks';
 import {
   DashboardOutlined,
   ExperimentOutlined,
@@ -46,15 +38,15 @@ import {
   ExportOutlined,
   BankOutlined,
 } from '@ant-design/icons';
-import { useEventListener } from "eth-hooks/events/useEventListener";
-import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
+import { useEventListener } from 'eth-hooks/events/useEventListener';
+import { useExchangeEthPrice } from 'eth-hooks/dapps/dex';
 
-import { useContractConfig } from "./hooks";
-import Portis from "@portis/web3";
-import Fortmatic from "fortmatic";
-import Authereum from "authereum";
+import { useContractConfig } from './hooks';
+import Portis from '@portis/web3';
+import Fortmatic from 'fortmatic';
+import Authereum from 'authereum';
 
-const { ethers } = require("ethers");
+const { ethers } = require('ethers');
 /*
     Welcome to 🏗 scaffold-eth !
 
@@ -82,22 +74,22 @@ const DEBUG = true;
 const NETWORKCHECK = true;
 
 // 🛰 providers
-if (DEBUG) console.log("📡 Connecting to Mainnet Ethereum");
+if (DEBUG) console.log('📡 Connecting to Mainnet Ethereum');
 // const mainnetProvider = getDefaultProvider("mainnet", { infura: INFURA_ID, etherscan: ETHERSCAN_KEY, quorum: 1 });
 // const mainnetProvider = new InfuraProvider("mainnet",INFURA_ID);
 //
 // attempt to connect to our own scaffold eth rpc and if that fails fall back to infura...
 // Using StaticJsonRpcProvider as the chainId won't change see https://github.com/ethers-io/ethers.js/issues/901
 const scaffoldEthProvider = navigator.onLine
-  ? new ethers.providers.StaticJsonRpcProvider("https://rpc.scaffoldeth.io:48544")
+  ? new ethers.providers.StaticJsonRpcProvider('https://rpc.scaffoldeth.io:48544')
   : null;
 const poktMainnetProvider = navigator.onLine
   ? new ethers.providers.StaticJsonRpcProvider(
-      "https://eth-mainnet.gateway.pokt.network/v1/lb/611156b4a585a20035148406",
+      'https://eth-mainnet.gateway.pokt.network/v1/lb/611156b4a585a20035148406',
     )
   : null;
 const mainnetInfura = navigator.onLine
-  ? new ethers.providers.StaticJsonRpcProvider("https://mainnet.infura.io/v3/" + INFURA_ID)
+  ? new ethers.providers.StaticJsonRpcProvider('https://mainnet.infura.io/v3/' + INFURA_ID)
   : null;
 // ( ⚠️ Getting "failed to meet quorum" errors? Check your INFURA_ID
 
@@ -105,7 +97,7 @@ const mainnetInfura = navigator.onLine
 const localProviderUrl = targetNetwork.rpcUrl;
 // as you deploy to other networks you can set REACT_APP_PROVIDER=https://dai.poa.network in packages/react-app/.env
 const localProviderUrlFromEnv = process.env.REACT_APP_PROVIDER ? process.env.REACT_APP_PROVIDER : localProviderUrl;
-if (DEBUG) console.log("🏠 Connecting to provider:", localProviderUrlFromEnv);
+if (DEBUG) console.log('🏠 Connecting to provider:', localProviderUrlFromEnv);
 const localProvider = new ethers.providers.StaticJsonRpcProvider(localProviderUrlFromEnv);
 
 // 🔭 block explorer URL
@@ -113,7 +105,7 @@ const blockExplorer = targetNetwork.blockExplorer;
 
 // Coinbase walletLink init
 const walletLink = new WalletLink({
-  appName: "coinbase",
+  appName: 'coinbase',
 });
 
 // WalletLink provider
@@ -124,37 +116,37 @@ const walletLinkProvider = walletLink.makeWeb3Provider(`https://mainnet.infura.i
   Web3 modal helps us "connect" external wallets:
 */
 const web3Modal = new Web3Modal({
-  network: "mainnet", // Optional. If using WalletConnect on xDai, change network to "xdai" and add RPC info below for xDai chain.
+  network: 'mainnet', // Optional. If using WalletConnect on xDai, change network to "xdai" and add RPC info below for xDai chain.
   cacheProvider: true, // optional
-  theme: "light", // optional. Change to "dark" for a dark theme.
+  theme: 'light', // optional. Change to "dark" for a dark theme.
   providerOptions: {
     walletconnect: {
       package: WalletConnectProvider, // required
       options: {
-        bridge: "https://polygon.bridge.walletconnect.org",
+        bridge: 'https://polygon.bridge.walletconnect.org',
         infuraId: INFURA_ID,
         rpc: {
           1: `https://mainnet.infura.io/v3/${INFURA_ID}`, // mainnet // For more WalletConnect providers: https://docs.walletconnect.org/quick-start/dapps/web3-provider#required
           42: `https://kovan.infura.io/v3/${INFURA_ID}`,
-          100: "https://dai.poa.network", // xDai
+          100: 'https://dai.poa.network', // xDai
         },
       },
     },
     portis: {
       display: {
-        logo: "https://user-images.githubusercontent.com/9419140/128913641-d025bc0c-e059-42de-a57b-422f196867ce.png",
-        name: "Portis",
-        description: "Connect to Portis App",
+        logo: 'https://user-images.githubusercontent.com/9419140/128913641-d025bc0c-e059-42de-a57b-422f196867ce.png',
+        name: 'Portis',
+        description: 'Connect to Portis App',
       },
       package: Portis,
       options: {
-        id: "6255fb2b-58c8-433b-a2c9-62098c05ddc9",
+        id: '6255fb2b-58c8-433b-a2c9-62098c05ddc9',
       },
     },
     fortmatic: {
       package: Fortmatic, // required
       options: {
-        key: "pk_live_5A7C91B2FC585A17", // required
+        key: 'pk_live_5A7C91B2FC585A17', // required
       },
     },
     // torus: {
@@ -170,11 +162,11 @@ const web3Modal = new Web3Modal({
     //     },
     //   },
     // },
-    "custom-walletlink": {
+    'custom-walletlink': {
       display: {
-        logo: "https://play-lh.googleusercontent.com/PjoJoG27miSglVBXoXrxBSLveV6e3EeBPpNY55aiUUBM9Q1RCETKCOqdOkX2ZydqVf0",
-        name: "Coinbase",
-        description: "Connect to Coinbase Wallet (not Coinbase App)",
+        logo: 'https://play-lh.googleusercontent.com/PjoJoG27miSglVBXoXrxBSLveV6e3EeBPpNY55aiUUBM9Q1RCETKCOqdOkX2ZydqVf0',
+        name: 'Coinbase',
+        description: 'Connect to Coinbase Wallet (not Coinbase App)',
       },
       package: walletLinkProvider,
       connector: async (provider, _options) => {
@@ -195,7 +187,7 @@ function App(props) {
       : scaffoldEthProvider && scaffoldEthProvider._network
       ? scaffoldEthProvider
       : mainnetInfura;
-  
+
   const { Content, Sider } = Layout;
 
   const [injectedProvider, setInjectedProvider] = useState();
@@ -203,7 +195,7 @@ function App(props) {
 
   const logoutOfWeb3Modal = async () => {
     await web3Modal.clearCachedProvider();
-    if (injectedProvider && injectedProvider.provider && typeof injectedProvider.provider.disconnect == "function") {
+    if (injectedProvider && injectedProvider.provider && typeof injectedProvider.provider.disconnect == 'function') {
       await injectedProvider.provider.disconnect();
     }
     setTimeout(() => {
@@ -215,7 +207,7 @@ function App(props) {
   const price = useExchangeEthPrice(targetNetwork, mainnetProvider);
 
   /* 🔥 This hook will get the price of Gas from ⛽️ EtherGasStation */
-  const gasPrice = useGasPrice(targetNetwork, "fast");
+  const gasPrice = useGasPrice(targetNetwork, 'fast');
   // Use your injected provider from 🦊 Metamask or if you don't have it then instantly generate a 🔥 burner wallet.
   const userProviderAndSigner = useUserProviderAndSigner(injectedProvider, localProvider);
   const userSigner = userProviderAndSigner.signer;
@@ -231,8 +223,8 @@ function App(props) {
   }, [userSigner]);
 
   useEffect(() => {
-    setCollapsed(!collapsed)
-  }, [])
+    setCollapsed(!collapsed);
+  }, []);
 
   // You can warn the user if you would like them to be on a specific network
   const localChainId = localProvider && localProvider._network && localProvider._network.chainId;
@@ -254,7 +246,6 @@ function App(props) {
   const [_address, setLocalAddress] = useLocalStorage('address', address);
   // setLocalAddress(address);
   // const yourLocalBalance = useLocalStorage('localBalance', _yourLocalBalance)
-
 
   // Just plug in different 🛰 providers to get your balance on different chains:
   const yourMainnetBalance = useBalance(mainnetProvider, address);
@@ -278,15 +269,15 @@ function App(props) {
   });
 
   // Then read your DAI balance like:
-  const myMainnetDAIBalance = useContractReader(mainnetContracts, "DAI", "balanceOf", [
-    "0x34aA3F359A9D614239015126635CE7732c18fDF3",
+  const myMainnetDAIBalance = useContractReader(mainnetContracts, 'DAI', 'balanceOf', [
+    '0x34aA3F359A9D614239015126635CE7732c18fDF3',
   ]);
 
   // keep track of a variable from the contract in the local React state:
-  const purpose = useContractReader(readContracts, "CitizenFixedBond", "purpose");
+  const purpose = useContractReader(readContracts, 'CitizenFixedBond', 'purpose');
 
   // 📟 Listen for broadcast events
-  const setPurposeEvents = useEventListener(readContracts, "CitizenFixedBond", "SetPurpose", localProvider, 1);
+  const setPurposeEvents = useEventListener(readContracts, 'CitizenFixedBond', 'SetPurpose', localProvider, 1);
 
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
@@ -308,17 +299,17 @@ function App(props) {
       writeContracts &&
       mainnetContracts
     ) {
-      console.log("_____________________________________ 🏗 scaffold-eth _____________________________________");
-      console.log("🌎 mainnetProvider", mainnetProvider);
-      console.log("🏠 localChainId", localChainId);
-      console.log("👩‍💼 selected address:", address);
-      console.log("🕵🏻‍♂️ selectedChainId:", selectedChainId);
-      console.log("💵 yourLocalBalance", yourLocalBalance ? ethers.utils.formatEther(yourLocalBalance) : "...");
-      console.log("💵 yourMainnetBalance", yourMainnetBalance ? ethers.utils.formatEther(yourMainnetBalance) : "...");
-      console.log("📝 readContracts", readContracts);
-      console.log("🌍 DAI contract on mainnet:", mainnetContracts);
-      console.log("💵 yourMainnetDAIBalance", myMainnetDAIBalance);
-      console.log("🔐 writeContracts", writeContracts);
+      console.log('_____________________________________ 🏗 scaffold-eth _____________________________________');
+      console.log('🌎 mainnetProvider', mainnetProvider);
+      console.log('🏠 localChainId', localChainId);
+      console.log('👩‍💼 selected address:', address);
+      console.log('🕵🏻‍♂️ selectedChainId:', selectedChainId);
+      console.log('💵 yourLocalBalance', yourLocalBalance ? ethers.utils.formatEther(yourLocalBalance) : '...');
+      console.log('💵 yourMainnetBalance', yourMainnetBalance ? ethers.utils.formatEther(yourMainnetBalance) : '...');
+      console.log('📝 readContracts', readContracts);
+      console.log('🌍 DAI contract on mainnet:', mainnetContracts);
+      console.log('💵 yourMainnetDAIBalance', myMainnetDAIBalance);
+      console.log('🔐 writeContracts', writeContracts);
     }
   }, [
     mainnetProvider,
@@ -331,13 +322,13 @@ function App(props) {
     mainnetContracts,
   ]);
 
-  let networkDisplay = "";
+  let networkDisplay = '';
   if (NETWORKCHECK && localChainId && selectedChainId && localChainId !== selectedChainId) {
     const networkSelected = NETWORK(selectedChainId);
     const networkLocal = NETWORK(localChainId);
     if (selectedChainId === 1337 && localChainId === 31337) {
       networkDisplay = (
-        <div style={{ zIndex: 2, position: "absolute", right: 0, top: 60, padding: 16 }}>
+        <div style={{ zIndex: 2, position: 'absolute', right: 0, top: 60, padding: 16 }}>
           <Alert
             message="⚠️ Wrong Network ID"
             description={
@@ -354,38 +345,38 @@ function App(props) {
       );
     } else {
       networkDisplay = (
-        <div style={{ zIndex: 2, position: "absolute", right: 0, top: 60, padding: 16 }}>
+        <div style={{ zIndex: 2, position: 'absolute', right: 0, top: 60, padding: 16 }}>
           <Alert
             message="⚠️ Wrong Network"
             description={
               <div>
-                You have <b>{networkSelected && networkSelected.name}</b> selected and you need to be on{" "}
+                You have <b>{networkSelected && networkSelected.name}</b> selected and you need to be on{' '}
                 <Button
                   onClick={async () => {
                     const ethereum = window.ethereum;
                     const data = [
                       {
-                        chainId: "0x" + targetNetwork.chainId.toString(16),
+                        chainId: '0x' + targetNetwork.chainId.toString(16),
                         chainName: targetNetwork.name,
                         nativeCurrency: targetNetwork.nativeCurrency,
                         rpcUrls: [targetNetwork.rpcUrl],
                         blockExplorerUrls: [targetNetwork.blockExplorer],
                       },
                     ];
-                    console.log("data", data);
+                    console.log('data', data);
 
                     let switchTx;
                     // https://docs.metamask.io/guide/rpc-api.html#other-rpc-methods
                     try {
                       switchTx = await ethereum.request({
-                        method: "wallet_switchEthereumChain",
+                        method: 'wallet_switchEthereumChain',
                         params: [{ chainId: data[0].chainId }],
                       });
                     } catch (switchError) {
                       // not checking specific error code, because maybe we're not using MetaMask
                       try {
                         switchTx = await ethereum.request({
-                          method: "wallet_addEthereumChain",
+                          method: 'wallet_addEthereumChain',
                           params: data,
                         });
                       } catch (addError) {
@@ -410,7 +401,7 @@ function App(props) {
     }
   } else {
     networkDisplay = (
-      <div style={{ zIndex: -1, position: "absolute", right: 154, top: 28, padding: 16, color: targetNetwork.color }}>
+      <div style={{ zIndex: -1, position: 'absolute', right: 154, top: 28, padding: 16, color: targetNetwork.color }}>
         {targetNetwork.name}
       </div>
     );
@@ -420,18 +411,18 @@ function App(props) {
     const provider = await web3Modal.connect();
     setInjectedProvider(new ethers.providers.Web3Provider(provider));
 
-    provider.on("chainChanged", chainId => {
+    provider.on('chainChanged', chainId => {
       console.log(`chain changed to ${chainId}! updating providers`);
       setInjectedProvider(new ethers.providers.Web3Provider(provider));
     });
 
-    provider.on("accountsChanged", () => {
+    provider.on('accountsChanged', () => {
       console.log(`account changed!`);
       setInjectedProvider(new ethers.providers.Web3Provider(provider));
     });
 
     // Subscribe to session disconnection
-    provider.on("disconnect", (code, reason) => {
+    provider.on('disconnect', (code, reason) => {
       console.log(code, reason);
       logoutOfWeb3Modal();
     });
@@ -448,11 +439,8 @@ function App(props) {
     setRoute(window.location.pathname);
   }, [setRoute]);
 
-  
-
-  let faucetHint = "";
-  const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf("local") !== -1;
-
+  let faucetHint = '';
+  const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf('local') !== -1;
 
   const [faucetClicked, setFaucetClicked] = useState(false);
   if (
@@ -470,7 +458,7 @@ function App(props) {
           onClick={() => {
             faucetTx({
               to: address,
-              value: ethers.utils.parseEther("1"),
+              value: ethers.utils.parseEther('1'),
             });
             setFaucetClicked(true);
           }}
@@ -486,275 +474,275 @@ function App(props) {
   return (
     <div className="App">
       <Layout style={{ minHeight: '100vh' }}>
-      <HashRouter>
-        <Sider 
-          collapsible 
-          collapsed={collapsed} 
-          onCollapse={setCollapsed}
-          style={{
-            overflow: 'auto',
-            height: '100vh',
-            position: 'fixed',
-            left: 0,
-            zIndex: '999',
-          }}>
-          <Menu selectedKeys={[route]} mode="inline" theme="dark">
-            <Menu.Item key="/contracts" icon={<FileTextOutlined />}>
-              <Link
-                onClick={() => {
-                  setRoute("/contracts");
-                }}
-                to="/contracts"
-              >
-                CitizenFixedBond
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="/" icon={<DashboardOutlined/>}>
-              <Link
-                onClick={() => {
-                  setRoute("/");
-                }}
-                to="/"
-              >
-                Dashboard
-              </Link>
-            </Menu.Item>
-            <Menu.SubMenu title="Initiatives" icon={<BulbOutlined />}>
-              <Menu.Item key="/initiatives/health" icon={<MedicineBoxOutlined />}>
+        <HashRouter>
+          <Sider
+            collapsible
+            collapsed={collapsed}
+            onCollapse={setCollapsed}
+            style={{
+              overflow: 'auto',
+              height: '100vh',
+              position: 'fixed',
+              left: 0,
+              zIndex: '999',
+            }}
+          >
+            <Menu selectedKeys={[route]} mode="inline" theme="dark">
+              <Menu.Item key="/contracts" icon={<FileTextOutlined />}>
                 <Link
                   onClick={() => {
-                    setRoute("/initiatives/health");
+                    setRoute('/contracts');
                   }}
-                  to="/initiatives/health"
+                  to="/contracts"
                 >
-                  Health
+                  CitizenFixedBond
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/initiatives/housing" icon={<HomeOutlined />}>
+              <Menu.Item key="/" icon={<DashboardOutlined />}>
                 <Link
                   onClick={() => {
-                    setRoute("/initiatives/housing");
+                    setRoute('/');
                   }}
-                  to="/initiatives/housing"
+                  to="/"
                 >
-                  Housing
+                  Dashboard
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/initiatives/education" icon={<BookOutlined />}>
+              <Menu.SubMenu title="Initiatives" icon={<BulbOutlined />}>
+                <Menu.Item key="/initiatives/health" icon={<MedicineBoxOutlined />}>
+                  <Link
+                    onClick={() => {
+                      setRoute('/initiatives/health');
+                    }}
+                    to="/initiatives/health"
+                  >
+                    Health
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="/initiatives/housing" icon={<HomeOutlined />}>
+                  <Link
+                    onClick={() => {
+                      setRoute('/initiatives/housing');
+                    }}
+                    to="/initiatives/housing"
+                  >
+                    Housing
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="/initiatives/education" icon={<BookOutlined />}>
+                  <Link
+                    onClick={() => {
+                      setRoute('/initiatives/education');
+                    }}
+                    to="/initiatives/education"
+                  >
+                    Education
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="/initiatives/Climate" icon={<GlobalOutlined />}>
+                  <Link
+                    onClick={() => {
+                      setRoute('/initiatives/Climate');
+                    }}
+                    to="/initiatives/Climate"
+                  >
+                    Climate
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="/initiatives/finance" icon={<BankOutlined />}>
+                  <Link
+                    onClick={() => {
+                      setRoute('/initiatives/finance');
+                    }}
+                    to="/initiatives/finance"
+                  >
+                    Finance
+                  </Link>
+                </Menu.Item>
+              </Menu.SubMenu>
+              <Menu.Item key="/bond" icon={<BankOutlined />}>
                 <Link
                   onClick={() => {
-                    setRoute("/initiatives/education");
+                    setRoute('/bond');
                   }}
-                  to="/initiatives/education"
+                  to="/bond"
                 >
-                  Education
+                  Bond
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/initiatives/Climate" icon={<GlobalOutlined />}>
-                <Link
-                  onClick={() => {
-                    setRoute("/initiatives/Climate");
-                  }}
-                  to="/initiatives/Climate"
-                >
-                  Climate
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="/initiatives/finance" icon={<BankOutlined />}>
-                <Link
-                  onClick={() => {
-                    setRoute("/initiatives/finance");
-                  }}
-                  to="/initiatives/finance"
-                >
-                  Finance
-                </Link>
-              </Menu.Item>
-            </Menu.SubMenu>
-            <Menu.Item key="/bond" icon={<BankOutlined />}>
-              <Link
-                onClick={() => {
-                  setRoute("/bond");
-                }}
-                to="/bond"
-              >
-                Bond
-              </Link>
-            </Menu.Item>
-            <Menu.SubMenu title="Community" icon={<TeamOutlined />}>
-              <Menu.Item key="discord">
-                <Link to="https://discord.gg/SVKqEmrnM4">
-                  Discord
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="snapshot">
-                <Link to="#">
-                  Snapshot
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="discource">
-                <Link to="https://ideas.citizendao.com">
-                  Discource
-                </Link>
-              </Menu.Item>
-            </Menu.SubMenu>
-          </Menu>
-        </Sider>
-        <Layout style={{
-          // marginLeft: collapsed ? '6rem' : '12rem',
-          // marginBottom: '6rem',
-          margin: '0px auto',
-        }}>
-          <Header />
-          {networkDisplay}
-          <Content style={{ padding: '1rem', maxWidth: '1256px', margin: "0px auto", width: '100%' }}>
-            <div className="sider-offset">
-            <Switch>
-              <Route exact path="/contracts">
-                {/*
+              <Menu.SubMenu title="Community" icon={<TeamOutlined />}>
+                <Menu.Item key="discord">
+                  <Link to="https://discord.gg/SVKqEmrnM4">Discord</Link>
+                </Menu.Item>
+                <Menu.Item key="snapshot">
+                  <Link to="#">Snapshot</Link>
+                </Menu.Item>
+                <Menu.Item key="discource">
+                  <Link to="https://ideas.citizendao.com">Discource</Link>
+                </Menu.Item>
+              </Menu.SubMenu>
+            </Menu>
+          </Sider>
+          <Layout
+            style={{
+              // marginLeft: collapsed ? '6rem' : '12rem',
+              // marginBottom: '6rem',
+              margin: '0px auto',
+            }}
+          >
+            <Header />
+            {networkDisplay}
+            <Content style={{ padding: '1rem', maxWidth: '1256px', margin: '0px auto', width: '100%' }}>
+              <div className="sider-offset">
+                <Switch>
+                  <Route exact path="/contracts">
+                    {/*
                     🎛 this scaffolding is full of commonly used components
                     this <Contract/> component will automatically parse your ABI
                     and give you a form to interact with it locally
                 */}
 
-                <Contract
-                  name="CitizenFixedBond"
-                  signer={userSigner}
-                  provider={localProvider}
-                  address={address}
-                  blockExplorer={blockExplorer}
-                  contractConfig={contractConfig}
-                />
-                <Contract
-                  name="CitizenBondManager"
-                  signer={userSigner}
-                  provider={localProvider}
-                  address={address}
-                  blockExplorer={blockExplorer}
-                  contractConfig={contractConfig}
-                />
-                <Contract
-                  name="CitizenToken"
-                  signer={userSigner}
-                  provider={localProvider}
-                  address={address}
-                  blockExplorer={blockExplorer}
-                  contractConfig={contractConfig}
-                />
-              </Route>
-              <Route path="/initiatives/health">
-                <Health 
-                  address={address}
-                  userSigner={userSigner}
-                  mainnetProvider={mainnetProvider}
-                  localProvider={localProvider}
-                  yourLocalBalance={yourLocalBalance}
-                  price={price}
-                  tx={tx}
-                  writeContracts={writeContracts}
-                  readContracts={readContracts}
-                  purpose={purpose}
-                  setPurposeEvents={setPurposeEvents}
-                />
-              </Route>
-              <Route path="/initiatives/housing">
-                <Housing 
-                  address={address}
-                  userSigner={userSigner}
-                  mainnetProvider={mainnetProvider}
-                  localProvider={localProvider}
-                  yourLocalBalance={yourLocalBalance}
-                  price={price}
-                  tx={tx}
-                  writeContracts={writeContracts}
-                  readContracts={readContracts}
-                  purpose={purpose}
-                  setPurposeEvents={setPurposeEvents}
-                />
-              </Route>
-              <Route path="/initiatives">
-                <Initiatives />
-              </Route>
-              <Route path="/">
-                <Dashboard />
-              </Route>
-              <Route path="/bond">
-                <Bond 
-                  address={address}
-                  mainnetProvider={mainnetProvider}
-                  localProvider={localProvider}
-                  yourLocalBalance={yourLocalBalance}
-                  price={price}
-                  tx={tx}
-                  writeContracts={writeContracts}
-                  readContracts={readContracts}
-                  purpose={purpose}
-                  setPurposeEvents={setPurposeEvents}
-                />
-              </Route>
-            </Switch>
-            </div>
-          </Content>
-        </Layout>
-      </HashRouter>
+                    <Contract
+                      name="CitizenFixedBond"
+                      signer={userSigner}
+                      provider={localProvider}
+                      address={address}
+                      blockExplorer={blockExplorer}
+                      contractConfig={contractConfig}
+                    />
+                    <Contract
+                      name="CitizenBondManager"
+                      signer={userSigner}
+                      provider={localProvider}
+                      address={address}
+                      blockExplorer={blockExplorer}
+                      contractConfig={contractConfig}
+                    />
+                    <Contract
+                      name="CitizenToken"
+                      signer={userSigner}
+                      provider={localProvider}
+                      address={address}
+                      blockExplorer={blockExplorer}
+                      contractConfig={contractConfig}
+                    />
+                  </Route>
+                  <Route path="/initiatives/health">
+                    <Health
+                      address={address}
+                      userSigner={userSigner}
+                      mainnetProvider={mainnetProvider}
+                      localProvider={localProvider}
+                      yourLocalBalance={yourLocalBalance}
+                      price={price}
+                      tx={tx}
+                      writeContracts={writeContracts}
+                      readContracts={readContracts}
+                      purpose={purpose}
+                      setPurposeEvents={setPurposeEvents}
+                    />
+                  </Route>
+                  <Route path="/initiatives/housing">
+                    <Housing
+                      address={address}
+                      userSigner={userSigner}
+                      mainnetProvider={mainnetProvider}
+                      localProvider={localProvider}
+                      yourLocalBalance={yourLocalBalance}
+                      price={price}
+                      tx={tx}
+                      writeContracts={writeContracts}
+                      readContracts={readContracts}
+                      purpose={purpose}
+                      setPurposeEvents={setPurposeEvents}
+                    />
+                  </Route>
+                  <Route path="/initiatives">
+                    <Initiatives />
+                  </Route>
+                  <Route path="/">
+                    <Dashboard />
+                  </Route>
+                  <Route path="/bond">
+                    <Bond
+                      address={address}
+                      mainnetProvider={mainnetProvider}
+                      localProvider={localProvider}
+                      yourLocalBalance={yourLocalBalance}
+                      price={price}
+                      tx={tx}
+                      writeContracts={writeContracts}
+                      readContracts={readContracts}
+                      purpose={purpose}
+                      setPurposeEvents={setPurposeEvents}
+                    />
+                  </Route>
+                </Switch>
+              </div>
+            </Content>
+          </Layout>
+        </HashRouter>
 
-      <ThemeSwitch />
+        <ThemeSwitch />
 
-      {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-      <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
-        <Account
-          address={address}
-          localProvider={localProvider}
-          userSigner={userSigner}
-          mainnetProvider={mainnetProvider}
-          price={price}
-          web3Modal={web3Modal}
-          loadWeb3Modal={loadWeb3Modal}
-          logoutOfWeb3Modal={logoutOfWeb3Modal}
-          blockExplorer={blockExplorer}
-        />
-        {faucetHint}
-      </div>
+        {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
+        <div style={{ position: 'fixed', textAlign: 'right', right: 0, top: 0, padding: 10 }}>
+          <Account
+            address={address}
+            localProvider={localProvider}
+            userSigner={userSigner}
+            mainnetProvider={mainnetProvider}
+            price={price}
+            web3Modal={web3Modal}
+            loadWeb3Modal={loadWeb3Modal}
+            logoutOfWeb3Modal={logoutOfWeb3Modal}
+            blockExplorer={blockExplorer}
+          />
+          {faucetHint}
+        </div>
 
-      {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
-      <div className="sider-offset" style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
-        <Row align="middle" gutter={[4, 4]}>
-          <Col span={8}>
-            <Ramp price={price} address={address} networks={NETWORKS} />
-          </Col>
+        {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
+        <div
+          className="sider-offset"
+          style={{ position: 'fixed', textAlign: 'left', left: 0, bottom: 20, padding: 10 }}
+        >
+          <Row align="middle" gutter={[4, 4]}>
+            <Col span={8}>
+              <Ramp price={price} address={address} networks={NETWORKS} />
+            </Col>
 
-          <Col span={8} style={{ textAlign: "center", opacity: 0.8 }}>
-            <GasGauge gasPrice={gasPrice} />
-          </Col>
-          <Col span={8} style={{ textAlign: "center", opacity: 1 }}>
-            <Button
-              onClick={() => {
-                window.open("https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA");
-              }}
-              size="large"
-              shape="round"
-            >
-              <span style={{ marginRight: 8 }} role="img" aria-label="support">
-                💬
-              </span>
-              Support
-            </Button>
-          </Col>
-        </Row>
+            <Col span={8} style={{ textAlign: 'center', opacity: 0.8 }}>
+              <GasGauge gasPrice={gasPrice} />
+            </Col>
+            <Col span={8} style={{ textAlign: 'center', opacity: 1 }}>
+              <Button
+                onClick={() => {
+                  window.open('https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA');
+                }}
+                size="large"
+                shape="round"
+              >
+                <span style={{ marginRight: 8 }} role="img" aria-label="support">
+                  💬
+                </span>
+                Support
+              </Button>
+            </Col>
+          </Row>
 
-        <Row align="middle" gutter={[4, 4]}>
-          <Col span={24}>
-            {
-              /*  if the local provider has a signer, let's show the faucet:  */
-              faucetAvailable ? (
-                <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
-              ) : (
-                ""
-              )
-            }
-          </Col>
-        </Row>
-      </div>
+          <Row align="middle" gutter={[4, 4]}>
+            <Col span={24}>
+              {
+                /*  if the local provider has a signer, let's show the faucet:  */
+                faucetAvailable ? (
+                  <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
+                ) : (
+                  ''
+                )
+              }
+            </Col>
+          </Row>
+        </div>
       </Layout>
     </div>
   );

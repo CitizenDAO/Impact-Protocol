@@ -1,5 +1,5 @@
+import { Layout, Typography } from 'antd';
 import Bond from '../../components/Bond';
-import { Layout, Typography } from 'antd'
 
 export default function Health({
   purpose,
@@ -13,13 +13,14 @@ export default function Health({
   readContracts,
   writeContracts,
 }) {
-
   const { Content } = Layout;
   const { Title } = Typography;
 
   return (
     <Content>
-      <Title level={2} style={{textAlign: 'left'}}>$Housing</Title>
+      <Title level={2} style={{ textAlign: 'left' }}>
+        $Housing
+      </Title>
       <Bond
         className="shadow"
         address={address}
@@ -35,5 +36,5 @@ export default function Health({
         sector="Housing"
       />
     </Content>
-  )
+  );
 }

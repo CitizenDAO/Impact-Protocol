@@ -2,7 +2,8 @@
   "arrowParens": "avoid",
   "bracketSpacing": true,
   "printWidth": 120,
-  "singleQuote": false,
+  "singleQuote": true,
+  "jsxSingleQuote": false,
   "tabWidth": 2,
   "trailingComma": "all"
 }
