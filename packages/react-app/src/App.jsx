@@ -1,21 +1,19 @@
+import {
+  BankOutlined,
+  BookOutlined,
+  BulbOutlined,
+  DashboardOutlined,
+  FileTextOutlined,
+  GlobalOutlined,
+  HomeOutlined,
+  MedicineBoxOutlined,
+  TeamOutlined,
+} from '@ant-design/icons';
+import Portis from '@portis/web3';
 import WalletConnectProvider from '@walletconnect/web3-provider';
-import Bond from './components/Bond';
-import Health from './views/Initiatives/Health';
-import Housing from './views/Initiatives/Housing';
-import Dashboard from './views/Dashboard';
-import Initiatives from './views/Initiatives';
-//import Torus from "@toruslabs/torus-embed"
-import WalletLink from 'walletlink';
-import { Alert, Button, Col, Menu, Row, Layout, Slider } from 'antd';
+import { Alert, Button, Col, Layout, Menu, Row } from 'antd';
 import 'antd/dist/antd.css';
-import React, { useCallback, useEffect, useState } from 'react';
-import { HashRouter, Link, Route, Switch } from 'react-router-dom';
-import Web3Modal from 'web3modal';
-import './App.css';
-import useLocalStorage from './hooks/LocalStorage';
-import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from './components';
-import { INFURA_ID, NETWORK, NETWORKS } from './constants';
-import { Transactor } from './helpers';
+import Authereum from 'authereum';
 import {
   useBalance,
   useContractLoader,
@@ -24,27 +22,25 @@ import {
   useOnBlock,
   useUserProviderAndSigner,
 } from 'eth-hooks';
-import {
-  DashboardOutlined,
-  ExperimentOutlined,
-  BulbOutlined,
-  FileTextOutlined,
-  MedicineBoxOutlined,
-  BookOutlined,
-  GlobalOutlined,
-  HomeOutlined,
-  TeamOutlined,
-  SwapOutlined,
-  ExportOutlined,
-  BankOutlined,
-} from '@ant-design/icons';
-import { useEventListener } from 'eth-hooks/events/useEventListener';
 import { useExchangeEthPrice } from 'eth-hooks/dapps/dex';
-
-import { useContractConfig } from './hooks';
-import Portis from '@portis/web3';
+import { useEventListener } from 'eth-hooks/events/useEventListener';
 import Fortmatic from 'fortmatic';
-import Authereum from 'authereum';
+import React, { useCallback, useEffect, useState } from 'react';
+import { HashRouter, Link, Route, Switch } from 'react-router-dom';
+//import Torus from "@toruslabs/torus-embed"
+import WalletLink from 'walletlink';
+import Web3Modal from 'web3modal';
+import './App.css';
+import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from './components';
+import Bond from './components/Bond';
+import { INFURA_ID, NETWORK, NETWORKS } from './constants';
+import { Transactor } from './helpers';
+import { useContractConfig } from './hooks';
+import useLocalStorage from './hooks/LocalStorage';
+import Dashboard from './views/Dashboard';
+import Initiatives from './views/Initiatives';
+import Health from './views/Initiatives/Health';
+import Housing from './views/Initiatives/Housing';
 
 const { ethers } = require('ethers');
 /*
