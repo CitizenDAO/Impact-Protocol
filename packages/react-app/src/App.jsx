@@ -1,9 +1,10 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import Bond from './components/Bond';
-import Health from './views/Initiatives/Health';
-import Housing from './views/Initiatives/Housing';
-import Dashboard from './views/Dashboard';
-import Initiatives from './views/Initiatives';
+import Bond from "./components/Bond";
+import Health from "./views/Initiatives/Health";
+import Housing from "./views/Initiatives/Housing";
+import Dashboard from "./views/Dashboard";
+import Initiatives from "./views/Initiatives";
+import Citizenship from "./views/Citizenship";
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
 import { Alert, Button, Col, Menu, Row, Layout, Sider } from "antd";
@@ -12,7 +13,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { HashRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
 import "./App.css";
-import useLocalStorage from './hooks/LocalStorage';
+import useLocalStorage from "./hooks/LocalStorage";
 import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
 import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
 import { Transactor } from "./helpers";
@@ -37,7 +38,7 @@ import {
   SwapOutlined,
   ExportOutlined,
   BankOutlined,
-} from '@ant-design/icons';
+} from "@ant-design/icons";
 import { useEventListener } from "eth-hooks/events/useEventListener";
 import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
 
@@ -634,7 +635,7 @@ function App(props) {
                   contractConfig={contractConfig}
                 />
               </Route>
-              <Route path="/initiatives/health">
+              <Route exact path="/initiatives/health">
                 <Health 
                   address={address}
                   userSigner={userSigner}
@@ -649,7 +650,7 @@ function App(props) {
                   setPurposeEvents={setPurposeEvents}
                 />
               </Route>
-              <Route path="/initiatives/housing">
+              <Route exact path="/initiatives/housing">
                 <Housing 
                   address={address}
                   userSigner={userSigner}
@@ -664,13 +665,13 @@ function App(props) {
                   setPurposeEvents={setPurposeEvents}
                 />
               </Route>
-              <Route path="/initiatives">
+              <Route exact path="/initiatives">
                 <Initiatives />
               </Route>
-              <Route path="/">
+              <Route exact path="/">
                 <Dashboard />
               </Route>
-              <Route path="/bond">
+              <Route exact path="/bond">
                 <Bond 
                   address={address}
                   mainnetProvider={mainnetProvider}
@@ -682,6 +683,19 @@ function App(props) {
                   readContracts={readContracts}
                   purpose={purpose}
                   setPurposeEvents={setPurposeEvents}
+                />
+              </Route>
+              {/* <Route path="/citizenship/founder">
+                <Citizenship 
+                  title="Founder" 
+                  description="The Founder series Citizenship NFT Grants access to the CitizenDAO discord server and is claimable by early participants and contributors." 
+                />
+              </Route> */}
+              <Route exact path="/citizenship/pioneer">
+                <Citizenship
+                  title="Pioneer"
+                  description="The Pioneer series Citizenship NFT grants access to the CitizenDAO discord server."
+                  nfturi="https://bafybeidzgyqfbvl4k7xw2jcu7bwystio3h7ebjvoy3qhixkwz32lw3t2ti.ipfs.dweb.link/"
                 />
               </Route>
             </Switch>
