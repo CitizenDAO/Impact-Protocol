@@ -5,6 +5,7 @@ import Housing from "./views/Initiatives/Housing";
 import Dashboard from "./views/Dashboard";
 import Initiatives from "./views/Initiatives";
 import Citizenship from "./views/Citizenship";
+import InitiativesView from "./views/Initiatives/InitiativesView";
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
 import { Alert, Button, Col, Menu, Row, Layout, Sider } from "antd";
@@ -632,6 +633,9 @@ function App(props) {
                   blockExplorer={blockExplorer}
                   contractConfig={contractConfig}
                 />
+              </Route>
+              <Route path="/initiatives/:initiative">
+                <InitiativesView/>
               </Route>
               <Route exact path="/initiatives/health">
                 <Health 
