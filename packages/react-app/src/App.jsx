@@ -512,58 +512,56 @@ function App(props) {
                 Dashboard
               </Link>
             </Menu.Item>
-            <Menu.SubMenu title="Initiatives" icon={<BulbOutlined />}>
-              <Menu.Item key="/initiatives/health" icon={<MedicineBoxOutlined />}>
-                <Link
-                  onClick={() => {
-                    setRoute("/initiatives/health");
-                  }}
-                  to="/initiatives/health"
-                >
-                  Health
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="/initiatives/housing" icon={<HomeOutlined />}>
-                <Link
-                  onClick={() => {
-                    setRoute("/initiatives/housing");
-                  }}
-                  to="/initiatives/housing"
-                >
-                  Housing
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="/initiatives/education" icon={<BookOutlined />}>
-                <Link
-                  onClick={() => {
-                    setRoute("/initiatives/education");
-                  }}
-                  to="/initiatives/education"
-                >
-                  Education
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="/initiatives/Climate" icon={<GlobalOutlined />}>
-                <Link
-                  onClick={() => {
-                    setRoute("/initiatives/Climate");
-                  }}
-                  to="/initiatives/Climate"
-                >
-                  Climate
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="/initiatives/finance" icon={<BankOutlined />}>
-                <Link
-                  onClick={() => {
-                    setRoute("/initiatives/finance");
-                  }}
-                  to="/initiatives/finance"
-                >
-                  Finance
-                </Link>
-              </Menu.Item>
-            </Menu.SubMenu>
+            <Menu.Item key="/initiatives/health" icon={<MedicineBoxOutlined />}>
+              <Link
+                onClick={() => {
+                  setRoute("/initiatives/health");
+                }}
+                to="/initiatives/health"
+              >
+                Health
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="/initiatives/housing" icon={<HomeOutlined />}>
+              <Link
+                onClick={() => {
+                  setRoute("/initiatives/housing");
+                }}
+                to="/initiatives/housing"
+              >
+                Housing
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="/initiatives/education" icon={<BookOutlined />}>
+              <Link
+                onClick={() => {
+                  setRoute("/initiatives/education");
+                }}
+                to="/initiatives/education"
+              >
+                Education
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="/initiatives/Climate" icon={<GlobalOutlined />}>
+              <Link
+                onClick={() => {
+                  setRoute("/initiatives/Climate");
+                }}
+                to="/initiatives/Climate"
+              >
+                Climate
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="/initiatives/finance" icon={<BankOutlined />}>
+              <Link
+                onClick={() => {
+                  setRoute("/initiatives/finance");
+                }}
+                to="/initiatives/finance"
+              >
+                Finance
+              </Link>
+            </Menu.Item>
             <Menu.Item key="/bond" icon={<BankOutlined />}>
               <Link
                 onClick={() => {
