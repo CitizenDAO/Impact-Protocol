@@ -1,6 +1,7 @@
 import { Button, Card, Col, Image, Row, Skeleton, Typography } from 'antd';
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 import Initiatives from './Initiatives';
 
 export default function Dashboard({
@@ -17,9 +18,14 @@ export default function Dashboard({
 }) {
   const [newPurpose, setNewPurpose] = useState('loading...');
   const [showModal, setShowModal] = useState(false);
+  const [modalSrc, setModalSrc] = useState('');
 
   function toggleModal() {
     setShowModal(!showModal);
+  }
+
+  function changeModalSrc(src) {
+    setModalSrc(src);
   }
 
   const { Title } = Typography;
@@ -66,7 +72,7 @@ export default function Dashboard({
               <b>Become a Citizen</b>
             </Title>
             <p style={{ textAlign: 'left' }}>Gain access to the CitizenDAO community</p>
-            <Row gutter={16}>
+            <Row gutter={[16, 16]}>
               <Col lg={12} md={24}>
                 <Card
                   title="Founder"
@@ -81,44 +87,48 @@ export default function Dashboard({
                     />
                   }
                 >
-                  <Button onClick={toggleModal}>Claim</Button>
+                  <Button size="large" onClick={toggleModal}>
+                    Claim
+                  </Button>
                 </Card>
               </Col>
               <Col lg={12} md={24}>
-                <Card
-                  title="Pioneer"
-                  hoverable
-                  style={{ width: 'auto' }}
-                  cover={
-                    <video
-                      controls
-                      loop
-                      alt="CitizenDAO Pioneer Citizenship NFT"
-                      src="https://bafybeidzgyqfbvl4k7xw2jcu7bwystio3h7ebjvoy3qhixkwz32lw3t2ti.ipfs.dweb.link/"
-                    />
-                  }
-                >
-                  <Button onClick={toggleModal}>Join</Button>
-                </Card>
+                <Link to="/citizenship/pioneer" replace>
+                  <Card
+                    title="Pioneer"
+                    hoverable
+                    style={{ width: 'auto' }}
+                    cover={
+                      <video
+                        controls
+                        loop
+                        alt="CitizenDAO Pioneer Citizenship NFT"
+                        src="https://bafybeidzgyqfbvl4k7xw2jcu7bwystio3h7ebjvoy3qhixkwz32lw3t2ti.ipfs.dweb.link/"
+                      />
+                    }
+                  >
+                    <Button
+                      size="large"
+                      onClick={() => {
+                        // toggleModal();
+                        // changeModalSrc("https://bafybeidzgyqfbvl4k7xw2jcu7bwystio3h7ebjvoy3qhixkwz32lw3t2ti.ipfs.dweb.link/");
+                      }}
+                    >
+                      Join
+                    </Button>
+                  </Card>
+                </Link>
               </Col>
             </Row>
           </Card>
         </Col>
       </Row>
 
-      <Modal isOpen={showModal} onRequestClose={toggleModal}>
-        <button onClick={toggleModal}>close</button>
+      <Modal isOpen={showModal} onRequestClose={toggleModal} style={{}}>
+        <Button onClick={toggleModal}>close</Button>
         <Row justify="center">
           <Col>
-            <Card
-              title="Pioneer Citizenship NFT"
-              cover={
-                <img
-                  alt="example"
-                  src="https://lh3.googleusercontent.com/bVYrO8ESmiNfln5jB7kXZASmSSusEIa4eCWSO4zkEjRYrVIJ7tUPXRKzqsNGu2MIvIfIDfM-hMg9nZCWiBmorwGx=w600"
-                />
-              }
-            >
+            <Card title="Pioneer Citizenship NFT" cover={<video controls loop alt="example" src={modalSrc} />}>
               <Title level="4">Pioneer Series Citizenship NFT</Title>
               <p>Price: </p>
               <p>Supply: </p>

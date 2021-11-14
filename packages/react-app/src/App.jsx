@@ -1,7 +1,6 @@
 import {
   BankOutlined,
   BookOutlined,
-  BulbOutlined,
   DashboardOutlined,
   FileTextOutlined,
   GlobalOutlined,
@@ -37,6 +36,7 @@ import { INFURA_ID, NETWORK, NETWORKS } from './constants';
 import { Transactor } from './helpers';
 import { useContractConfig } from './hooks';
 import useLocalStorage from './hooks/LocalStorage';
+import Citizenship from './views/Citizenship';
 import Dashboard from './views/Dashboard';
 import Initiatives from './views/Initiatives';
 import Health from './views/Initiatives/Health';
@@ -504,58 +504,56 @@ function App(props) {
                   Dashboard
                 </Link>
               </Menu.Item>
-              <Menu.SubMenu title="Initiatives" icon={<BulbOutlined />}>
-                <Menu.Item key="/initiatives/health" icon={<MedicineBoxOutlined />}>
-                  <Link
-                    onClick={() => {
-                      setRoute('/initiatives/health');
-                    }}
-                    to="/initiatives/health"
-                  >
-                    Health
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key="/initiatives/housing" icon={<HomeOutlined />}>
-                  <Link
-                    onClick={() => {
-                      setRoute('/initiatives/housing');
-                    }}
-                    to="/initiatives/housing"
-                  >
-                    Housing
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key="/initiatives/education" icon={<BookOutlined />}>
-                  <Link
-                    onClick={() => {
-                      setRoute('/initiatives/education');
-                    }}
-                    to="/initiatives/education"
-                  >
-                    Education
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key="/initiatives/Climate" icon={<GlobalOutlined />}>
-                  <Link
-                    onClick={() => {
-                      setRoute('/initiatives/Climate');
-                    }}
-                    to="/initiatives/Climate"
-                  >
-                    Climate
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key="/initiatives/finance" icon={<BankOutlined />}>
-                  <Link
-                    onClick={() => {
-                      setRoute('/initiatives/finance');
-                    }}
-                    to="/initiatives/finance"
-                  >
-                    Finance
-                  </Link>
-                </Menu.Item>
-              </Menu.SubMenu>
+              <Menu.Item key="/initiatives/health" icon={<MedicineBoxOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute('/initiatives/health');
+                  }}
+                  to="/initiatives/health"
+                >
+                  Health
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/initiatives/housing" icon={<HomeOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute('/initiatives/housing');
+                  }}
+                  to="/initiatives/housing"
+                >
+                  Housing
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/initiatives/education" icon={<BookOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute('/initiatives/education');
+                  }}
+                  to="/initiatives/education"
+                >
+                  Education
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/initiatives/Climate" icon={<GlobalOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute('/initiatives/Climate');
+                  }}
+                  to="/initiatives/Climate"
+                >
+                  Climate
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/initiatives/finance" icon={<BankOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute('/initiatives/finance');
+                  }}
+                  to="/initiatives/finance"
+                >
+                  Finance
+                </Link>
+              </Menu.Item>
               <Menu.Item key="/bond" icon={<BankOutlined />}>
                 <Link
                   onClick={() => {
@@ -623,7 +621,7 @@ function App(props) {
                       contractConfig={contractConfig}
                     />
                   </Route>
-                  <Route path="/initiatives/health">
+                  <Route exact path="/initiatives/health">
                     <Health
                       address={address}
                       userSigner={userSigner}
@@ -638,7 +636,7 @@ function App(props) {
                       setPurposeEvents={setPurposeEvents}
                     />
                   </Route>
-                  <Route path="/initiatives/housing">
+                  <Route exact path="/initiatives/housing">
                     <Housing
                       address={address}
                       userSigner={userSigner}
@@ -653,13 +651,13 @@ function App(props) {
                       setPurposeEvents={setPurposeEvents}
                     />
                   </Route>
-                  <Route path="/initiatives">
+                  <Route exact path="/initiatives">
                     <Initiatives />
                   </Route>
-                  <Route path="/">
+                  <Route exact path="/">
                     <Dashboard />
                   </Route>
-                  <Route path="/bond">
+                  <Route exact path="/bond">
                     <Bond
                       address={address}
                       mainnetProvider={mainnetProvider}
@@ -671,6 +669,19 @@ function App(props) {
                       readContracts={readContracts}
                       purpose={purpose}
                       setPurposeEvents={setPurposeEvents}
+                    />
+                  </Route>
+                  {/* <Route path="/citizenship/founder">
+                <Citizenship 
+                  title="Founder" 
+                  description="The Founder series Citizenship NFT Grants access to the CitizenDAO discord server and is claimable by early participants and contributors." 
+                />
+              </Route> */}
+                  <Route exact path="/citizenship/pioneer">
+                    <Citizenship
+                      title="Pioneer"
+                      description="The Pioneer series Citizenship NFT grants access to the CitizenDAO discord server."
+                      nfturi="https://bafybeidzgyqfbvl4k7xw2jcu7bwystio3h7ebjvoy3qhixkwz32lw3t2ti.ipfs.dweb.link/"
                     />
                   </Route>
                 </Switch>

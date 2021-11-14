@@ -1,5 +1,5 @@
 import Bond from '../../components/Bond';
-import { Layout, Typography } from 'antd'
+import { Layout, Typography, Row, Col } from 'antd'
 
 export default function Health({
   purpose,
@@ -19,6 +19,10 @@ export default function Health({
 
   return (
     <Content>
+      <Row>
+        <Col lg={8}>hello</Col>
+        <Col lg={16}>world</Col>
+      </Row>
       <Title level={2} style={{textAlign: 'left'}}>$Health</Title>
       <Bond
         className="shadow"
