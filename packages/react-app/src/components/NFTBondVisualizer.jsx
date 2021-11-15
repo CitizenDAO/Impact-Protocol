@@ -1,4 +1,4 @@
-export default function NFTBondVisualizer({ sector, bondMaturity, totalCDAO, APY, maturationDate }) {
+export default function NFTBondVisualizer({ sector, bondMaturity, totalCDAO, APY, maturationDate, mintDate }) {
   const textX = "100";
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400 " class="bond-bg-blue">
@@ -8,7 +8,7 @@ export default function NFTBondVisualizer({ sector, bondMaturity, totalCDAO, APY
       <text x="305" y="380" class="light tright">@CitizenDAO</text>
 
       <text x={textX} y="140" class="heavy">${sector} Bond #169</text>
-      <text x={textX} y="160" class="heavy">Minted 11.22.2021</text>
+      <text x={textX} y="160" class="heavy">Minted {mintDate}</text>
 
       <text x={textX} y="200" class="heavy">{bondMaturity} Days @ {APY} APY</text>
       <text x={textX} y="220" class="heavy">Compounding Daily</text>

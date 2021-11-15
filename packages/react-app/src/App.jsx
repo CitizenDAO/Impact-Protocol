@@ -190,7 +190,7 @@ function App(props) {
       : scaffoldEthProvider && scaffoldEthProvider._network
       ? scaffoldEthProvider
       : mainnetInfura;
-  
+
   const { Content, Sider } = Layout;
 
   const [injectedProvider, setInjectedProvider] = useState();
@@ -226,8 +226,8 @@ function App(props) {
   }, [userSigner]);
 
   useEffect(() => {
-    setCollapsed(!collapsed)
-  }, [])
+    setCollapsed(!collapsed);
+  }, []);
 
   // You can warn the user if you would like them to be on a specific network
   const localChainId = localProvider && localProvider._network && localProvider._network.chainId;
@@ -246,10 +246,9 @@ function App(props) {
   const yourLocalBalance = useBalance(localProvider, address);
   // const [_localProvider, setLocalProvider] = useLocalStorage('localProvider', localProvider);
   // setLocalProvider(localProvider);
-  const [_address, setLocalAddress] = useLocalStorage('address', address);
+  const [_address, setLocalAddress] = useLocalStorage("address", address);
   // setLocalAddress(address);
   // const yourLocalBalance = useLocalStorage('localBalance', _yourLocalBalance)
-
 
   // Just plug in different 🛰 providers to get your balance on different chains:
   const yourMainnetBalance = useBalance(mainnetProvider, address);
@@ -443,11 +442,8 @@ function App(props) {
     setRoute(window.location.pathname);
   }, [setRoute]);
 
-  
-
   let faucetHint = "";
   const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf("local") !== -1;
-
 
   const [faucetClicked, setFaucetClicked] = useState(false);
   if (
@@ -480,292 +476,295 @@ function App(props) {
 
   return (
     <div className="App">
-      <Layout style={{ minHeight: '100vh' }}>
-      <HashRouter>
-        <Sider 
-          collapsible 
-          collapsed={collapsed} 
-          onCollapse={setCollapsed}
-          style={{
-            overflow: 'auto',
-            height: '100vh',
-            position: 'fixed',
-            left: 0,
-            zIndex: '999',
-          }}>
-          <Menu selectedKeys={[route]} mode="inline" theme="dark">
-            <Menu.Item key="/contracts" icon={<FileTextOutlined />}>
-              <Link
-                onClick={() => {
-                  setRoute("/contracts");
-                }}
-                to="/contracts"
-              >
-                CitizenFixedBond
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="/" icon={<DashboardOutlined/>}>
-              <Link
-                onClick={() => {
-                  setRoute("/");
-                }}
-                to="/"
-              >
-                Dashboard
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="/initiatives/health" icon={<MedicineBoxOutlined />}>
-              <Link
-                onClick={() => {
-                  setRoute("/initiatives/health");
-                }}
-                to="/initiatives/health"
-              >
-                Health
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="/initiatives/housing" icon={<HomeOutlined />}>
-              <Link
-                onClick={() => {
-                  setRoute("/initiatives/housing");
-                }}
-                to="/initiatives/housing"
-              >
-                Housing
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="/initiatives/education" icon={<BookOutlined />}>
-              <Link
-                onClick={() => {
-                  setRoute("/initiatives/education");
-                }}
-                to="/initiatives/education"
-              >
-                Education
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="/initiatives/Climate" icon={<GlobalOutlined />}>
-              <Link
-                onClick={() => {
-                  setRoute("/initiatives/Climate");
-                }}
-                to="/initiatives/Climate"
-              >
-                Climate
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="/initiatives/finance" icon={<BankOutlined />}>
-              <Link
-                onClick={() => {
-                  setRoute("/initiatives/finance");
-                }}
-                to="/initiatives/finance"
-              >
-                Finance
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="/bond" icon={<BankOutlined />}>
-              <Link
-                onClick={() => {
-                  setRoute("/bond");
-                }}
-                to="/bond"
-              >
-                Bond
-              </Link>
-            </Menu.Item>
-            <Menu.SubMenu title="Community" icon={<TeamOutlined />}>
-              <Menu.Item key="discord">
-                <Link to="https://discord.gg/SVKqEmrnM4">
-                  Discord
+      <Layout style={{ minHeight: "100vh" }}>
+        <HashRouter>
+          <Sider
+            collapsible
+            collapsed={collapsed}
+            onCollapse={setCollapsed}
+            style={{
+              overflow: "auto",
+              height: "100vh",
+              position: "fixed",
+              left: 0,
+              zIndex: "999",
+            }}
+          >
+            <Menu selectedKeys={[route]} mode="inline" theme="dark">
+              <Menu.Item key="/contracts" icon={<FileTextOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/contracts");
+                  }}
+                  to="/contracts"
+                >
+                  CitizenFixedBond
                 </Link>
               </Menu.Item>
-              <Menu.Item key="snapshot">
-                <Link to="#">
-                  Snapshot
+              <Menu.Item key="/" icon={<DashboardOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/");
+                  }}
+                  to="/"
+                >
+                  Dashboard
                 </Link>
               </Menu.Item>
-              <Menu.Item key="discource">
-                <Link to="https://ideas.citizendao.com">
-                  Discource
+              <Menu.Item key="/initiatives/health" icon={<MedicineBoxOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/initiatives/health");
+                  }}
+                  to="/initiatives/health"
+                >
+                  Health
                 </Link>
               </Menu.Item>
-            </Menu.SubMenu>
-          </Menu>
-        </Sider>
-        <Layout style={{
-          // marginLeft: collapsed ? '6rem' : '12rem',
-          // marginBottom: '6rem',
-          margin: '0px auto',
-        }}>
-          <Header />
-          {networkDisplay}
-          <Content style={{ padding: '1rem', maxWidth: '1256px', margin: "0px auto", width: '100%' }}>
-            <div className="sider-offset">
-            <Switch>
-              <Route exact path="/contracts">
-                {/*
+              <Menu.Item key="/initiatives/housing" icon={<HomeOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/initiatives/housing");
+                  }}
+                  to="/initiatives/housing"
+                >
+                  Housing
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/initiatives/education" icon={<BookOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/initiatives/education");
+                  }}
+                  to="/initiatives/education"
+                >
+                  Education
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/initiatives/Climate" icon={<GlobalOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/initiatives/Climate");
+                  }}
+                  to="/initiatives/Climate"
+                >
+                  Climate
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/initiatives/finance" icon={<BankOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/initiatives/finance");
+                  }}
+                  to="/initiatives/finance"
+                >
+                  Finance
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/bond" icon={<BankOutlined />}>
+                <Link
+                  onClick={() => {
+                    setRoute("/bond");
+                  }}
+                  to="/bond"
+                >
+                  Bond
+                </Link>
+              </Menu.Item>
+              <Menu.SubMenu title="Community" icon={<TeamOutlined />}>
+                <Menu.Item key="discord">
+                  <Link to="https://discord.gg/SVKqEmrnM4">Discord</Link>
+                </Menu.Item>
+                <Menu.Item key="snapshot">
+                  <Link to="#">Snapshot</Link>
+                </Menu.Item>
+                <Menu.Item key="discource">
+                  <Link to="https://ideas.citizendao.com">Discource</Link>
+                </Menu.Item>
+              </Menu.SubMenu>
+            </Menu>
+          </Sider>
+          <Layout
+            style={{
+              // marginLeft: collapsed ? '6rem' : '12rem',
+              // marginBottom: '6rem',
+              margin: "0px auto",
+            }}
+          >
+            <Header />
+            {networkDisplay}
+            <Content style={{ padding: "1rem", maxWidth: "1256px", margin: "0px auto", width: "100%" }}>
+              <div className="sider-offset">
+                <Switch>
+                  <Route exact path="/contracts">
+                    {/*
                     🎛 this scaffolding is full of commonly used components
                     this <Contract/> component will automatically parse your ABI
                     and give you a form to interact with it locally
                 */}
 
-                <Contract
-                  name="CitizenFixedBond"
-                  signer={userSigner}
-                  provider={localProvider}
-                  address={address}
-                  blockExplorer={blockExplorer}
-                  contractConfig={contractConfig}
-                />
-                <Contract
-                  name="CitizenBondManager"
-                  signer={userSigner}
-                  provider={localProvider}
-                  address={address}
-                  blockExplorer={blockExplorer}
-                  contractConfig={contractConfig}
-                />
-                <Contract
-                  name="CitizenToken"
-                  signer={userSigner}
-                  provider={localProvider}
-                  address={address}
-                  blockExplorer={blockExplorer}
-                  contractConfig={contractConfig}
-                />
-              </Route>
-              <Route path="/initiatives/:initiative">
-                <GlobalProvider>
-                  <InitiativesView/>
-                </GlobalProvider>
-              </Route>
-              <Route exact path="/initiatives/health">
-                <Health 
-                  address={address}
-                  userSigner={userSigner}
-                  mainnetProvider={mainnetProvider}
-                  localProvider={localProvider}
-                  yourLocalBalance={yourLocalBalance}
-                  price={price}
-                  tx={tx}
-                  writeContracts={writeContracts}
-                  readContracts={readContracts}
-                  purpose={purpose}
-                  setPurposeEvents={setPurposeEvents}
-                />
-              </Route>
-              <Route exact path="/initiatives/housing">
-                <Housing 
-                  address={address}
-                  userSigner={userSigner}
-                  mainnetProvider={mainnetProvider}
-                  localProvider={localProvider}
-                  yourLocalBalance={yourLocalBalance}
-                  price={price}
-                  tx={tx}
-                  writeContracts={writeContracts}
-                  readContracts={readContracts}
-                  purpose={purpose}
-                  setPurposeEvents={setPurposeEvents}
-                />
-              </Route>
-              <Route exact path="/initiatives">
-                <Initiatives />
-              </Route>
-              <Route exact path="/">
-                <Dashboard />
-              </Route>
-              <Route exact path="/bond">
-                <Bond 
-                  address={address}
-                  mainnetProvider={mainnetProvider}
-                  localProvider={localProvider}
-                  yourLocalBalance={yourLocalBalance}
-                  price={price}
-                  tx={tx}
-                  writeContracts={writeContracts}
-                  readContracts={readContracts}
-                  purpose={purpose}
-                  setPurposeEvents={setPurposeEvents}
-                />
-              </Route>
-              {/* <Route path="/citizenship/founder">
+                    <Contract
+                      name="CitizenFixedBond"
+                      signer={userSigner}
+                      provider={localProvider}
+                      address={address}
+                      blockExplorer={blockExplorer}
+                      contractConfig={contractConfig}
+                    />
+                    <Contract
+                      name="CitizenBondManager"
+                      signer={userSigner}
+                      provider={localProvider}
+                      address={address}
+                      blockExplorer={blockExplorer}
+                      contractConfig={contractConfig}
+                    />
+                    <Contract
+                      name="CitizenToken"
+                      signer={userSigner}
+                      provider={localProvider}
+                      address={address}
+                      blockExplorer={blockExplorer}
+                      contractConfig={contractConfig}
+                    />
+                  </Route>
+                  <Route
+                    path="/initiatives/:initiative"
+                    render={({ match }) => (
+                      <GlobalProvider>
+                        <InitiativesView sector={match.params.initiative} />
+                      </GlobalProvider>
+                    )}
+                  ></Route>
+                  <Route exact path="/initiatives/health">
+                    <Health
+                      address={address}
+                      userSigner={userSigner}
+                      mainnetProvider={mainnetProvider}
+                      localProvider={localProvider}
+                      yourLocalBalance={yourLocalBalance}
+                      price={price}
+                      tx={tx}
+                      writeContracts={writeContracts}
+                      readContracts={readContracts}
+                      purpose={purpose}
+                      setPurposeEvents={setPurposeEvents}
+                    />
+                  </Route>
+                  <Route exact path="/initiatives/housing">
+                    <Housing
+                      address={address}
+                      userSigner={userSigner}
+                      mainnetProvider={mainnetProvider}
+                      localProvider={localProvider}
+                      yourLocalBalance={yourLocalBalance}
+                      price={price}
+                      tx={tx}
+                      writeContracts={writeContracts}
+                      readContracts={readContracts}
+                      purpose={purpose}
+                      setPurposeEvents={setPurposeEvents}
+                    />
+                  </Route>
+                  <Route exact path="/initiatives">
+                    <Initiatives />
+                  </Route>
+                  <Route exact path="/">
+                    <Dashboard />
+                  </Route>
+                  <Route exact path="/bond">
+                    <Bond
+                      address={address}
+                      mainnetProvider={mainnetProvider}
+                      localProvider={localProvider}
+                      yourLocalBalance={yourLocalBalance}
+                      price={price}
+                      tx={tx}
+                      writeContracts={writeContracts}
+                      readContracts={readContracts}
+                      purpose={purpose}
+                      setPurposeEvents={setPurposeEvents}
+                    />
+                  </Route>
+                  {/* <Route path="/citizenship/founder">
                 <Citizenship 
                   title="Founder" 
                   description="The Founder series Citizenship NFT Grants access to the CitizenDAO discord server and is claimable by early participants and contributors." 
                 />
               </Route> */}
-              <Route exact path="/citizenship/pioneer">
-                <Citizenship
-                  title="Pioneer"
-                  description="The Pioneer series Citizenship NFT grants access to the CitizenDAO discord server."
-                  nfturi="https://bafybeidzgyqfbvl4k7xw2jcu7bwystio3h7ebjvoy3qhixkwz32lw3t2ti.ipfs.dweb.link/"
-                />
-              </Route>
-            </Switch>
-            </div>
-          </Content>
-        </Layout>
-      </HashRouter>
+                  <Route exact path="/citizenship/pioneer">
+                    <Citizenship
+                      title="Pioneer"
+                      description="The Pioneer series Citizenship NFT grants access to the CitizenDAO discord server."
+                      nfturi="https://bafybeidzgyqfbvl4k7xw2jcu7bwystio3h7ebjvoy3qhixkwz32lw3t2ti.ipfs.dweb.link/"
+                    />
+                  </Route>
+                </Switch>
+              </div>
+            </Content>
+          </Layout>
+        </HashRouter>
 
-      <ThemeSwitch />
+        <ThemeSwitch />
 
-      {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-      <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
-        <Account
-          address={address}
-          localProvider={localProvider}
-          userSigner={userSigner}
-          mainnetProvider={mainnetProvider}
-          price={price}
-          web3Modal={web3Modal}
-          loadWeb3Modal={loadWeb3Modal}
-          logoutOfWeb3Modal={logoutOfWeb3Modal}
-          blockExplorer={blockExplorer}
-        />
-        {faucetHint}
-      </div>
+        {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
+        <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
+          <Account
+            address={address}
+            localProvider={localProvider}
+            userSigner={userSigner}
+            mainnetProvider={mainnetProvider}
+            price={price}
+            web3Modal={web3Modal}
+            loadWeb3Modal={loadWeb3Modal}
+            logoutOfWeb3Modal={logoutOfWeb3Modal}
+            blockExplorer={blockExplorer}
+          />
+          {faucetHint}
+        </div>
 
-      {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
-      <div className="sider-offset" style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
-        <Row align="middle" gutter={[4, 4]}>
-          <Col span={8}>
-            <Ramp price={price} address={address} networks={NETWORKS} />
-          </Col>
+        {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
+        <div
+          className="sider-offset"
+          style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}
+        >
+          <Row align="middle" gutter={[4, 4]}>
+            <Col span={8}>
+              <Ramp price={price} address={address} networks={NETWORKS} />
+            </Col>
 
-          <Col span={8} style={{ textAlign: "center", opacity: 0.8 }}>
-            <GasGauge gasPrice={gasPrice} />
-          </Col>
-          <Col span={8} style={{ textAlign: "center", opacity: 1 }}>
-            <Button
-              onClick={() => {
-                window.open("https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA");
-              }}
-              size="large"
-              shape="round"
-            >
-              <span style={{ marginRight: 8 }} role="img" aria-label="support">
-                💬
-              </span>
-              Support
-            </Button>
-          </Col>
-        </Row>
+            <Col span={8} style={{ textAlign: "center", opacity: 0.8 }}>
+              <GasGauge gasPrice={gasPrice} />
+            </Col>
+            <Col span={8} style={{ textAlign: "center", opacity: 1 }}>
+              <Button
+                onClick={() => {
+                  window.open("https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA");
+                }}
+                size="large"
+                shape="round"
+              >
+                <span style={{ marginRight: 8 }} role="img" aria-label="support">
+                  💬
+                </span>
+                Support
+              </Button>
+            </Col>
+          </Row>
 
-        <Row align="middle" gutter={[4, 4]}>
-          <Col span={24}>
-            {
-              /*  if the local provider has a signer, let's show the faucet:  */
-              faucetAvailable ? (
-                <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
-              ) : (
-                ""
-              )
-            }
-          </Col>
-        </Row>
-      </div>
+          <Row align="middle" gutter={[4, 4]}>
+            <Col span={24}>
+              {
+                /*  if the local provider has a signer, let's show the faucet:  */
+                faucetAvailable ? (
+                  <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
+                ) : (
+                  ""
+                )
+              }
+            </Col>
+          </Row>
+        </div>
       </Layout>
     </div>
   );
