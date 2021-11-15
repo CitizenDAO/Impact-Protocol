@@ -621,6 +621,9 @@ function App(props) {
                       contractConfig={contractConfig}
                     />
                   </Route>
+                  <Route path="/initiatives/:initiative">
+                    <InitiativesView />
+                  </Route>
                   <Route exact path="/initiatives/health">
                     <Health
                       address={address}
