@@ -6,6 +6,7 @@ import Dashboard from "./views/Dashboard";
 import Initiatives from "./views/Initiatives";
 import Citizenship from "./views/Citizenship";
 import InitiativesView from "./views/Initiatives/InitiativesView";
+import { GlobalProvider } from "./context/GlobalState";
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
 import { Alert, Button, Col, Menu, Row, Layout, Sider } from "antd";
@@ -635,7 +636,9 @@ function App(props) {
                 />
               </Route>
               <Route path="/initiatives/:initiative">
-                <InitiativesView/>
+                <GlobalProvider>
+                  <InitiativesView/>
+                </GlobalProvider>
               </Route>
               <Route exact path="/initiatives/health">
                 <Health 
