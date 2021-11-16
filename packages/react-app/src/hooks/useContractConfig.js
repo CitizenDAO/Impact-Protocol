@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { loadAppContracts } from "../helpers/loadAppContracts";
+import { useEffect, useState } from 'react';
+import { loadAppContracts } from '../helpers/loadAppContracts';
 
 export const useContractConfig = () => {
   const [contractsConfig, setContractsConfig] = useState({});

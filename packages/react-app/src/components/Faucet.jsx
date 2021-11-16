@@ -1,12 +1,12 @@
-import { SendOutlined } from "@ant-design/icons";
-import { Button, Input, Tooltip } from "antd";
+import { SendOutlined } from '@ant-design/icons';
+import { Button, Input, Tooltip } from 'antd';
 // import { useLookupAddress } from "eth-hooks/dapps/ens";
-import React, { useCallback, useState, useEffect } from "react";
-import Blockies from "react-blockies";
-import { Transactor } from "../helpers";
-import Wallet from "./Wallet";
+import React, { useCallback, useEffect, useState } from 'react';
+import Blockies from 'react-blockies';
+import { Transactor } from '../helpers';
+import Wallet from './Wallet';
 
-const { utils } = require("ethers");
+const { utils } = require('ethers');
 
 // improved a bit by converting address to ens if it exists
 // added option to directly input ens name
@@ -54,7 +54,7 @@ export default function Faucet(props) {
   }, [localProvider]);
 
   let blockie;
-  if (address && typeof address.toLowerCase === "function") {
+  if (address && typeof address.toLowerCase === 'function') {
     blockie = <Blockies seed={address.toLowerCase()} size={8} scale={4} />;
   } else {
     blockie = <div />;
@@ -64,7 +64,7 @@ export default function Faucet(props) {
 
   const updateAddress = useCallback(
     async newValue => {
-      if (typeof newValue !== "undefined" && utils.isAddress(newValue)) {
+      if (typeof newValue !== 'undefined' && utils.isAddress(newValue)) {
         let newAddress = newValue;
         // if (newAddress.indexOf(".eth") > 0 || newAddress.indexOf(".xyz") > 0) {
         //   try {
@@ -87,7 +87,7 @@ export default function Faucet(props) {
     <span>
       <Input
         size="large"
-        placeholder={placeholder ? placeholder : "local faucet"}
+        placeholder={placeholder ? placeholder : 'local faucet'}
         prefix={blockie}
         value={address}
         // value={ens || address}
@@ -101,9 +101,9 @@ export default function Faucet(props) {
               onClick={() => {
                 tx({
                   to: address,
-                  value: utils.parseEther("0.01"),
+                  value: utils.parseEther('0.01'),
                 });
-                setAddress("");
+                setAddress('');
               }}
               shape="circle"
               icon={<SendOutlined />}

@@ -1,28 +1,8 @@
-import { StepForwardOutlined, SyncOutlined } from "@ant-design/icons";
-import { utils } from "ethers";
-import {
-  Button,
-  Image,
-  Skeleton,
-  Typography,
-  Card,
-  DatePicker,
-  Divider,
-  Input,
-  List,
-  Progress,
-  Slider,
-  Spin,
-  Switch,
-  Row,
-  Col,
-} from "antd";
-import React, { useState } from "react";
+import { Button, Card, Col, Image, Row, Skeleton, Typography } from 'antd';
+import React, { useState } from 'react';
+import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
-import { Address, Balance } from "../components";
-import Initiatives from "./Initiatives";
-import Modal from "react-modal";
-import { useEffect } from "react";
+import Initiatives from './Initiatives';
 
 export default function Dashboard({
   purpose,
@@ -36,9 +16,9 @@ export default function Dashboard({
   readContracts,
   writeContracts,
 }) {
-  const [newPurpose, setNewPurpose] = useState("loading...");
+  const [newPurpose, setNewPurpose] = useState('loading...');
   const [showModal, setShowModal] = useState(false);
-  const [modalSrc, setModalSrc] = useState("");
+  const [modalSrc, setModalSrc] = useState('');
 
   function toggleModal() {
     setShowModal(!showModal);
@@ -55,49 +35,49 @@ export default function Dashboard({
       <div className="banner-background">
         <Image src="Website-Thumbnail.png" preview={false} />
       </div>
-      <Title style={{ textAlign: "left" }} level={2}>
+      <Title style={{ textAlign: 'left' }} level={2}>
         Dashboard
       </Title>
-      <Row style={{ marginBottom: "40px" }}>
+      <Row style={{ marginBottom: '40px' }}>
         <Col span={6} md={12} xs={24}>
-          <Card style={{ width: "auto" }}>
+          <Card style={{ width: 'auto' }}>
             <p>Total Eth</p>
             <Skeleton.Button active={true} size="large" shape="square" />
           </Card>
         </Col>
         <Col span={6} md={12} xs={24}>
-          <Card style={{ width: "auto" }}>
+          <Card style={{ width: 'auto' }}>
             <p>CDAO Price</p>
             <Skeleton.Button active={true} size="large" shape="square" />
           </Card>
         </Col>
         <Col span={6} md={12} xs={24}>
-          <Card style={{ width: "auto" }}>
+          <Card style={{ width: 'auto' }}>
             <p>Market Cap</p>
             <Skeleton.Button active={true} size="large" shape="square" />
           </Card>
         </Col>
         <Col span={6} md={12} xs={24}>
-          <Card style={{ width: "auto" }}>
+          <Card style={{ width: 'auto' }}>
             <p>Circulating Supply</p>
             <Skeleton.Button active={true} size="large" shape="square" />
           </Card>
         </Col>
       </Row>
 
-      <Row style={{ marginBottom: "40px" }}>
+      <Row style={{ marginBottom: '40px' }}>
         <Col span={24}>
           <Card>
-            <Title level={4} style={{ textAlign: "left" }}>
+            <Title level={4} style={{ textAlign: 'left' }}>
               <b>Become a Citizen</b>
             </Title>
-            <p style={{ textAlign: "left" }}>Gain access to the CitizenDAO community</p>
+            <p style={{ textAlign: 'left' }}>Gain access to the CitizenDAO community</p>
             <Row gutter={[16, 16]}>
               <Col lg={12} md={24}>
                 <Card
                   title="Founder"
                   hoverable
-                  style={{ width: "auto" }}
+                  style={{ width: 'auto' }}
                   cover={
                     <video
                       controls
@@ -107,7 +87,9 @@ export default function Dashboard({
                     />
                   }
                 >
-                  <Button size="large" onClick={toggleModal}>Claim</Button>
+                  <Button size="large" onClick={toggleModal}>
+                    Claim
+                  </Button>
                 </Card>
               </Col>
               <Col lg={12} md={24}>
@@ -115,23 +97,24 @@ export default function Dashboard({
                   <Card
                     title="Pioneer"
                     hoverable
-                    style={{ width: "auto" }}
+                    style={{ width: 'auto' }}
                     cover={
                       <video
                         controls
                         loop
                         alt="CitizenDAO Pioneer Citizenship NFT"
-                        src="https://bafybeidzgyqfbvl4k7xw2jcu7bwystio3h7ebjvoy3qhixkwz32lw3t2ti.ipfs.dweb.link/" 
+                        src="https://bafybeidzgyqfbvl4k7xw2jcu7bwystio3h7ebjvoy3qhixkwz32lw3t2ti.ipfs.dweb.link/"
                       />
                     }
                   >
-                    <Button size="large" onClick={ 
-                      () => { 
-                        // toggleModal(); 
-                        // changeModalSrc("https://bafybeidzgyqfbvl4k7xw2jcu7bwystio3h7ebjvoy3qhixkwz32lw3t2ti.ipfs.dweb.link/"); 
-                      }
-                    } >
-                        Join
+                    <Button
+                      size="large"
+                      onClick={() => {
+                        // toggleModal();
+                        // changeModalSrc("https://bafybeidzgyqfbvl4k7xw2jcu7bwystio3h7ebjvoy3qhixkwz32lw3t2ti.ipfs.dweb.link/");
+                      }}
+                    >
+                      Join
                     </Button>
                   </Card>
                 </Link>
@@ -150,7 +133,7 @@ export default function Dashboard({
               <p>Price: </p>
               <p>Supply: </p>
               <p>The Pioneer series Citizenship NFT grants access to the CitizenDAO discord server.</p>
-              <Button size="large" style={{ width: "100%" }}>
+              <Button size="large" style={{ width: '100%' }}>
                 Mint
               </Button>
             </Card>
