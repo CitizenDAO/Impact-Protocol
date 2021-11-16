@@ -1,4 +1,4 @@
-import { Row, Typography } from 'antd';
+import { List, Row, Typography } from 'antd';
 import React from 'react';
 
 const descriptions = [
@@ -17,13 +17,25 @@ export default function InitiativesDetails({ route, pageDescription = descriptio
   const { Text, Title } = Typography;
 
   return (
-    <Row>
+    <Row style={styles.row}>
       <Text type="secondary">$Climate bonds sold during Season 1 will fund the following projects:</Text>
 
       <List
         dataSource={pageDescription}
+        style={{ marginTop: '2em' }}
         renderItem={(item, i) => (
-          <List.Item key={i}>
+          <List.Item
+            key={i}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 10,
+              alignItems: 'flex-start',
+              textAlign: 'left',
+              justifyContent: 'flex-start',
+              fontSize: '0.8rem',
+            }}
+          >
             <Title level={3}>{item.title}</Title>
             <Text>{item.content}</Text>
           </List.Item>
@@ -32,3 +44,14 @@ export default function InitiativesDetails({ route, pageDescription = descriptio
     </Row>
   );
 }
+
+const styles = {
+  row: {
+    display: 'block',
+    padding: '1em 1.5em',
+    backgroundColor: 'white',
+    borderRadius: '10px',
+    boxShadow: '0px 4px 4px 0 rgba(0, 0, 0, 0.25)',
+    fontSize: '0.9rem',
+  },
+};
