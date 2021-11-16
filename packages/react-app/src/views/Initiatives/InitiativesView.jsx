@@ -1,16 +1,16 @@
-import { Col, Row } from "antd";
-import { useContext } from "react";
-import BondBuilder from "../../components/BondBuilder";
-import InitiativesChart from "../../components/InitiativesChart";
-import InitiativesDetails from "../../components/InitiativesDetails";
-import NFTBondVisualizer from "../../components/NFTBondVisualizer";
-import { GlobalContext } from "../../context/GlobalState";
+import { Col, Row } from 'antd';
+import { useContext } from 'react';
+import BondBuilder from '../../components/BondBuilder';
+import InitiativesChart from '../../components/InitiativesChart';
+import InitiativesDetails from '../../components/InitiativesDetails';
+import NFTBondVisualizer from '../../components/NFTBondVisualizer';
+import { GlobalContext } from '../../context/GlobalState';
 
 export default function InitiativesView({ sector }) {
   const { bondMaturity, bondAPY } = useContext(GlobalContext);
   const data = {
     climate: {
-      sector: "Climate",
+      sector: 'Climate',
       projects: [],
     },
     education: {},
@@ -28,7 +28,7 @@ export default function InitiativesView({ sector }) {
 
   return (
     <div>
-      <Row gutter={[24, 24]} style={{ marginBottom: "24px" }}>
+      <Row gutter={[24, 24]} style={{ marginBottom: '24px' }}>
         <Col sm={24} md={4} lg={6}>
           <NFTBondVisualizer
             sector={sector}
