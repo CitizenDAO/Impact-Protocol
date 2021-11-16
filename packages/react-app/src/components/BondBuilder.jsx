@@ -5,12 +5,11 @@ import { GlobalContext } from "../context/GlobalState";
 
 export default function BondBuilder({ title, season, APY, CDAO }) {
   const { Title } = Typography;
-  const [ethBondAmount, setEthBondAmount] = useLocalStorage("ethBondAmount", 0);
-  const { selectBondMaturity, bondMaturity } = useContext(GlobalContext);
+  const { selectBondMaturity, bondMaturity, bondAPY, setETHBondAmount, ETHBondAmount } = useContext(GlobalContext);
   // const [bondMaturity, setBondMaturity] = useState(30);
 
   function onChangeEthInput(val) {
-    setEthBondAmount(val);
+    setETHBondAmount(val);
   }
 
   function onSelectBondMaturity(val) {
@@ -19,7 +18,8 @@ export default function BondBuilder({ title, season, APY, CDAO }) {
 
   const bondMaturityOptions = [30, 60, 90, 180, 360];
 
-  function Options() {
+  function Options({ bondMaturity }) {
+    console.log('display options: ', bondMaturity)
     return bondMaturityOptions.map(n => (
       <Button
         key={n.toString()}
@@ -38,7 +38,7 @@ export default function BondBuilder({ title, season, APY, CDAO }) {
         <Col lg={12}>
           <Title level={2}>{title}</Title>
           <Title level={5}>{season}</Title>
-          <p>Current APY: {APY}</p>
+          <p>Current APY: {APY}%</p>
           <p>CDAO left: {CDAO}</p>
           <p>
             Amount of ETH to bond:
@@ -47,7 +47,7 @@ export default function BondBuilder({ title, season, APY, CDAO }) {
                 type="number"
                 style={{ width: "100%" }}
                 size="large"
-                value={ethBondAmount}
+                value={ETHBondAmount}
                 onChange={onChangeEthInput}
               />
             </span>
@@ -57,7 +57,7 @@ export default function BondBuilder({ title, season, APY, CDAO }) {
             <br />
             <span>
               <Space>
-                <Options />
+                <Options bondMaturity={bondMaturity} />
               </Space>
             </span>
           </p>

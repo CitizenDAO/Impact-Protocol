@@ -3,6 +3,8 @@ import AppReducer from "./AppReducer";
 
 const initialState = {
   bondMaturity: 30,
+  bondAPY: 12000,
+  ETHBondAmount: 0,
 };
 
 export const GlobalContext = createContext(initialState);
@@ -18,9 +20,24 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
+  function setETHBondAmount(ETH) {
+    dispatch({
+      type: "UPDATE_ETH_BOND_AMOUNT",
+      payload: ETH,
+    });
+  }
+
   return (
-    <GlobalContext.Provider value={{ bondMaturity: state.bondMaturity, selectBondMaturity }}>
+    <GlobalContext.Provider
+      value={{
+        bondMaturity: state.bondMaturity,
+        bondAPY: state.bondAPY,
+        ETHBondAmount: state.ETHtoBond,
+        setETHBondAmount,
+        selectBondMaturity,
+      }}
+    >
       {children}
     </GlobalContext.Provider>
-  )
+  );
 };
