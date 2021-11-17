@@ -1,6 +1,6 @@
 import Portis from "@portis/web3";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import { Alert, Button, Layout } from "antd";
+import { Alert, Button } from "antd";
 import "antd/dist/antd.css";
 import Authereum from "authereum";
 import {
@@ -173,10 +173,6 @@ function App(props) {
       : scaffoldEthProvider && scaffoldEthProvider._network
       ? scaffoldEthProvider
       : mainnetInfura;
-  
-  const { Content, Sider } = Layout;
-
-  const { Content, Sider } = Layout;
 
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
@@ -427,11 +423,8 @@ function App(props) {
     setRoute(window.location.pathname);
   }, [setRoute]);
 
-  
-
   let faucetHint = "";
   const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf("local") !== -1;
-
 
   const [faucetClicked, setFaucetClicked] = useState(false);
   if (
