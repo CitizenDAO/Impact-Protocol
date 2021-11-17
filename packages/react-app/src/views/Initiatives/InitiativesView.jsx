@@ -20,6 +20,24 @@ export default function InitiativesView({ sector }) {
     return;
   };
 
+  const data = {
+    30: {
+      futureValue: 1504,
+    },
+    60: {
+      futureValue: 2262,
+    },
+    90: {
+      futureValue: 3403,
+    },
+    180: {
+      futureValue: 11580,
+    },
+    360: {
+      futureValue: 134091,
+    },
+  };
+
   const date = new Date();
   const mintDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
   const maturationDate = new Date(date.getTime() + 86400000 * bondMaturity);
@@ -33,7 +51,7 @@ export default function InitiativesView({ sector }) {
             className="cdao_card"
             sector={textData.title}
             bondMaturity={bondMaturity}
-            totalCDAO="100,000,000"
+            totalCDAO={data[bondMaturity].futureValue}
             APY={bondAPY}
             tokenNum="1"
             mintDate={mintDate}
