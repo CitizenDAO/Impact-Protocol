@@ -1,6 +1,6 @@
-import { Row, Typography } from 'antd';
-import React from 'react';
-import { CartesianGrid, Label, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Card, Typography } from "antd";
+import React from "react";
+import { CartesianGrid, Label, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 const data = [
   {
@@ -25,26 +25,26 @@ const data = [
   },
 ];
 
-export default function InitiativessChart({ route, chartData = data }) {
+export default function InitiativessChart({ route, chartData = data, ETHBondAmount, bondMaturity }) {
   const { Text, Title } = Typography;
 
   return (
-    <Row style={styles.row}>
-      <Title level={3} type="secondary" style={{ textAlign: 'left' }}>
+    <Card style={styles.card}>
+      <Title level={3} type="secondary" style={{ textAlign: "left" }}>
         Estimated Yield
       </Title>
 
-      <div style={{ textAlign: 'left', marginBottom: 20 }}>
+      <div style={{ textAlign: "left", marginBottom: 20 }}>
         <Text underline strong>
-          3.00 ETH
-        </Text>{' '}
-        generates{' '}
+          {ETHBondAmount} ETH
+        </Text>{" "}
+        generates{" "}
         <Text strong underline>
           1,270,488 CDAO
-        </Text>{' '}
-        after{' '}
+        </Text>{" "}
+        after{" "}
         <Text strong underline>
-          90 days
+          {bondMaturity} days
         </Text>
       </div>
 
@@ -71,16 +71,22 @@ export default function InitiativessChart({ route, chartData = data }) {
           <Line type="monotone" dataKey="futureValue" stroke="#8884d8" activeDot={{ r: 8 }} />
         </LineChart>
       </ResponsiveContainer>
-    </Row>
+    </Card>
   );
 }
 
 const styles = {
+  card: {
+    padding: "10px",
+    borderRadius: "15px",
+    boxShadow:
+      "inset -8px -8px 12px rgb(255 255 255 / 15%), 8px 8px 30px rgb(174 174 192 / 35%), inset -8px -8px 12px rgb(255 255 255 / 15%), inset 8px 8px 8px rgb(174 174 192 / 4%)",
+  },
   row: {
-    display: 'block',
-    padding: '1em 1.5em',
-    backgroundColor: 'white',
-    borderRadius: '10px',
-    boxShadow: '0px 4px 4px 0 rgba(0, 0, 0, 0.25)',
+    display: "block",
+    padding: "1em 1.5em",
+    backgroundColor: "white",
+    borderRadius: "10px",
+    boxShadow: "0px 4px 4px 0 rgba(0, 0, 0, 0.25)",
   },
 };

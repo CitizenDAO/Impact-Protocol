@@ -1,5 +1,5 @@
-import { Layout } from 'antd';
-import styled from 'styled-components';
+import { Layout } from "antd";
+import styled from "styled-components";
 
 export const AppLayoutStyles = styled(Layout)`
   display: flex;
@@ -12,5 +12,6 @@ export const AppLayoutStyles = styled(Layout)`
 
   .main__layout {
     overflow: auto;
+    width: 100%;
   }
 `;

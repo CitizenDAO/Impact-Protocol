@@ -1,14 +1,15 @@
-import { Card, Typography, Button, Row, Col, InputNumber, Space } from "antd";
-import { useLocalStorage } from "../hooks";
-import { useState, useContext } from "react";
+import { Button, Col, InputNumber, Row, Space, Typography } from "antd";
+import { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
+import { CardStyled } from "./Card/Card.styled";
 
 export default function BondBuilder({ title, season, APY, CDAO }) {
-  const { Title } = Typography;
+  const { Title, Text } = Typography;
   const { selectBondMaturity, bondMaturity, bondAPY, setETHBondAmount, ETHBondAmount } = useContext(GlobalContext);
   // const [bondMaturity, setBondMaturity] = useState(30);
 
   function onChangeEthInput(val) {
+    console.log(val);
     setETHBondAmount(val);
   }
 
@@ -19,10 +20,11 @@ export default function BondBuilder({ title, season, APY, CDAO }) {
   const bondMaturityOptions = [30, 60, 90, 180, 360];
 
   function Options({ bondMaturity }) {
-    console.log('display options: ', bondMaturity)
+    console.log("display options: ", bondMaturity);
     return bondMaturityOptions.map(n => (
       <Button
         key={n.toString()}
+        style={{ marginRight: "6px" }}
         type={n == bondMaturity ? "primary" : null}
         value={n}
         onClick={() => onSelectBondMaturity(n)}
@@ -33,38 +35,54 @@ export default function BondBuilder({ title, season, APY, CDAO }) {
   }
 
   return (
-    <Card style={{ textAlign: "left" }}>
-      <Row>
+    <CardStyled style={styles.card}>
+      <Row justify="space-between">
         <Col lg={12}>
           <Title level={2}>{title}</Title>
           <Title level={5}>{season}</Title>
-          <p>Current APY: {APY}%</p>
-          <p>CDAO left: {CDAO}</p>
-          <p>
-            Amount of ETH to bond:
-            <span>
-              <InputNumber
-                type="number"
-                style={{ width: "100%" }}
-                size="large"
-                value={ETHBondAmount}
-                onChange={onChangeEthInput}
-              />
-            </span>
-          </p>
-          <p>
-            Days until bond maturity:
-            <br />
-            <span>
-              <Space>
-                <Options bondMaturity={bondMaturity} />
-              </Space>
-            </span>
-          </p>
-          <Button style={{ width: "100%" }}>Bond now</Button>
         </Col>
-        <Col lg={12}></Col>
+        <Col lg={12}>
+          <Row style={styles.card}>
+            <Col lg={12}>
+              <Text type="secondary">Current APY</Text>
+              <br />
+              <Text strong>{bondAPY}%</Text>
+            </Col>
+            <Col lg={12}>
+              <Text type="secondary">CDAO Left</Text>
+              <br />
+              <Text strong>69,420,522</Text>
+            </Col>
+          </Row>
+        </Col>
       </Row>
-    </Card>
+      <Row>
+        <Col>
+          <Space direction="vertical">
+            <p>Amount of ETH to bond:</p>
+            <InputNumber
+              type="number"
+              style={{ width: "100%" }}
+              size="large"
+              value={ETHBondAmount}
+              onChange={onChangeEthInput}
+            />
+            <p>Days until bond maturity:</p>
+            <Options bondMaturity={bondMaturity} />
+            <Button style={{ width: "100%" }}>Bond now</Button>
+          </Space>
+        </Col>
+        <Col lg={8}></Col>
+      </Row>
+    </CardStyled>
   );
 }
+
+const styles = {
+  card: {
+    padding: "10px",
+    borderRadius: "15px",
+    boxShadow:
+      "inset -8px -8px 12px rgb(255 255 255 / 15%), 8px 8px 30px rgb(174 174 192 / 35%), inset -8px -8px 12px rgb(255 255 255 / 15%), inset 8px 8px 8px rgb(174 174 192 / 4%)",
+  },
+};

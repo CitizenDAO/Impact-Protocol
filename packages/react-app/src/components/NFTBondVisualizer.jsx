@@ -10,10 +10,17 @@ export default function NFTBondVisualizer({
   topRight,
   bottomLeft,
   bottomRight,
+  className,
+  background,
 }) {
   const textX = "100";
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400 " class="bond-bg-blue">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 400 400 "
+      className={className}
+      style={{ borderRadius: "15px", background: background }}
+    >
       <text x="20" y="35" class="light">
         {topLeft}
       </text>
@@ -28,7 +35,7 @@ export default function NFTBondVisualizer({
       </text>
 
       <text x={textX} y="140" class="heavy">
-        ${sector} Bond #{tokenNum}
+        {sector} Bond #{tokenNum}
       </text>
       <text x={textX} y="160" class="heavy">
         Minted {mintDate}
