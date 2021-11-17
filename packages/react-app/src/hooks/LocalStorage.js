@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 // Hook from useHooks! (https://usehooks.com/useLocalStorage/)
 export default function useLocalStorage(key, initialValue, ttl) {
   // State to store our value
@@ -9,7 +9,7 @@ export default function useLocalStorage(key, initialValue, ttl) {
       const item = window.localStorage.getItem(key);
       const parsedItem = item ? JSON.parse(item) : initialValue;
 
-      if (typeof parsedItem === "object" && parsedItem !== null && "expiry" in parsedItem && "value" in parsedItem) {
+      if (typeof parsedItem === 'object' && parsedItem !== null && 'expiry' in parsedItem && 'value' in parsedItem) {
         const now = new Date();
         if (ttl && now.getTime() > parsedItem.expiry) {
           // If the item is expired, delete the item from storage

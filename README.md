@@ -7,7 +7,7 @@
 
 **Solution:** A new way to fund public advancement via Social Impact Bonds. SIBs are dynamic NFTs that fund projects both prospectively & retrospectively. 
 
-![Innovative Funding Models](https://ipfs.io/ipfs/QmNhWtsuoATNe5swFZVMGjgfDjrx7ZnbxUAoYy8wAtSSnK)
+![Innovative Funding Models](https://citizendao.com/wp-content/uploads/2021/10/Innovative-Funding-Models.jpg)
 
 ## Social Impact Bonds
 
@@ -23,10 +23,13 @@ We at Citizen DAO believe Social Impact Bonds can be much better than they are.
 
 ### Enter Web3
 
-![Social Impact Bonds](https://ipfs.io/ipfs/QmZ9RjY94WJoAA6Phuoz3tH6AhG5FjLQhbT7oMGDod1YxS)
+![Social Impact Bonds](https://citizendao.com/wp-content/uploads/2021/10/Crypto-Philanthropy3.jpg)
+
 Our bonds are ERC-721 non-fungible tokens. Bonds are unique financial assets that fund projects in the following categories of health, housing, education, climate, finance, & governance.
 
 Citizen DAO members will curate, refine, & decide on which projects get funding. Each bond can be minted with any amount of ETH. Yield is in CDAO, which is the governance & utiliity token of Citizen DAO. 
+
+![Bond Revenue Flow](https://citizendao.com/wp-content/uploads/2021/10/Dynamic-NFTs-1.jpg)
 
 ## How it works
 
@@ -45,20 +48,27 @@ Citizen DAO members will curate, refine, & decide on which projects get funding.
 
 ### Running Dev Environment
 
-Use the command
-```bash
-> ./cmd/launch dev -c
-```
-to run the compile and migrate contracts to a test network. In lieu of a sensible *nix environment, run the command through python
-```bash
-> python3 /cmd/launch
-```
-the following flags are available:
+Prerequisites: [Node](https://nodejs.org/en/download/) plus [Yarn](https://classic.yarnpkg.com/en/docs/install/) and [Git](https://git-scm.com/downloads)
 
-- -c - launch the truffle development console
-- -s - launch a shell environment
-- -b - rebuild the docker images
-- -h - help output
+> install and start your 👷‍ Hardhat chain:
+
+```bash
+yarn install
+yarn chain
+```
+
+> in a second terminal window, start your 📱 frontend:
+
+```bash
+yarn start
+```
+
+> in a third terminal window, 🛰 deploy your contract:
+
+```bash
+yarn deploy
+```
+
 
 ### Contributing
 
@@ -88,4 +98,4 @@ We will make the dev environment Docker-based for consistency / ease-of-use, so 
 ## Frontend Release Instructions
 - When frontend changes are ready, send a pull request and merge with `fe-skynet-deploy` branch.
 - This will use github actions and auto deploy to skynet.
-- Information: [Skynet Github Action](!https://docs.siasky.net/developer-guides/deploy-github-actions)
+- Information: [Skynet Github Action](https://docs.siasky.net/developer-guides/deploy-github-actions)
