@@ -13,7 +13,7 @@ export default function NFTBondVisualizer({
   className,
   background,
 }) {
-  const textX = "100";
+  const textX = "40";
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

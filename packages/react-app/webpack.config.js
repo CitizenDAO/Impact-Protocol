@@ -1,30 +1,41 @@
+const getStyleLoaders = (cssOptions, preProcessor, preProcessorOptions = {}) => {
+  // ... setting up css loaders ...
+  if (preProcessor) {
+    loaders.push(
+      // ... setting up other pre processors ...
+      {
+        loader: require.resolve(preProcessor),
+        options: {
+          sourceMap: true,
+          ...preProcessorOptions,
+        },
+      },
+    );
+  }
+  return loaders;
+};
+
 module.exports = {
   rules: [
     {
       test: /\.less$/,
-      use: [
+      use: getStyleLoaders(
         {
-          loader: "style-loader",
+          importLoaders: 3,
+          sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
         },
+        "less-loader",
         {
-          loader: "css-loader", // translates CSS into CommonJS
-        },
-        {
-          loader: "less-loader", // compiles Less to CSS
-          options: {
-            lessOptions: {
-              // If you are using less-loader@5 please spread the lessOptions to options directly
-              modifyVars: {
-                // "primary-color": "#1DA57A",
-                // "link-color": "#1DA57A",
-                "border-radius-base": "15px",
-              },
-              javascriptEnabled: true,
-            },
+          lessOptions: {
+            javascriptEnabled: true,
           },
         },
-      ],
-      // ...other rules
+      ),
+      // Don't consider CSS imports dead code even if the
+      // containing package claims to have no side effects.
+      // Remove this when webpack adds a warning or an error for this.
+      // See https://github.com/webpack/webpack/issues/6571
+      sideEffects: true,
     },
   ],
   // ...other config

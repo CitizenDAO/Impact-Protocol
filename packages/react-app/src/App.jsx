@@ -27,6 +27,7 @@ import { GlobalProvider } from "./context/GlobalState";
 import { Transactor } from "./helpers";
 import { useContractConfig } from "./hooks";
 import useLocalStorage from "./hooks/LocalStorage";
+import "./theme.light.less";
 import Citizenship from "./views/Citizenship";
 import Dashboard from "./views/Dashboard";
 import Initiatives from "./views/Initiatives";

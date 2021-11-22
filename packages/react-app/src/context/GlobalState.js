@@ -1,111 +1,114 @@
-import { createContext, useReducer } from "react";
-import AppReducer from "./AppReducer";
+import { createContext, useReducer } from 'react';
+import AppReducer from './AppReducer';
 
 const initialState = {
   bondMaturity: 30,
-  bondAPY: 12000,
+  bondAPY: 500,
   ETHBondAmount: 0,
+  CDAOPriceDollar: 0.1,
+  CDAOPriceETH: 0.000025,
+  initCDAO: 0,
   sectorTextData: {
     climate: {
-      title: "$Climate",
+      title: '$Climate',
       projects: [
-        { title: "Planting Trees", content: "Working with Terraformation, we're planting as many trees as possible." },
+        { title: 'Planting Trees', content: "Working with Terraformation, we're planting as many trees as possible." },
         {
-          title: "Preserving Rainforests",
+          title: 'Preserving Rainforests',
           content: "Working with (insert partner), we're buying rainforest land & turning it into nature preserves.",
         },
         {
-          title: "Converting Waste to Graphene",
-          content: "A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.",
+          title: 'Converting Waste to Graphene',
+          content: 'A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.',
         },
       ],
       nft: {
-        background: "#b5ebc1",
+        background: '#b5ebc1',
       },
     },
     health: {
-      title: "$Health",
+      title: '$Health',
       projects: [
-        { title: "Planting Trees", content: "Working with Terraformation, we're planting as many trees as possible." },
+        { title: 'Planting Trees', content: "Working with Terraformation, we're planting as many trees as possible." },
         {
-          title: "Preserving Rainforests",
+          title: 'Preserving Rainforests',
           content: "Working with (insert partner), we're buying rainforest land & turning it into nature preserves.",
         },
         {
-          title: "Converting Waste to Graphene",
-          content: "A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.",
+          title: 'Converting Waste to Graphene',
+          content: 'A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.',
         },
       ],
       nft: {
-        background: "#2a6df2",
+        background: '#2a6df2',
       },
     },
     governance: {
-      title: "$Governance",
+      title: '$Governance',
       projects: [
-        { title: "Planting Trees", content: "Working with Terraformation, we're planting as many trees as possible." },
+        { title: 'Planting Trees', content: "Working with Terraformation, we're planting as many trees as possible." },
         {
-          title: "Preserving Rainforests",
+          title: 'Preserving Rainforests',
           content: "Working with (insert partner), we're buying rainforest land & turning it into nature preserves.",
         },
         {
-          title: "Converting Waste to Graphene",
-          content: "A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.",
+          title: 'Converting Waste to Graphene',
+          content: 'A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.',
         },
       ],
       nft: {
-        background: "#ebb3ff",
+        background: '#ebb3ff',
       },
     },
     finance: {
-      title: "$Finance",
+      title: '$Finance',
       projects: [
-        { title: "Planting Trees", content: "Working with Terraformation, we're planting as many trees as possible." },
+        { title: 'Planting Trees', content: "Working with Terraformation, we're planting as many trees as possible." },
         {
-          title: "Preserving Rainforests",
+          title: 'Preserving Rainforests',
           content: "Working with (insert partner), we're buying rainforest land & turning it into nature preserves.",
         },
         {
-          title: "Converting Waste to Graphene",
-          content: "A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.",
+          title: 'Converting Waste to Graphene',
+          content: 'A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.',
         },
       ],
       nft: {
-        background: "#ffb3b3",
+        background: '#ffb3b3',
       },
     },
     education: {
-      title: "$Education",
+      title: '$Education',
       projects: [
-        { title: "Planting Trees", content: "Working with Terraformation, we're planting as many trees as possible." },
+        { title: 'Planting Trees', content: "Working with Terraformation, we're planting as many trees as possible." },
         {
-          title: "Preserving Rainforests",
+          title: 'Preserving Rainforests',
           content: "Working with (insert partner), we're buying rainforest land & turning it into nature preserves.",
         },
         {
-          title: "Converting Waste to Graphene",
-          content: "A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.",
+          title: 'Converting Waste to Graphene',
+          content: 'A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.',
         },
       ],
       nft: {
-        background: "rgb(215 195 255)",
+        background: 'rgb(215 195 255)',
       },
     },
     housing: {
-      title: "$Housing",
+      title: '$Housing',
       projects: [
-        { title: "Planting Trees", content: "Working with Terraformation, we're planting as many trees as possible." },
+        { title: 'Planting Trees', content: "Working with Terraformation, we're planting as many trees as possible." },
         {
-          title: "Preserving Rainforests",
+          title: 'Preserving Rainforests',
           content: "Working with (insert partner), we're buying rainforest land & turning it into nature preserves.",
         },
         {
-          title: "Converting Waste to Graphene",
-          content: "A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.",
+          title: 'Converting Waste to Graphene',
+          content: 'A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.',
         },
       ],
       nft: {
-        background: "rgb(192 211 255)",
+        background: 'rgb(192 211 255)',
       },
     },
   },
@@ -119,15 +122,23 @@ export const GlobalProvider = ({ children }) => {
   // actions for changing state
   function selectBondMaturity(n) {
     dispatch({
-      type: "UPDATE_BOND_MATURITY",
+      type: 'UPDATE_BOND_MATURITY',
       payload: n,
     });
   }
 
   function setETHBondAmount(ETH) {
     dispatch({
-      type: "UPDATE_ETH_BOND_AMOUNT",
+      type: 'UPDATE_ETH_BOND_AMOUNT',
       payload: ETH,
+    });
+  }
+
+  function setInitCDAO(CDAO) {
+    console.log('SET INIT CDAO ', CDAO);
+    dispatch({
+      type: 'UPDATE_INIT_CDAO',
+      payload: CDAO,
     });
   }
 
@@ -139,7 +150,11 @@ export const GlobalProvider = ({ children }) => {
         ETHBondAmount: state.ETHBondAmount,
         setETHBondAmount,
         selectBondMaturity,
+        setInitCDAO,
         sectorTextData: state.sectorTextData,
+        CDAOPriceDollar: state.CDAOPriceDollar,
+        CDAOPriceETH: state.CDAOPriceETH,
+        initCDAO: state.initCDAO,
       }}
     >
       {children}

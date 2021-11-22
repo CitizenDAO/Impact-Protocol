@@ -1,6 +1,6 @@
-import { Card, Typography } from "antd";
-import React from "react";
-import { CartesianGrid, Label, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Card, Typography } from 'antd';
+import React from 'react';
+import { CartesianGrid, Label, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 const data = [
   {
@@ -25,24 +25,31 @@ const data = [
   },
 ];
 
-export default function InitiativessChart({ route, chartData = data, ETHBondAmount, bondMaturity }) {
+export default function InitiativessChart({
+  route,
+  chartData = data,
+  ETHBondAmount,
+  bondMaturity,
+  CDAOYield,
+  initCDAO,
+}) {
   const { Text, Title } = Typography;
 
   return (
     <Card style={styles.card}>
-      <Title level={3} type="secondary" style={{ textAlign: "left" }}>
+      <Title level={3} type="secondary" style={{ textAlign: 'left' }}>
         Estimated Yield
       </Title>
 
-      <div style={{ textAlign: "left", marginBottom: 20 }}>
+      <div style={{ textAlign: 'left', marginBottom: 20 }}>
         <Text underline strong>
           {ETHBondAmount} ETH
-        </Text>{" "}
-        generates{" "}
+        </Text>{' '}
+        generates{' '}
         <Text strong underline>
-          1,270,488 CDAO
-        </Text>{" "}
-        after{" "}
+          {CDAOYield} CDAO
+        </Text>{' '}
+        after{' '}
         <Text strong underline>
           {bondMaturity} days
         </Text>
@@ -64,7 +71,8 @@ export default function InitiativessChart({ route, chartData = data, ETHBondAmou
           <XAxis dataKey="days">
             <Label value="Days" offset={-8} position="bottom" />
           </XAxis>
-          <YAxis dataKey="futureValue">
+          {/* scale="log" domain={["auto", "auto"]} */}
+          <YAxis dataKey="futureValue" domain={[initCDAO, 'auto']}>
             <Label angle={-90} offset={-5} position="insideLeft" value="Future Value (Amount of CDAOs)" />
           </YAxis>
           <Tooltip />
@@ -77,16 +85,16 @@ export default function InitiativessChart({ route, chartData = data, ETHBondAmou
 
 const styles = {
   card: {
-    padding: "10px",
-    borderRadius: "15px",
+    padding: '10px',
+    borderRadius: '15px',
     boxShadow:
-      "inset -8px -8px 12px rgb(255 255 255 / 15%), 8px 8px 30px rgb(174 174 192 / 35%), inset -8px -8px 12px rgb(255 255 255 / 15%), inset 8px 8px 8px rgb(174 174 192 / 4%)",
+      'inset -8px -8px 12px rgb(255 255 255 / 15%), 8px 8px 30px rgb(174 174 192 / 35%), inset -8px -8px 12px rgb(255 255 255 / 15%), inset 8px 8px 8px rgb(174 174 192 / 4%)',
   },
   row: {
-    display: "block",
-    padding: "1em 1.5em",
-    backgroundColor: "white",
-    borderRadius: "10px",
-    boxShadow: "0px 4px 4px 0 rgba(0, 0, 0, 0.25)",
+    display: 'block',
+    padding: '1em 1.5em',
+    backgroundColor: 'white',
+    borderRadius: '10px',
+    boxShadow: '0px 4px 4px 0 rgba(0, 0, 0, 0.25)',
   },
 };

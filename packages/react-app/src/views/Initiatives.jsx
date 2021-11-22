@@ -146,14 +146,14 @@ export default class Initiatives extends React.Component {
     return (
       <div>
         <Row gutter={[20, 40]} justify="center">
-          <Col sm={24}>
+          <Col sm={24} md={16} lg={8}>
             <Card style={{ width: "auto" }}>
               <Row>
                 <Col span={20}>
                   <Title level={4} style={{ textAlign: "left" }}>
                     <Space>
-                      <Text className="mr-2">
-                        <b>$Health</b>
+                      <Text strong className="mr-2">
+                        $Health
                       </Text>
                       (Ξ622)
                     </Space>
@@ -181,7 +181,7 @@ export default class Initiatives extends React.Component {
               />
             </Card>
           </Col>
-          <Col sm={24}>
+          <Col sm={24} md={16} lg={8}>
             <Card style={{ width: "auto" }}>
               <Row>
                 <Col span={20}>
@@ -207,8 +207,8 @@ export default class Initiatives extends React.Component {
                 dataSource={initiatives.housing}
                 renderItem={item => (
                   <List.Item>
-                    <Title level={5}>
-                      <b>{item.value}</b>
+                    <Title strong level={5}>
+                      {item.value}
                     </Title>
                     {capitalize(item.text)}
                   </List.Item>
@@ -216,7 +216,7 @@ export default class Initiatives extends React.Component {
               />
             </Card>
           </Col>
-          <Col sm={24}>
+          <Col sm={24} md={16} lg={8}>
             <Card style={{ width: "auto" }}>
               <Row>
                 <Col span={20}>
@@ -252,7 +252,7 @@ export default class Initiatives extends React.Component {
             </Card>
           </Col>
 
-          <Col sm={24}>
+          <Col sm={24} md={16} lg={8}>
             <Card style={{ width: "auto" }}>
               <Row>
                 <Col span={20}>
@@ -287,7 +287,7 @@ export default class Initiatives extends React.Component {
               />
             </Card>
           </Col>
-          <Col sm={24}>
+          <Col sm={24} md={16} lg={8}>
             <Card style={{ width: "auto" }}>
               <Row>
                 <Col span={20}>
@@ -322,7 +322,7 @@ export default class Initiatives extends React.Component {
               />
             </Card>
           </Col>
-          <Col sm={24}>
+          <Col sm={24} md={16} lg={8}>
             <Card style={{ width: "auto" }}>
               <Row>
                 <Col span={20}>

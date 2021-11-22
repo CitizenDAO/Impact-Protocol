@@ -35,7 +35,7 @@ export default function Dashboard({
       <div className="banner-background">
         <Image src="Website-Thumbnail.png" preview={false} />
       </div>
-      <Row style={{ marginBottom: "40px" }}>
+      <Row style={{ marginBottom: "40px" }} gutter={[24, 24]}>
         <Col span={6} md={12} xs={24}>
           <Card style={{ width: "auto" }}>
             <p>Total Eth</p>
