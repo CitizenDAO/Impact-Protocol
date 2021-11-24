@@ -29,32 +29,16 @@ export default function InitiativesView({ sector }) {
   };
 
   const bondYield = (i, r, p) => {
+    // used to get total yield after p days
+    // i = initial investment
+    // r = APY
+    // p = days
     return i * (1 + r / 100 / 365) ** p;
-  };
-
-  const data = {
-    30: {
-      futureValue: 1504,
-    },
-    60: {
-      futureValue: 2262,
-    },
-    90: {
-      futureValue: 3403,
-    },
-    180: {
-      futureValue: 11580,
-    },
-    360: {
-      futureValue: 134091,
-    },
   };
 
   const generateChartData = function ({ bondAPY, ETHBondAmount, bondMaturity }) {
     let d = [];
-    console.log(initCDAO, bondAPY);
-    for (let i = 0; i < bondMaturity; i++) {
-      // let init = i == 0 ? ETHBondAmount : d[i - 1].futureValue;
+    for (let i = 0; i <= bondMaturity; i += 5) {
       d.push({
         days: i,
         futureValue: bondYield(initCDAO, bondAPY, i),
@@ -77,9 +61,9 @@ export default function InitiativesView({ sector }) {
         <Col sm={24} md={24} lg={8}>
           <NFTBondVisualizer
             className="cdao_card"
-            sector={textData.title}
+            sector={textData.nft.title}
             bondMaturity={bondMaturity}
-            totalCDAO={data[bondMaturity].futureValue}
+            totalCDAO={finalYield}
             APY={bondAPY}
             tokenNum="1"
             mintDate={mintDate}

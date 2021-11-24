@@ -9,6 +9,125 @@ const initialState = {
   CDAOPriceETH: 0.000025,
   initCDAO: 0,
   sectorTextData: {
+    sdg1: {
+      title: 'SDG1 - No Poverty',
+      nft: {
+        title: 'SDG1',
+        background: '#e5243b',
+      },
+    },
+    sdg2: {
+      title: 'SDG2 - Zero Hunger',
+      nft: {
+        title: 'SDG2',
+        background: '#dda83a',
+      },
+    },
+    sdg3: {
+      title: 'SDG3 - Good Health and Well-Being',
+      nft: {
+        title: 'SDG3',
+        background: '#4c9f38',
+      },
+    },
+    sdg4: {
+      title: 'SDG4 - Quality Education',
+      nft: {
+        title: 'SDG4',
+        background: '#c5192d',
+      },
+    },
+    sdg5: {
+      title: 'SDG5 - Gender Equality',
+      nft: {
+        title: 'SDG5',
+        background: '#ff3a21',
+      },
+    },
+    sdg6: {
+      title: 'SDG6 - Clean Water and Sanitation',
+      nft: {
+        title: 'SDG6',
+        background: '#26bde2',
+      },
+    },
+    sdg7: {
+      title: 'SDG7 - Affordable and Clean Energy',
+      nft: {
+        title: 'SDG7',
+        background: '#fcc30b',
+      },
+    },
+    sdg8: {
+      title: 'SDG8 - Decent Work and Economic Growth',
+      nft: {
+        title: 'SDG8',
+        background: '#a21942',
+      },
+    },
+    sdg9: {
+      title: 'SDG9 - Industry, Innovation, and Infrastructure',
+      nft: {
+        title: 'SDG9',
+        background: '#fd6925',
+      },
+    },
+    sdg10: {
+      title: 'SDG10 - Reduced Inequalities',
+      nft: {
+        title: 'SDG10',
+        background: '#dd1367',
+      },
+    },
+    sdg11: {
+      title: 'SDG11 - Sustainable Cities and Communities',
+      nft: {
+        title: 'SDG11',
+        background: '#fd9d24',
+      },
+    },
+    sdg12: {
+      title: 'SDG12 - Responsible Consumption and Production',
+      nft: {
+        title: 'SDG12',
+        background: '#bf8b2e',
+      },
+    },
+    sdg13: {
+      title: 'SDG13 - Climate Action',
+      nft: {
+        title: 'SDG13',
+        background: '#bf8b2e',
+      },
+    },
+    sdg14: {
+      title: 'SDG14 - Life Below Water',
+      nft: {
+        title: 'SDG14',
+        background: '#0a97d9',
+      },
+    },
+    sdg15: {
+      title: 'SDG15 - Life On Land',
+      nft: {
+        title: 'SDG15',
+        background: '#56c02b',
+      },
+    },
+    sdg16: {
+      title: 'SDG16 - Peace, Justice, and Strong Institutions',
+      nft: {
+        title: 'SDG16',
+        background: '#00689d',
+      },
+    },
+    sdg17: {
+      title: 'SDG17 - Partnerships for the Goals',
+      nft: {
+        title: 'SDG17',
+        background: '#19486a',
+      },
+    },
     climate: {
       title: '$Climate',
       projects: [

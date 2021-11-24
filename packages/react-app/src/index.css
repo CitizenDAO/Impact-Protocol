@@ -67,6 +67,9 @@ code {
 .light {
   font: 12px sans-serif;
 }
+.color-w {
+  fill: #fff;
+}
 
 .tright {
   text-align: right;
