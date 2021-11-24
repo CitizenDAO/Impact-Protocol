@@ -1,126 +1,157 @@
-import { Button, Card, Col, Divider, List, Row, Space, Typography } from "antd";
-import Text from "antd/lib/typography/Text";
-import { capitalize } from "lodash";
-import React from "react";
-import { Link } from "react-router-dom";
+import { Col, Row, Typography } from 'antd';
+import React from 'react';
+import InitiativeCard from '../components/InitiativeCard';
 
 export default class Initiatives extends React.Component {
   state = {
     active: true,
     block: false,
-    size: "default",
-    buttonShape: "default",
-    avatarShape: "circle",
-    initiatives: {
-      health: [
-        {
-          text: "quality life years added",
-          value: "5,232",
-        },
-        {
-          text: "members",
-          value: "3,734",
-        },
-        {
-          text: "active projects",
-          value: "17",
-        },
-        {
-          text: "open proposals",
-          value: "32",
-        },
-      ],
-      housing: [
-        {
-          text: "quality life years added",
-          value: "5,232",
-        },
-        {
-          text: "members",
-          value: "3,734",
-        },
-        {
-          text: "active projects",
-          value: "17",
-        },
-        {
-          text: "open proposals",
-          value: "32",
-        },
-      ],
-      education: [
-        {
-          text: "quality life years added",
-          value: "5,232",
-        },
-        {
-          text: "members",
-          value: "3,734",
-        },
-        {
-          text: "active projects",
-          value: "17",
-        },
-        {
-          text: "open proposals",
-          value: "32",
-        },
-      ],
-      climate: [
-        {
-          text: "quality life years added",
-          value: "5,232",
-        },
-        {
-          text: "members",
-          value: "3,734",
-        },
-        {
-          text: "active projects",
-          value: "17",
-        },
-        {
-          text: "open proposals",
-          value: "32",
-        },
-      ],
-      finance: [
-        {
-          text: "quality life years added",
-          value: "5,232",
-        },
-        {
-          text: "members",
-          value: "3,734",
-        },
-        {
-          text: "active projects",
-          value: "17",
-        },
-        {
-          text: "open proposals",
-          value: "32",
-        },
-      ],
-      governance: [
-        {
-          text: "quality life years added",
-          value: "5,232",
-        },
-        {
-          text: "members",
-          value: "3,734",
-        },
-        {
-          text: "active projects",
-          value: "17",
-        },
-        {
-          text: "open proposals",
-          value: "32",
-        },
-      ],
-    },
+    size: 'default',
+    buttonShape: 'default',
+    avatarShape: 'circle',
+    initiatives: [
+      {
+        header: 'SDG1',
+        subHeader: '',
+        description: 'End poverty in all its forms everywhere.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-01.png',
+      },
+      {
+        header: 'SDG2',
+        subHeader: '',
+        description: 'End hunger, achieve food security and improved nutrition and promote sustainable agriculture.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-02.png',
+      },
+      {
+        header: 'SDG3',
+        subHeader: '',
+        description: 'Ensure healthy lives and promote well-being for all at all ages.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-03.png',
+      },
+      {
+        header: 'SDG4',
+        subHeader: '',
+        description:
+          'Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-04.png',
+      },
+      {
+        header: 'SDG5',
+        subHeader: '',
+        description: 'Achieve gender equality and empower all women and girls.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-05.png',
+      },
+      {
+        header: 'SDG6',
+        subHeader: '',
+        description: 'Ensure availability and sustainable management of water and sanitation for all.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-06.png',
+      },
+      {
+        header: 'SDG7',
+        subHeader: '',
+        description: 'Ensure access to affordable, reliable, sustainable and modern energy for all.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-07.png',
+      },
+      {
+        header: 'SDG8',
+        subHeader: '',
+        description:
+          'Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-08.png',
+      },
+      {
+        header: 'SDG9',
+        subHeader: '',
+        description: 'Ensure access to affordable, reliable, sustainable and modern energy for all.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-09.png',
+      },
+      {
+        header: 'SDG10',
+        subHeader: '',
+        description: 'Reduce inequality within and among countries.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-10.png',
+      },
+      {
+        header: 'SDG11',
+        subHeader: '',
+        description: 'Make cities and human settlements inclusive, safe, resilient and sustainable.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-11.png',
+      },
+      {
+        header: 'SDG12',
+        subHeader: '',
+        description: 'Ensure access to affordable, reliable, sustainable and modern energy for all.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-12.png',
+      },
+      {
+        header: 'SDG13',
+        subHeader: '',
+        description: 'Take urgent action to combat climate change and its impacts.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-13.png',
+      },
+      {
+        header: 'SDG14',
+        subHeader: '',
+        description: 'Conserve and sustainably use the oceans, seas and marine resources for sustainable development.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-14.png',
+      },
+      {
+        header: 'SDG15',
+        subHeader: '',
+        description:
+          'Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-15.png',
+      },
+      {
+        header: 'SDG16',
+        subHeader: '',
+        description:
+          'Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-16.png',
+      },
+      {
+        header: 'SDG17',
+        subHeader: '',
+        description:
+          'Strengthen the means of implementation and revitalize the global partnership for sustainable development.',
+        CTAText: 'Learn More',
+        CTALink: '/initiatives/health',
+        headerImg: 'sdg-icons/E-WEB-Goal-17.png',
+      },
+    ],
   };
 
   handleActiveChange = checked => {
@@ -142,219 +173,25 @@ export default class Initiatives extends React.Component {
   render() {
     const { Title } = Typography;
     const { active, size, buttonShape, avatarShape, block, healthData, initiatives } = this.state;
-    console.log(initiatives);
+    console.log(this.state.initiatives);
     return (
       <div>
         <Row gutter={[20, 40]} justify="center">
-          <Col sm={24} md={16} lg={8}>
-            <Card style={{ width: "auto" }}>
-              <Row>
-                <Col span={20}>
-                  <Title level={4} style={{ textAlign: "left" }}>
-                    <Space>
-                      <Text strong className="mr-2">
-                        $Health
-                      </Text>
-                      (Ξ622)
-                    </Space>
-                  </Title>
-                </Col>
-                <Col span={4}>
-                  <Link to="/initiatives/health">
-                    <Button>Learn More</Button>
-                  </Link>
-                </Col>
-              </Row>
-              <Divider />
-              <List
-                style={{ textAlign: "left" }}
-                grid={{ gutter: 24, sm: 2, md: 4 }}
-                dataSource={initiatives.health}
-                renderItem={item => (
-                  <List.Item>
-                    <Title level={5}>
-                      <b>{item.value}</b>
-                    </Title>
-                    {capitalize(item.text)}
-                  </List.Item>
-                )}
-              />
-            </Card>
-          </Col>
-          <Col sm={24} md={16} lg={8}>
-            <Card style={{ width: "auto" }}>
-              <Row>
-                <Col span={20}>
-                  <Title level={4} style={{ textAlign: "left" }}>
-                    <Space>
-                      <Text className="mr-2">
-                        <b>$Housing</b>
-                      </Text>
-                      (Ξ888)
-                    </Space>
-                  </Title>
-                </Col>
-                <Col span={4}>
-                  <Link to="/initiatives/housing">
-                    <Button>Learn More</Button>
-                  </Link>
-                </Col>
-              </Row>
-              <Divider />
-              <List
-                style={{ textAlign: "left" }}
-                grid={{ gutter: 24, sm: 2, md: 4 }}
-                dataSource={initiatives.housing}
-                renderItem={item => (
-                  <List.Item>
-                    <Title strong level={5}>
-                      {item.value}
-                    </Title>
-                    {capitalize(item.text)}
-                  </List.Item>
-                )}
-              />
-            </Card>
-          </Col>
-          <Col sm={24} md={16} lg={8}>
-            <Card style={{ width: "auto" }}>
-              <Row>
-                <Col span={20}>
-                  <Title level={4} style={{ textAlign: "left" }}>
-                    <Space>
-                      <Text className="mr-2">
-                        <b>$Education</b>
-                      </Text>
-                      (Ξ498)
-                    </Space>
-                  </Title>
-                </Col>
-                <Col span={4}>
-                  <Link to="/initiatives/education">
-                    <Button>Learn More</Button>
-                  </Link>
-                </Col>
-              </Row>
-              <Divider />
-              <List
-                style={{ textAlign: "left" }}
-                grid={{ gutter: 24, sm: 2, md: 4 }}
-                dataSource={initiatives.education}
-                renderItem={item => (
-                  <List.Item>
-                    <Title level={5}>
-                      <b>{item.value}</b>
-                    </Title>
-                    {capitalize(item.text)}
-                  </List.Item>
-                )}
-              />
-            </Card>
-          </Col>
-
-          <Col sm={24} md={16} lg={8}>
-            <Card style={{ width: "auto" }}>
-              <Row>
-                <Col span={20}>
-                  <Title level={4} style={{ textAlign: "left" }}>
-                    <Space>
-                      <Text className="mr-2">
-                        <b>$Climate</b>
-                      </Text>
-                      (Ξ561)
-                    </Space>
-                  </Title>
-                </Col>
-                <Col span={4}>
-                  <Link to="/initiatives/climate">
-                    <Button>Learn More</Button>
-                  </Link>
-                </Col>
-              </Row>
-              <Divider />
-              <List
-                style={{ textAlign: "left" }}
-                grid={{ gutter: 24, sm: 2, md: 4 }}
-                dataSource={initiatives.climate}
-                renderItem={item => (
-                  <List.Item>
-                    <Title level={5}>
-                      <b>{item.value}</b>
-                    </Title>
-                    {capitalize(item.text)}
-                  </List.Item>
-                )}
-              />
-            </Card>
-          </Col>
-          <Col sm={24} md={16} lg={8}>
-            <Card style={{ width: "auto" }}>
-              <Row>
-                <Col span={20}>
-                  <Title level={4} style={{ textAlign: "left" }}>
-                    <Space>
-                      <Text className="mr-2">
-                        <b>$Finance</b>
-                      </Text>
-                      (Ξ289)
-                    </Space>
-                  </Title>
-                </Col>
-                <Col span={4}>
-                  <Link to="/initiatives/finance">
-                    <Button>Learn More</Button>
-                  </Link>
-                </Col>
-              </Row>
-              <Divider />
-              <List
-                style={{ textAlign: "left" }}
-                grid={{ gutter: 24, sm: 2, md: 4 }}
-                dataSource={initiatives.finance}
-                renderItem={item => (
-                  <List.Item>
-                    <Title level={5}>
-                      <b>{item.value}</b>
-                    </Title>
-                    {capitalize(item.text)}
-                  </List.Item>
-                )}
-              />
-            </Card>
-          </Col>
-          <Col sm={24} md={16} lg={8}>
-            <Card style={{ width: "auto" }}>
-              <Row>
-                <Col span={20}>
-                  <Title level={4} style={{ textAlign: "left" }}>
-                    <Space>
-                      <Text className="mr-2">
-                        <b>$Governance</b>
-                      </Text>
-                      (Ξ321)
-                    </Space>
-                  </Title>
-                </Col>
-                <Col span={4}>
-                  <Link to="/initiatives/governance">Learn More</Link>
-                </Col>
-              </Row>
-              <Divider />
-              <List
-                style={{ textAlign: "left" }}
-                grid={{ gutter: 24, sm: 2, md: 4 }}
-                dataSource={initiatives.governance}
-                renderItem={item => (
-                  <List.Item>
-                    <Title level={5}>
-                      <b>{item.value}</b>
-                    </Title>
-                    {capitalize(item.text)}
-                  </List.Item>
-                )}
-              />
-            </Card>
-          </Col>
+          {this.state.initiatives.map(item => {
+            return (
+              <Col sm={24} md={12} lg={8}>
+                <InitiativeCard
+                  headerImg={item.headerImg}
+                  header={item.header}
+                  subHeader={item.subHeader}
+                  description={item.description}
+                  CTALink={item.CTALink}
+                  CTAText={item.CTAText}
+                  initiativeData={item.initiativeData}
+                />
+              </Col>
+            );
+          })}
         </Row>
       </div>
     );
