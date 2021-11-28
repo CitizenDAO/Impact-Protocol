@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { GlobalContext } from '../context/GlobalState';
 import { CardStyled } from './Card/Card.styled';
 
-export default function BondBuilder({ title, season, APY, CDAO }) {
+export default function BondBuilder({ title, season, description, APY, CDAO }) {
   const { Title, Text } = Typography;
   const {
     selectBondMaturity,
@@ -52,6 +52,7 @@ export default function BondBuilder({ title, season, APY, CDAO }) {
         <Col lg={12}>
           <Title level={2}>{title}</Title>
           <Title level={5}>{season}</Title>
+          <p>{description}</p>
         </Col>
         <Col lg={12}>
           <Row style={styles.card} gutter={[24, 24]} className="mb-1">

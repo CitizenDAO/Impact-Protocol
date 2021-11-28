@@ -33,25 +33,25 @@ export default function Dashboard({
   return (
     <div>
       <Row style={{ marginBottom: '40px' }} gutter={[24, 24]}>
-        <Col span={6} md={12} xs={24}>
+        <Col span={6} lg={6} md={12} xs={24}>
           <Card style={{ width: 'auto' }}>
             <p>Total Eth</p>
             <Skeleton.Button active={true} size="large" shape="square" />
           </Card>
         </Col>
-        <Col span={6} md={12} xs={24}>
+        <Col span={6} lg={6} md={12} xs={24}>
           <Card style={{ width: 'auto' }}>
             <p>CDAO Price</p>
             <Skeleton.Button active={true} size="large" shape="square" />
           </Card>
         </Col>
-        <Col span={6} md={12} xs={24}>
+        <Col span={6} lg={6} md={12} xs={24}>
           <Card style={{ width: 'auto' }}>
             <p>Market Cap</p>
             <Skeleton.Button active={true} size="large" shape="square" />
           </Card>
         </Col>
-        <Col span={6} md={12} xs={24}>
+        <Col span={6} lg={6} md={12} xs={24}>
           <Card style={{ width: 'auto' }}>
             <p>Circulating Supply</p>
             <Skeleton.Button active={true} size="large" shape="square" />
@@ -65,11 +65,14 @@ export default function Dashboard({
             <Title style={{ textAlign: 'left' }}>
               <b>Become a Citizen</b>
             </Title>
-            <p className="text-size-md" style={{ textAlign: 'left' }}>Gain access to the CitizenDAO community</p>
+            <p className="text-size-md" style={{ textAlign: 'left' }}>
+              Gain access to the CitizenDAO community
+            </p>
             <Row gutter={[16, 16]}>
-              <Col lg={12} md={24}>
+              <Col>
                 <Link to="/citizenship/pioneer" replace>
                   <Card
+                    className="card-size-md"
                     title="Founder"
                     hoverable
                     style={{ width: 'auto' }}
@@ -88,9 +91,10 @@ export default function Dashboard({
                   </Card>
                 </Link>
               </Col>
-              <Col lg={12} md={24}>
+              <Col>
                 <Link to="/citizenship/pioneer" replace>
                   <Card
+                    className="card-size-md"
                     title="Pioneer"
                     hoverable
                     style={{ width: 'auto' }}
@@ -142,26 +146,38 @@ export default function Dashboard({
         <Col>
           <Card>
             <Title>Invest in Social Impact</Title>
-            <p className="text-size-md">Particiapte directly in selecting and funding projects working on the 17 Sustainable Development Goals. Explore and mint bonds from the goals that interest you most below.</p>
-            <p className="text-size-md">These Impact Bonds come with some special perks that will allow you to influence which projects CitizenDAO will allocates funds.</p>
+            <p className="text-size-md">
+              Particiapte directly in selecting and funding projects working on the 17 Sustainable Development Goals.
+              Explore and mint bonds from the goals that interest you most below.
+            </p>
+            <p className="text-size-md">
+              These Impact Bonds come with some special perks that will allow you to influence which projects CitizenDAO
+              will allocates funds.
+            </p>
           </Card>
         </Col>
       </Row>
-      
+
       <Row className="mb-2">
         <Initiatives />
       </Row>
-      
+
       <Row>
         <Col lg={24}>
           <Card>
             <Title>Join the Community</Title>
-            <p className="text-size-md">Reach out, connect, participate, collaborate, share memes, learn, and engage with the CitizenDAO community.</p>
-            <a href="https://discord.gg/SVKqEmrnM4"><Button size="large" type="primary">Join our Discord</Button></a>
+            <p className="text-size-md">
+              Reach out, connect, participate, collaborate, share memes, learn, and engage with the CitizenDAO
+              community.
+            </p>
+            <a href="https://discord.gg/SVKqEmrnM4">
+              <Button size="large" type="primary">
+                Join our Discord
+              </Button>
+            </a>
           </Card>
         </Col>
       </Row>
-      
     </div>
   );
 }

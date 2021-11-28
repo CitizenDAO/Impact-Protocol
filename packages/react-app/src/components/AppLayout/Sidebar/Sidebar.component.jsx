@@ -7,51 +7,56 @@ import {
   HomeOutlined,
   MedicineBoxOutlined,
   TeamOutlined
-} from "@ant-design/icons";
-import { Divider, Menu } from "antd";
-import React from "react";
-import { Link } from "react-router-dom";
-import { SidebarStyles } from "./Sidebar.styles";
+} from '@ant-design/icons';
+import { Divider, Menu } from 'antd';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { SidebarStyles } from './Sidebar.styles';
 
 const sidebarLinks = [
   {
-    path: "/contracts",
-    title: "Citizen Fixed Bond",
+    path: '/contracts',
+    title: 'Citizen Fixed Bond',
     icon: FileTextOutlined,
   },
   {
-    path: "/",
-    title: "Dashboard",
+    path: '/',
+    title: 'Dashboard',
     icon: DashboardOutlined,
   },
   {
-    path: "/initiatives/health",
-    title: "Health",
+    path: '/your-bonds',
+    title: 'Your Bonds',
+    icon: DashboardOutlined,
+  },
+  {
+    path: '/initiatives/health',
+    title: 'Health',
     icon: MedicineBoxOutlined,
   },
   {
-    path: "/initiatives/housing",
-    title: "Housing",
+    path: '/initiatives/housing',
+    title: 'Housing',
     icon: HomeOutlined,
   },
   {
-    path: "/initiatives/education",
-    title: "Education",
+    path: '/initiatives/education',
+    title: 'Education',
     icon: BookOutlined,
   },
   {
-    path: "/initiatives/climate",
-    title: "Climate",
+    path: '/initiatives/climate',
+    title: 'Climate',
     icon: GlobalOutlined,
   },
   {
-    path: "/initiatives/finance",
-    title: "Finance",
+    path: '/initiatives/finance',
+    title: 'Finance',
     icon: BankOutlined,
   },
   {
-    path: "/bond",
-    title: "Bond",
+    path: '/bond',
+    title: 'Bond',
     icon: BankOutlined,
   },
 ];
@@ -88,11 +93,11 @@ export const Sidebar = () => {
 
 const styles = {
   logolink: {
-    display: "inline-block",
-    width: "100%",
-    padding: "10px 10px",
+    display: 'inline-block',
+    width: '100%',
+    padding: '10px 10px',
   },
   logo: {
-    width: "100%",
+    width: '100%',
   },
 };

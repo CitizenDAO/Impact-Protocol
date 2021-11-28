@@ -32,6 +32,7 @@ import Citizenship from './views/Citizenship';
 import Dashboard from './views/Dashboard';
 import Initiatives from './views/Initiatives';
 import InitiativesView from './views/Initiatives/InitiativesView';
+import YourBondView from './views/YourBondView';
 
 const { ethers } = require('ethers');
 /*
@@ -496,6 +497,9 @@ function App(props) {
           </Route>
           <Route exact path="/">
             <Dashboard />
+          </Route>
+          <Route exact path="/your-bonds">
+            <YourBondView />
           </Route>
           <Route exact path="/bond">
             <Bond
