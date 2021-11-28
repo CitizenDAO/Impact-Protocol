@@ -32,13 +32,11 @@ contract FundingPoolManager is IFundingPoolManager, AccessControl {
 
     function addPool(IERC20 token, uint256 apr, address fundingAddress)
         public onlyRole(DEFAULT_ADMIN_ROLE) returns (uint256) {
-        require (token.balanceOf(address(this)) - reservedTokens[token] >= maxIssuance,
-                 "FundingPoolManager: max issuance greater than reserves");
         uint256 id = poolCounter.current();
         poolCounter.increment();
         pools[id].token = token;
         pools[id].apr = apr;
-        pools[Id].fundingAddress = fundingAddress;
+        pools[id].fundingAddress = fundingAddress;
         return id;
     }
     
