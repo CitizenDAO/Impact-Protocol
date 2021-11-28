@@ -63,7 +63,7 @@ export default function Dashboard({
         <Col span={24}>
           <Card style={styles.card}>
             <Title style={{ textAlign: 'left' }}>
-              <b>Become a Citizen</b>
+              <b>Become a Citizen 👩‍🚀</b>
             </Title>
             <p className="text-size-md" style={{ textAlign: 'left' }}>
               Gain access to the CitizenDAO community
@@ -145,7 +145,7 @@ export default function Dashboard({
       <Row className="mb-1">
         <Col>
           <Card>
-            <Title>Invest in Social Impact</Title>
+            <Title>Invest in Social Impact 🚀</Title>
             <p className="text-size-md">
               Particiapte directly in selecting and funding projects working on the 17 Sustainable Development Goals.
               Explore and mint bonds from the goals that interest you most below.
@@ -165,7 +165,7 @@ export default function Dashboard({
       <Row>
         <Col lg={24}>
           <Card>
-            <Title>Join the Community</Title>
+            <Title>Join the Community 😎</Title>
             <p className="text-size-md">
               Reach out, connect, participate, collaborate, share memes, learn, and engage with the CitizenDAO
               community.
