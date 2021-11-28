@@ -93,7 +93,7 @@ contract FixedTermBondIssuer is AccessControl {
     }
 
     function _canTransfer(uint256 id, address to) internal virtual returns (bool) {
-        return bonds[id].holder == msg.sender || hasRole(DEFAULT_ADMIN_ROLE, msg.sender;
+        return bonds[id].holder == msg.sender || hasRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
     function remainingAssets(IERC20 asset) public view returns (uint256) {
