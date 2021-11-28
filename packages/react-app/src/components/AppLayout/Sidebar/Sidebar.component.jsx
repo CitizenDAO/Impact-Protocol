@@ -1,13 +1,4 @@
-import {
-  BankOutlined,
-  BookOutlined,
-  DashboardOutlined,
-  FileTextOutlined,
-  GlobalOutlined,
-  HomeOutlined,
-  MedicineBoxOutlined,
-  TeamOutlined
-} from '@ant-design/icons';
+import { FileTextOutlined } from '@ant-design/icons';
 import { Divider, Menu } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -21,44 +12,48 @@ const sidebarLinks = [
   },
   {
     path: '/',
-    title: 'Dashboard',
-    icon: DashboardOutlined,
+    title: '🧭 Dashboard',
+    // icon: DashboardOutlined,
+  },
+  {
+    path: '/goals',
+    title: '🥇 Goals',
   },
   {
     path: '/your-bonds',
-    title: 'Your Bonds',
-    icon: DashboardOutlined,
+    title: '💎 Your Bonds',
+    // icon: DashboardOutlined,
   },
   {
     path: '/initiatives/health',
-    title: 'Health',
-    icon: MedicineBoxOutlined,
+    title: '❤️ Health',
+    // icon: MedicineBoxOutlined,
   },
   {
     path: '/initiatives/housing',
-    title: 'Housing',
-    icon: HomeOutlined,
+    title: '🏠 Housing',
+    // icon: HomeOutlined,
   },
   {
     path: '/initiatives/education',
-    title: 'Education',
-    icon: BookOutlined,
+    title: '📚 Education',
+    // icon: BookOutlined,
   },
   {
     path: '/initiatives/climate',
-    title: 'Climate',
-    icon: GlobalOutlined,
+    title: '🌡️ Climate',
+    // icon: GlobalOutlined,
   },
   {
     path: '/initiatives/finance',
-    title: 'Finance',
-    icon: BankOutlined,
+    title: '📈 Finance',
+    // icon: BankOutlined,
   },
-  {
-    path: '/bond',
-    title: 'Bond',
-    icon: BankOutlined,
-  },
+  // {
+  //   path: '/bond',
+  //   title: '🌱 Bond',
+  //   // icon: BankOutlined,
+  // },
 ];
 
 export const Sidebar = () => {
@@ -70,20 +65,29 @@ export const Sidebar = () => {
         </Link>
         <Divider />
         {sidebarLinks.map(({ path, title, icon: Icon }) => (
-          <Menu.Item key={title} icon={<Icon />}>
+          <Menu.Item key={title} icon={Icon ? <Icon /> : null}>
             <Link to={path}>{title}</Link>
           </Menu.Item>
         ))}
 
-        <Menu.SubMenu title="Community" icon={<TeamOutlined />}>
+        <Menu.SubMenu title="👋 Community">
           <Menu.Item key="discord">
-            <a href="https://discord.gg/SVKqEmrnM4">Discord</a>
+            <a href="https://discord.gg/SVKqEmrnM4" target="_blank">
+              Discord
+            </a>
           </Menu.Item>
-          <Menu.Item key="snapshot">
-            <a to="#">Snapshot</a>
+          <Menu.Item key="snapshot" target="_blank">
+            <a to="https://snapshot.org/#/citizendao.eth">Snapshot</a>
           </Menu.Item>
           <Menu.Item key="discourse">
-            <a href="https://ideas.citizendao.com">Discourse</a>
+            <a href="https://forum.citizendao.com" target="_blank">
+              Discourse
+            </a>
+          </Menu.Item>
+          <Menu.Item key="faq">
+            <a href="https://forum.citizendao.com" target="_blank">
+              FAQ
+            </a>
           </Menu.Item>
         </Menu.SubMenu>
       </Menu>
