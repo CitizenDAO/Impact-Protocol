@@ -10,8 +10,8 @@ interface IFundingPoolManager {
 
     function transfer(uint256 poolId, uint256 bondId, address to) external returns (bool);
 
-    function getPoolInfo(uint256 poolId) external view returns (address asset, uint256 apy, uint256 outstanding);
+    /* function getPoolInfo(uint256 poolId) external view returns (address asset, uint256 apy, uint256 outstanding); */
 
-    function getBondInfo(uint256 poolId, uint256 bondId) external view returns (address, uint256, address, uint256, bool);
+    /* function getBondInfo(uint256 poolId, uint256 bondId) external view returns (address, uint256, address, uint256, bool); */
 
 }

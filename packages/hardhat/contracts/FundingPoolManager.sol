@@ -40,11 +40,11 @@ contract FundingPoolManager is IFundingPoolManager, AccessControl {
         return id;
     }
     
-    function purchase(uint256 poolId, address to, uint256 maturityDate) external virtual payable returns (uint256) {
+    function purchase(uint256 poolId, address to, uint256 maturityDate) external override payable returns (uint256) {
         require (poolId < poolCounter.current(), "FundingPoolManager: invalid pool id");
         uint256 baseAmount = getTokenAmount(msg.value);
         uint256 id = bondIssuer.issueBond(maturityDate, pools[poolId].token, pools[poolId].apr, to, baseAmount);
-        pools[poolId].fundingAddress.call.value(msg.value)("");
+        pools[poolId].fundingAddress.call{value: msg.value}("");
         return id;
     }
 
@@ -57,14 +57,14 @@ contract FundingPoolManager is IFundingPoolManager, AccessControl {
          uint timeStamp,
                      uint80 answeredInRound
          ) = priceFeed.latestRoundData();
-        return price * 10 * ethIn;
+        return uint256(price) * 10 * ethIn;
     }
 
-    function redeem(uint256 poolId, uint256 bondId) external virtual returns (bool) {
+    function redeem(uint256 poolId, uint256 bondId) external override returns (bool) {
         return bondIssuer.redeemBond(bondId);
     }
 
-    function transfer(uint256 poolId, uint256 bondId, address to) external virtual returns (bool) {
+    function transfer(uint256 poolId, uint256 bondId, address to) external override returns (bool) {
         return bondIssuer.transferBond(bondId, to);
     }
 
