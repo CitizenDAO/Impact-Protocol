@@ -188,6 +188,7 @@ export default class Initiatives extends React.Component {
                   CTALink={item.CTALink}
                   CTAText={item.CTAText}
                   initiativeData={item.initiativeData}
+                  onClick={() => {document.getElementsByClassName('main__layout')[0].scrollTo(0,0);}}
                 />
               </Col>
             );

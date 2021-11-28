@@ -73,7 +73,7 @@ export default function InitiativessChart({
           </XAxis>
           {/* scale="log" domain={["auto", "auto"]} */}
           <YAxis dataKey="futureValue" domain={[initCDAO, 'auto']}>
-            <Label angle={-90} offset={-5} position="insideLeft" value="Future Value (Amount of CDAOs)" />
+            {/* <Label angle={-90} offset={-5} position="inside" value="Future Value (Amount of CDAOs)" /> */}
           </YAxis>
           <Tooltip />
           <Line type="monotone" dataKey="futureValue" stroke="#8884d8" activeDot={{ r: 8 }} />

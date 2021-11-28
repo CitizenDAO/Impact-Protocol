@@ -1,4 +1,4 @@
-import { Col, Row } from 'antd';
+import { Col, Row, Card, Typography } from 'antd';
 import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import BondBuilder from '../../components/BondBuilder';
@@ -55,6 +55,7 @@ export default function InitiativesView({ sector }) {
   const maturationDate = new Date(date.getTime() + 86400000 * bondMaturity);
   const maturationStr = `${maturationDate.getDate()}.${maturationDate.getMonth()}.${maturationDate.getFullYear()}`;
 
+  const { Text, Title } = Typography;
   return (
     <div>
       <Row gutter={[24, 24]} style={{ marginBottom: '24px' }}>
@@ -81,7 +82,25 @@ export default function InitiativesView({ sector }) {
       </Row>
       <Row gutter={[24, 24]}>
         <Col sm={24} md={24} lg={8}>
-          <InitiativesDetails pageDescriptions={textData.projects} />
+          {/* <InitiativesDetails pageDescriptions={textData.projects} /> */}
+          <Card style={{ width: 'auto' }}>
+          <Row className="mb-1">
+            <Col span={24}>
+              <img class="br-15" style={{ width: '100%' }} src={textData.description.img} />
+            </Col>
+          </Row>
+          <Row className="mb-1">
+            <Col span={24}>
+              <Title level={3} style={{ textAlign: 'left' }}>
+                {}
+              </Title>
+              <Title level={5}>{}</Title>
+            </Col>
+            <Col>
+              <Text className="text-size-md">{textData.description.text}</Text>
+            </Col>
+          </Row>
+          </Card>
         </Col>
 
         <Col sm={24} md={24} lg={16}>

@@ -13,6 +13,7 @@ export default function InitiativeCard({
   initiativeData,
   headerImg,
   description,
+  onClick,
 }) {
   const { Title, Text } = Typography;
   return (
@@ -49,7 +50,7 @@ export default function InitiativeCard({
           )}
         />
       ) : null}
-      <Link to={CTALink}>
+      <Link to={CTALink} onClick={onClick}>
         <Button size="large" block>
           {CTAText}
         </Button>

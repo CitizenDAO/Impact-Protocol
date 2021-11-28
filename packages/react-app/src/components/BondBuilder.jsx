@@ -48,24 +48,24 @@ export default function BondBuilder({ title, season, APY, CDAO }) {
 
   return (
     <CardStyled style={styles.card}>
-      <Row justify="space-between">
+      <Row justify="space-between" gutter={[24,24]}>
         <Col lg={12}>
           <Title level={2}>{title}</Title>
           <Title level={5}>{season}</Title>
         </Col>
         <Col lg={12}>
-          <Row style={styles.card} gutter={[24, 24]}>
-            <Col lg={8}>
+          <Row style={styles.card} gutter={[24, 24]} className="mb-1">
+            <Col lg={12}>
               <Text type="secondary">Current APY</Text>
               <br />
               <Text strong>{bondAPY}%</Text>
             </Col>
-            <Col lg={8}>
+            <Col lg={12}>
               <Text type="secondary">CDAO Left</Text>
               <br />
               <Text strong>69,420,522</Text>
             </Col>
-            <Col lg={8}>
+            <Col lg={12}>
               <Text type="secondary">CDAO Price</Text>
               <br />
               <Text strong>{CDAOPriceDollar}</Text>
