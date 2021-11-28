@@ -33,25 +33,25 @@ export default function Dashboard({
   return (
     <div>
       <Row style={{ marginBottom: '40px' }} gutter={[24, 24]}>
-        <Col span={6} md={12} xs={24}>
+        <Col span={6} lg={6} md={12} xs={24}>
           <Card style={{ width: 'auto' }}>
             <p>Total Eth</p>
             <Skeleton.Button active={true} size="large" shape="square" />
           </Card>
         </Col>
-        <Col span={6} md={12} xs={24}>
+        <Col span={6} lg={6} md={12} xs={24}>
           <Card style={{ width: 'auto' }}>
             <p>CDAO Price</p>
             <Skeleton.Button active={true} size="large" shape="square" />
           </Card>
         </Col>
-        <Col span={6} md={12} xs={24}>
+        <Col span={6} lg={6} md={12} xs={24}>
           <Card style={{ width: 'auto' }}>
             <p>Market Cap</p>
             <Skeleton.Button active={true} size="large" shape="square" />
           </Card>
         </Col>
-        <Col span={6} md={12} xs={24}>
+        <Col span={6} lg={6} md={12} xs={24}>
           <Card style={{ width: 'auto' }}>
             <p>Circulating Supply</p>
             <Skeleton.Button active={true} size="large" shape="square" />
@@ -66,10 +66,11 @@ export default function Dashboard({
               <b>Become a Citizen</b>
             </Title>
             <p style={{ textAlign: 'left' }}>Gain access to the CitizenDAO community</p>
-            <Row gutter={[16, 16]}>
-              <Col lg={12} md={24}>
+            <Row gutter={[16, 16]} justify="center">
+              <Col>
                 <Link to="/citizenship/pioneer" replace>
                   <Card
+                    className="card-size-md"
                     title="Founder"
                     hoverable
                     style={{ width: 'auto' }}
@@ -88,9 +89,10 @@ export default function Dashboard({
                   </Card>
                 </Link>
               </Col>
-              <Col lg={12} md={24}>
+              <Col>
                 <Link to="/citizenship/pioneer" replace>
                   <Card
+                    className="card-size-md"
                     title="Pioneer"
                     hoverable
                     style={{ width: 'auto' }}
