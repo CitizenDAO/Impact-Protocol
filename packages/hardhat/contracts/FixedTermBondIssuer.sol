@@ -24,13 +24,13 @@ contract FixedTermBondIssuer is AccessControl {
     // asset tracking
     mapping (IERC20 => uint256) public assignedAssets;
     
-    function issueBond(uint256 maturityDate, IERC20 asset, uint256 apy, address to, uint256 baseAmount)
+    function issueBond(uint256 maturityDate, IERC20 asset, uint256 apr, address to, uint256 baseAmount)
         public
         onlyRole(DEFAULT_ADMIN_ROLE) // needs specific role
         returns (uint256)
     {
         require(_isValid(to, maturityDate), "FixedTermBondIssuer: invalid bond parameters");
-        uint256 payout = _calculateReturn(maturityDate, apy, baseAmount);
+        uint256 payout = _calculateReturn(maturityDate, apr, baseAmount);
         uint256 assetBalance = asset.balanceOf(address(this));
         require(assetBalance - assignedAssets[asset] >= payout, "FixedTermBondIssuer: insufficient asset balance");
         
@@ -79,11 +79,11 @@ contract FixedTermBondIssuer is AccessControl {
         
     }
 
-    function _calculateReturn(uint256 maturityDate, uint256 apy, uint256 baseAmount) internal virtual returns (uint256) {
-        uint256 duration = maturityDate - block.timestamp;
-        // TODO: calculation - use PRBMath library
+    function _calculateReturn(uint256 maturityDate, uint256 apr, uint256 baseAmount) public view returns (uint256) {
+        uint256 duration = (maturityDate - block.timestamp) / (60 * 60 * 24);
+        uint256 total = baseAmount * ((10**3 + (apr/365))/10**3)**365;
         
-        return baseAmount;
+        return total;
     }
 
     function _isValid(address to, uint256 maturityDate) internal virtual returns (bool) {
@@ -93,6 +93,10 @@ contract FixedTermBondIssuer is AccessControl {
     }
 
     function _canTransfer(uint256 id, address to) internal virtual returns (bool) {
-        return bonds[id].holder == msg.sender;
+        return bonds[id].holder == msg.sender || hasRole(DEFAULT_ADMIN_ROLE, msg.sender;
+    }
+
+    function remainingAssets(IERC20 asset) public view returns (uint256) {
+        return asset.balanceOf(address(this)) - assignedAssets[asset];
     }
 }

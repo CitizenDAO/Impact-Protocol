@@ -33,7 +33,8 @@ contract CitizenNFTBond is ERC721Enumerable, AccessControl {
     mapping (uint256 => Bond) private bonds;
     Counters.Counter private bondCounter;
 
-    constructor() ERC721("Citizen Bond", "CBOND") {}
+    constructor() ERC721("Citizen Bond", "CBOND") {
+    }
 
     function addPool(string memory name, IFundingPoolManager poolManager, uint256 poolId)
         public
@@ -41,6 +42,7 @@ contract CitizenNFTBond is ERC721Enumerable, AccessControl {
         returns (uint256)
     {
         uint256 id = poolCounter.current();
+        poolCounter.increment();
         bondPools[id].name = name;
         bondPools[id].poolManager = poolManager;
         bondPools[id].poolId = poolId;
