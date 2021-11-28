@@ -77,8 +77,8 @@ export const Sidebar = () => {
           <Menu.Item key="snapshot">
             <a to="#">Snapshot</a>
           </Menu.Item>
-          <Menu.Item key="discource">
-            <a href="https://ideas.citizendao.com">Discource</a>
+          <Menu.Item key="discourse">
+            <a href="https://ideas.citizendao.com">Discourse</a>
           </Menu.Item>
         </Menu.SubMenu>
       </Menu>

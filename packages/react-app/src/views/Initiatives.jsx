@@ -11,7 +11,7 @@ export default class Initiatives extends React.Component {
     avatarShape: 'circle',
     initiatives: [
       {
-        header: 'SDG1',
+        header: 'Goal 1',
         subHeader: '',
         description: 'End poverty in all its forms everywhere.',
         CTAText: 'Learn More',
@@ -19,7 +19,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-01.png',
       },
       {
-        header: 'SDG2',
+        header: 'Goal 2',
         subHeader: '',
         description: 'End hunger, achieve food security and improved nutrition and promote sustainable agriculture.',
         CTAText: 'Learn More',
@@ -27,7 +27,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-02.png',
       },
       {
-        header: 'SDG3',
+        header: 'Goal 3',
         subHeader: '',
         description: 'Ensure healthy lives and promote well-being for all at all ages.',
         CTAText: 'Learn More',
@@ -35,7 +35,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-03.png',
       },
       {
-        header: 'SDG4',
+        header: 'Goal 4',
         subHeader: '',
         description:
           'Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all.',
@@ -44,7 +44,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-04.png',
       },
       {
-        header: 'SDG5',
+        header: 'Goal 5',
         subHeader: '',
         description: 'Achieve gender equality and empower all women and girls.',
         CTAText: 'Learn More',
@@ -52,7 +52,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-05.png',
       },
       {
-        header: 'SDG6',
+        header: 'Goal 6',
         subHeader: '',
         description: 'Ensure availability and sustainable management of water and sanitation for all.',
         CTAText: 'Learn More',
@@ -60,7 +60,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-06.png',
       },
       {
-        header: 'SDG7',
+        header: 'Goal 7',
         subHeader: '',
         description: 'Ensure access to affordable, reliable, sustainable and modern energy for all.',
         CTAText: 'Learn More',
@@ -68,7 +68,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-07.png',
       },
       {
-        header: 'SDG8',
+        header: 'Goal 8',
         subHeader: '',
         description:
           'Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation.',
@@ -77,7 +77,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-08.png',
       },
       {
-        header: 'SDG9',
+        header: 'Goal 9',
         subHeader: '',
         description: 'Ensure access to affordable, reliable, sustainable and modern energy for all.',
         CTAText: 'Learn More',
@@ -85,7 +85,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-09.png',
       },
       {
-        header: 'SDG10',
+        header: 'Goal 10',
         subHeader: '',
         description: 'Reduce inequality within and among countries.',
         CTAText: 'Learn More',
@@ -93,7 +93,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-10.png',
       },
       {
-        header: 'SDG11',
+        header: 'Goal 11',
         subHeader: '',
         description: 'Make cities and human settlements inclusive, safe, resilient and sustainable.',
         CTAText: 'Learn More',
@@ -101,7 +101,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-11.png',
       },
       {
-        header: 'SDG12',
+        header: 'Goal 12',
         subHeader: '',
         description: 'Ensure access to affordable, reliable, sustainable and modern energy for all.',
         CTAText: 'Learn More',
@@ -109,7 +109,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-12.png',
       },
       {
-        header: 'SDG13',
+        header: 'Goal 13',
         subHeader: '',
         description: 'Take urgent action to combat climate change and its impacts.',
         CTAText: 'Learn More',
@@ -117,7 +117,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-13.png',
       },
       {
-        header: 'SDG14',
+        header: 'Goal 14',
         subHeader: '',
         description: 'Conserve and sustainably use the oceans, seas and marine resources for sustainable development.',
         CTAText: 'Learn More',
@@ -125,7 +125,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-14.png',
       },
       {
-        header: 'SDG15',
+        header: 'Goal 15',
         subHeader: '',
         description:
           'Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss.',
@@ -134,7 +134,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-15.png',
       },
       {
-        header: 'SDG16',
+        header: 'Goal 16',
         subHeader: '',
         description:
           'Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels.',
@@ -143,7 +143,7 @@ export default class Initiatives extends React.Component {
         headerImg: 'sdg-icons/E-WEB-Goal-16.png',
       },
       {
-        header: 'SDG17',
+        header: 'Goal 17',
         subHeader: '',
         description:
           'Strengthen the means of implementation and revitalize the global partnership for sustainable development.',

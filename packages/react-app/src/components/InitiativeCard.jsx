@@ -31,7 +31,7 @@ export default function InitiativeCard({
           <Title level={5}>{subHeader}</Title>
         </Col>
         <Col>
-          <Text>{description}</Text>
+          <Text className="text-size-md">{description}</Text>
         </Col>
       </Row>
       {/* <Divider /> */}

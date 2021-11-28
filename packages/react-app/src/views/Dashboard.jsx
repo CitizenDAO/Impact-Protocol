@@ -62,10 +62,10 @@ export default function Dashboard({
       <Row style={{ marginBottom: '40px' }}>
         <Col span={24}>
           <Card style={styles.card}>
-            <Title level={4} style={{ textAlign: 'left' }}>
+            <Title style={{ textAlign: 'left' }}>
               <b>Become a Citizen</b>
             </Title>
-            <p style={{ textAlign: 'left' }}>Gain access to the CitizenDAO community</p>
+            <p className="text-size-md" style={{ textAlign: 'left' }}>Gain access to the CitizenDAO community</p>
             <Row gutter={[16, 16]}>
               <Col lg={12} md={24}>
                 <Link to="/citizenship/pioneer" replace>
@@ -138,7 +138,30 @@ export default function Dashboard({
         </Row>
       </Modal>
 
-      <Initiatives />
+      <Row className="mb-1">
+        <Col>
+          <Card>
+            <Title>Invest in Social Impact</Title>
+            <p className="text-size-md">Particiapte directly in selecting and funding projects working on the 17 Sustainable Development Goals. Explore and mint bonds from the goals that interest you most below.</p>
+            <p className="text-size-md">These Impact Bonds come with some special perks that will allow you to influence which projects CitizenDAO will allocates funds.</p>
+          </Card>
+        </Col>
+      </Row>
+      
+      <Row className="mb-2">
+        <Initiatives />
+      </Row>
+      
+      <Row>
+        <Col lg={24}>
+          <Card>
+            <Title>Join the Community</Title>
+            <p className="text-size-md">Reach out, connect, participate, collaborate, share memes, learn, and engage with the CitizenDAO community.</p>
+            <a href="https://discord.gg/SVKqEmrnM4"><Button size="large" type="primary">Join our Discord</Button></a>
+          </Card>
+        </Col>
+      </Row>
+      
     </div>
   );
 }
