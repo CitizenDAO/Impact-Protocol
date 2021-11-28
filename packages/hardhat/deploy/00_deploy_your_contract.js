@@ -1,6 +1,7 @@
 // deploy/00_deploy_your_contract.js
-var Web3 = require('web3');
-var web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+const Web3 = require("web3");
+
+const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 const { ethers } = require("hardhat");
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
@@ -9,7 +10,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   await deploy("CitizenFixedBond", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    //args: [ "Hello", ethers.utils.parseEther("1.5") ],
+    // args: [ "Hello", ethers.utils.parseEther("1.5") ],
     log: true,
   });
   await deploy("CitizenBondManager", {
@@ -21,12 +22,18 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     log: true,
   });
 
-  const citizenFixedBond = await ethers.getContract("CitizenFixedBond", deployer);
-  const citizenBondManager = await ethers.getContract("CitizenBondManager", deployer);
+  const citizenFixedBond = await ethers.getContract(
+    "CitizenFixedBond",
+    deployer
+  );
+  const citizenBondManager = await ethers.getContract(
+    "CitizenBondManager",
+    deployer
+  );
   const citizenToken = await ethers.getContract("CitizenToken", deployer);
-  
+
   // Uncomment for local testing - james
-  /*await citizenFixedBond.initializeBond(
+  /* await citizenFixedBond.initializeBond(
     citizenBondManager.address,
     "Test Help",
     180,
@@ -44,8 +51,6 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   await citizenBondManager.addPool(0, citizenFixedBond.address);
   await citizenToken.grantRole(web3.utils.soliditySha3("MINTER_ROLE"), citizenFixedBond.address); */
 
-
-  
   /*
     // Getting a previously deployed contract
     const YourContract = await ethers.getContract("YourContract", deployer);
@@ -82,4 +87,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   });
   */
 };
-module.exports.tags = ["CitizenFixedBond","CitizenBondManager","CitizenToken"];
+module.exports.tags = [
+  "CitizenFixedBond",
+  "CitizenBondManager",
+  "CitizenToken",
+];
