@@ -85,7 +85,7 @@ export const Sidebar = () => {
             </a>
           </Menu.Item>
           <Menu.Item key="faq">
-            <a href="https://forum.citizendao.com" target="_blank">
+            <a href="https://citizendao.notion.site/Citizen-DAO-e8b9b7d456b543bdb1536c9ffca9319e" target="_blank">
               FAQ
             </a>
           </Menu.Item>
