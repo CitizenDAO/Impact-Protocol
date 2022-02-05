@@ -151,7 +151,7 @@
     "extends": "react-app"
   },
   "scripts": {
-    "build": "node scripts/build.js",
+    "build": "CI=false && node scripts/build.js",
     "prestart": "node ./scripts/create_contracts.js",
     "start": "node scripts/start.js",
     "test": "node scripts/test.js",
