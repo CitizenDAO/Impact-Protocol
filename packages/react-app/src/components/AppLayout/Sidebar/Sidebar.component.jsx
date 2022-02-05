@@ -1,15 +1,9 @@
-import { FileTextOutlined } from '@ant-design/icons';
 import { Divider, Menu } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SidebarStyles } from './Sidebar.styles';
 
 const sidebarLinks = [
-  {
-    path: '/contracts',
-    title: 'Citizen Fixed Bond',
-    icon: FileTextOutlined,
-  },
   {
     path: '/',
     title: '🧭 Dashboard',
