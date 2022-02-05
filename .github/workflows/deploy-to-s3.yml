@@ -24,6 +24,8 @@ jobs:
       - run: yarn
 
       - run: yarn run react-app:build
+        env:
+          CI: false
 
       - name: Save Build Artifact
         uses: actions/upload-artifact@v1
