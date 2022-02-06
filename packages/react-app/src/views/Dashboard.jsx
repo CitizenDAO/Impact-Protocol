@@ -1,4 +1,4 @@
-import { Button, Card, Col, Row, Skeleton, Typography } from 'antd';
+import { Button, Card, Col, Row, Typography } from 'antd';
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
@@ -32,33 +32,6 @@ export default function Dashboard({
 
   return (
     <div>
-      <Row style={{ marginBottom: '40px' }} gutter={[24, 24]}>
-        <Col span={6} lg={6} md={12} xs={24}>
-          <Card style={{ width: 'auto' }}>
-            <p>Total Eth</p>
-            <Skeleton.Button active={true} size="large" shape="square" />
-          </Card>
-        </Col>
-        <Col span={6} lg={6} md={12} xs={24}>
-          <Card style={{ width: 'auto' }}>
-            <p>CDAO Price</p>
-            <Skeleton.Button active={true} size="large" shape="square" />
-          </Card>
-        </Col>
-        <Col span={6} lg={6} md={12} xs={24}>
-          <Card style={{ width: 'auto' }}>
-            <p>Market Cap</p>
-            <Skeleton.Button active={true} size="large" shape="square" />
-          </Card>
-        </Col>
-        <Col span={6} lg={6} md={12} xs={24}>
-          <Card style={{ width: 'auto' }}>
-            <p>Circulating Supply</p>
-            <Skeleton.Button active={true} size="large" shape="square" />
-          </Card>
-        </Col>
-      </Row>
-
       <Row style={{ marginBottom: '40px' }}>
         <Col span={24}>
           <Card style={styles.card}>
