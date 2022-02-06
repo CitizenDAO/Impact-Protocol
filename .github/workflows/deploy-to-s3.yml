@@ -26,7 +26,7 @@ jobs:
       - run: yarn run react-app:build
 
       - name: Save Build Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: webapp-artifact
           path: packages/react-app/build
@@ -37,7 +37,7 @@ jobs:
 
     steps:
       - name: Download Build Artifact
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: webapp-artifact
           path: build
@@ -50,7 +50,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./build/ s3://citizendao-frontend --delete
+        run: aws s3 sync build/ s3://citizendao-frontend --delete
 
       - name: Invalidate Cloudfront cache
         run: aws cloudfront create-invalidation --distribution-id EQYO2T71LWF7A --paths "/*"
