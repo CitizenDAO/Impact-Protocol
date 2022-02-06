@@ -3,7 +3,7 @@ import React from 'react';
 import { AppLayoutStyles } from './AppLayout.styled';
 import { Sidebar } from './Sidebar/Sidebar.component';
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 export const AppLayout = ({ networkDisplay, children }) => {
   return (
@@ -12,14 +12,9 @@ export const AppLayout = ({ networkDisplay, children }) => {
         <Sidebar />
       </div>
       <div className="main__layout">
-        <Layout
-          style={{
-            margin: '0px auto',
-          }}
-        >
-          <Header style={styles.header}>{/* <Wallet /> */}</Header>
+        <Layout style={{ margin: '0px auto' }}>
           {networkDisplay}
-          <Content style={{ padding: '1rem', maxWidth: '1256px', margin: '0px auto', width: '100%' }}>
+          <Content style={{ padding: 24 }}>
             <div>{children}</div>
           </Content>
         </Layout>

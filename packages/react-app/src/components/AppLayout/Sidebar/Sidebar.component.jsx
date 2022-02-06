@@ -1,4 +1,4 @@
-import { Divider, Menu } from 'antd';
+import { Menu } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SidebarStyles } from './Sidebar.styles';
@@ -6,12 +6,7 @@ import { SidebarStyles } from './Sidebar.styles';
 const sidebarLinks = [
   {
     path: '/',
-    title: '🧭 Dashboard',
-    // icon: DashboardOutlined,
-  },
-  {
-    path: '/goals',
-    title: '🥇 Goals',
+    title: '🥇 Domains',
   },
   {
     path: '/your-bonds',
@@ -57,7 +52,6 @@ export const Sidebar = () => {
         <Link to="/" style={styles.logolink}>
           <img style={styles.logo} src="citizendao-black.png" />
         </Link>
-        <Divider />
         {sidebarLinks.map(({ path, title, icon: Icon }) => (
           <Menu.Item key={title} icon={Icon ? <Icon /> : null}>
             <Link to={path}>{title}</Link>
@@ -78,11 +72,6 @@ export const Sidebar = () => {
               Discourse
             </a>
           </Menu.Item>
-          <Menu.Item key="faq">
-            <a href="https://forum.citizendao.com" target="_blank">
-              FAQ
-            </a>
-          </Menu.Item>
         </Menu.SubMenu>
       </Menu>
     </SidebarStyles>
@@ -93,7 +82,7 @@ const styles = {
   logolink: {
     display: 'inline-block',
     width: '100%',
-    padding: '10px 10px',
+    padding: '24px',
   },
   logo: {
     width: '100%',

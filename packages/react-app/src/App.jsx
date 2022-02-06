@@ -20,7 +20,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import WalletLink from 'walletlink';
 import Web3Modal from 'web3modal';
 import './App.css';
-import { Account, AppLayout, Contract, ThemeSwitch } from './components';
+import { Account, AppLayout, Contract } from './components';
 import Bond from './components/Bond';
 import { INFURA_ID, NETWORK, NETWORKS } from './constants';
 import { GlobalProvider } from './context/GlobalState';
@@ -29,8 +29,7 @@ import { useContractConfig } from './hooks';
 import useLocalStorage from './hooks/LocalStorage';
 import './theme.light.less';
 import Citizenship from './views/Citizenship';
-import Dashboard from './views/Dashboard';
-import Goals from './views/Goals';
+import Domains from './views/Domains';
 import Initiatives from './views/Initiatives';
 import InitiativesView from './views/Initiatives/InitiativesView';
 import YourBondView from './views/YourBondView';
@@ -74,8 +73,8 @@ const scaffoldEthProvider = navigator.onLine
   : null;
 const poktMainnetProvider = navigator.onLine
   ? new ethers.providers.StaticJsonRpcProvider(
-      'https://eth-mainnet.gateway.pokt.network/v1/lb/611156b4a585a20035148406',
-    )
+    'https://eth-mainnet.gateway.pokt.network/v1/lb/611156b4a585a20035148406',
+  )
   : null;
 const mainnetInfura = navigator.onLine
   ? new ethers.providers.StaticJsonRpcProvider('https://mainnet.infura.io/v3/' + INFURA_ID)
@@ -174,8 +173,8 @@ function App(props) {
     poktMainnetProvider && poktMainnetProvider._isProvider
       ? poktMainnetProvider
       : scaffoldEthProvider && scaffoldEthProvider._network
-      ? scaffoldEthProvider
-      : mainnetInfura;
+        ? scaffoldEthProvider
+        : mainnetInfura;
 
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
@@ -497,10 +496,7 @@ function App(props) {
             <Initiatives />
           </Route>
           <Route exact path="/">
-            <Dashboard />
-          </Route>
-          <Route exact path="/goals">
-            <Goals />
+            <Domains />
           </Route>
           <Route exact path="/your-bonds">
             <YourBondView />
@@ -550,7 +546,6 @@ function App(props) {
           {/* {faucetHint} */}
         </div>
       </AppLayout>
-      <ThemeSwitch />
     </HashRouter>
   );
 }
