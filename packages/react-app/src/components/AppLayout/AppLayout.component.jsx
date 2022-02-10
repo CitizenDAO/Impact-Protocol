@@ -1,17 +1,15 @@
-import { Col, Image, Layout, Row } from 'antd';
+import { Col, Layout, Row } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { StyledAppLayout, StyledContent, StyledHeader } from './AppLayout.styled';
 import { Sidebar } from './Sidebar/Sidebar.component';
 
-const { Footer, Sider } = Layout;
+const { Sider } = Layout;
 
 const Logo = () => (
-  <div>
-    <Link to="/">
-      <Image preview={false} width={184} src="citizendao-black.png" />
-    </Link>
-  </div>
+  <Link to="/">
+    <img width="160px" src="citizendao-black.png" />
+  </Link>
 );
 
 export const AppLayout = ({ children }) => {
@@ -32,7 +30,6 @@ export const AppLayout = ({ children }) => {
           <div>{children}</div>
         </StyledContent>
       </Layout>
-      <Footer></Footer>
     </StyledAppLayout>
   );
 };

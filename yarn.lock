@@ -1935,6 +1935,11 @@
     "@ethersproject/properties" "^5.5.0"
     "@ethersproject/strings" "^5.5.0"
 
+"@fontsource/dm-sans@^4.5.1":
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/@fontsource/dm-sans/-/dm-sans-4.5.1.tgz#6abe7004d6aeb47be39905b1cdd0612a34c845fb"
+  integrity sha512-+YNxB6wrsaMRkcNTSeOg3sdh5YSTr++cEH0cDSGjrlP2hRh+VZcxSPCWCYJl7FBjhEOrKNAsKVqkgv6msXGrUQ==
+
 "@gar/promisify@^1.0.1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.2.tgz#30aa825f11d438671d585bd44e7fd564535fc210"

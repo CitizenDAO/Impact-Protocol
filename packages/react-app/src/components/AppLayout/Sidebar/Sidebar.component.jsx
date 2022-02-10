@@ -1,7 +1,6 @@
-import { Menu } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SidebarStyles } from './Sidebar.styles';
+import { MenuItem, StyledMenu, StyledSubMenu } from './Sidebar.styles';
 
 const sidebarLinks = [
   {
@@ -47,30 +46,28 @@ const sidebarLinks = [
 
 export const Sidebar = () => {
   return (
-    <SidebarStyles theme="light">
-      <Menu mode="inline">
-        {sidebarLinks.map(({ path, title, icon: Icon }) => (
-          <Menu.Item key={title} icon={Icon ? <Icon /> : null}>
-            <Link to={path}>{title}</Link>
-          </Menu.Item>
-        ))}
+    <StyledMenu mode="inline">
+      {sidebarLinks.map(({ path, title, icon: Icon }) => (
+        <MenuItem key={title} icon={Icon ? <Icon /> : null}>
+          <Link to={path}>{title}</Link>
+        </MenuItem>
+      ))}
 
-        <Menu.SubMenu title="👋 Community">
-          <Menu.Item key="discord">
-            <a href="https://discord.gg/SVKqEmrnM4" target="_blank">
-              Discord
-            </a>
-          </Menu.Item>
-          <Menu.Item key="snapshot" target="_blank">
-            <a to="https://snapshot.org/#/citizendao.eth">Snapshot</a>
-          </Menu.Item>
-          <Menu.Item key="discourse">
-            <a href="https://forum.citizendao.com" target="_blank">
-              Discourse
-            </a>
-          </Menu.Item>
-        </Menu.SubMenu>
-      </Menu>
-    </SidebarStyles>
+      <StyledSubMenu title="👋 Community">
+        <MenuItem key="discord">
+          <a href="https://discord.gg/SVKqEmrnM4" target="_blank">
+            Discord
+          </a>
+        </MenuItem>
+        <MenuItem key="snapshot" target="_blank">
+          <a to="https://snapshot.org/#/citizendao.eth">Snapshot</a>
+        </MenuItem>
+        <MenuItem key="discourse">
+          <a href="https://forum.citizendao.com" target="_blank">
+            Discourse
+          </a>
+        </MenuItem>
+      </StyledSubMenu>
+    </StyledMenu>
   );
 };
