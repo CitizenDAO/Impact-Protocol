@@ -6,7 +6,7 @@ import { SidebarStyles } from './Sidebar.styles';
 const sidebarLinks = [
   {
     path: '/',
-    title: '🥇 Domains',
+    title: '🥇 Dashboard',
   },
   {
     path: '/your-bonds',
@@ -38,20 +38,17 @@ const sidebarLinks = [
     title: '📈 Finance',
     // icon: BankOutlined,
   },
-  // {
-  //   path: '/bond',
-  //   title: '🌱 Bond',
-  //   // icon: BankOutlined,
-  // },
+  {
+    path: '/initiatives/governance',
+    title: '📈 Governance',
+    // icon: BankOutlined,
+  },
 ];
 
 export const Sidebar = () => {
   return (
     <SidebarStyles theme="light">
       <Menu mode="inline">
-        <Link to="/" style={styles.logolink}>
-          <img style={styles.logo} src="citizendao-black.png" />
-        </Link>
         {sidebarLinks.map(({ path, title, icon: Icon }) => (
           <Menu.Item key={title} icon={Icon ? <Icon /> : null}>
             <Link to={path}>{title}</Link>
@@ -76,15 +73,4 @@ export const Sidebar = () => {
       </Menu>
     </SidebarStyles>
   );
-};
-
-const styles = {
-  logolink: {
-    display: 'inline-block',
-    width: '100%',
-    padding: '24px',
-  },
-  logo: {
-    width: '100%',
-  },
 };

@@ -1,30 +1,38 @@
-import { Layout } from 'antd';
+import { Col, Image, Layout, Row } from 'antd';
 import React from 'react';
-import { AppLayoutStyles } from './AppLayout.styled';
+import { Link } from 'react-router-dom';
+import { StyledAppLayout, StyledContent, StyledHeader } from './AppLayout.styled';
 import { Sidebar } from './Sidebar/Sidebar.component';
 
-const { Content } = Layout;
+const { Footer, Sider } = Layout;
 
-export const AppLayout = ({ networkDisplay, children }) => {
+const Logo = () => (
+  <div>
+    <Link to="/">
+      <Image preview={false} width={184} src="citizendao-black.png" />
+    </Link>
+  </div>
+);
+
+export const AppLayout = ({ children }) => {
   return (
-    <AppLayoutStyles>
-      <div className="sidebar">
-        <Sidebar />
-      </div>
-      <div className="main__layout">
-        <Layout style={{ margin: '0px auto' }}>
-          {networkDisplay}
-          <Content style={{ padding: 24 }}>
-            <div>{children}</div>
-          </Content>
-        </Layout>
-      </div>
-    </AppLayoutStyles>
+    <StyledAppLayout>
+      <StyledHeader>
+        <Row justify="start" align="middle">
+          <Col>
+            <Logo />
+          </Col>
+        </Row>
+      </StyledHeader>
+      <Layout>
+        <Sider>
+          <Sidebar />
+        </Sider>
+        <StyledContent>
+          <div>{children}</div>
+        </StyledContent>
+      </Layout>
+      <Footer></Footer>
+    </StyledAppLayout>
   );
-};
-
-const styles = {
-  header: {
-    'background-color': 'white',
-  },
 };

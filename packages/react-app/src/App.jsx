@@ -1,7 +1,6 @@
 import Portis from '@portis/web3';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { Alert, Button } from 'antd';
-import 'antd/dist/antd.css';
 import Authereum from 'authereum';
 import {
   useBalance,
@@ -19,7 +18,6 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from 'walletlink';
 import Web3Modal from 'web3modal';
-import './App.css';
 import { Account, AppLayout, Contract } from './components';
 import Bond from './components/Bond';
 import { INFURA_ID, NETWORK, NETWORKS } from './constants';
@@ -27,7 +25,7 @@ import { GlobalProvider } from './context/GlobalState';
 import { Transactor } from './helpers';
 import { useContractConfig } from './hooks';
 import useLocalStorage from './hooks/LocalStorage';
-import './theme.light.less';
+import './themes/light-theme.less';
 import Citizenship from './views/Citizenship';
 import Domains from './views/Domains';
 import Initiatives from './views/Initiatives';

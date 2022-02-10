@@ -1,17 +1,18 @@
-import { Layout } from "antd";
-import styled from "styled-components";
+import { Layout } from 'antd';
+import styled from 'styled-components';
 
-export const AppLayoutStyles = styled(Layout)`
-  display: flex;
-  align-items: stretch;
-  max-height: 100vh;
-  height: 100vh;
+const { Content, Header } = Layout;
+
+export const StyledAppLayout = styled(Layout)`
+  background-color: white;
+`;
+
+export const StyledContent = styled(Content)`
+  padding: 24px;
+`;
+
+export const StyledHeader = styled(Header)`
+  background-color: white;
+  border-bottom: 1px solid #e5e5e5;
   padding: 0;
-  margin: 0;
-  overflow: hidden;
-
-  .main__layout {
-    overflow: auto;
-    width: 100%;
-  }
 `;

@@ -1,91 +1,13 @@
 body {
   margin: 0;
-  font-family: roboto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
-.shadow {
-  box-shadow: 0px 10px 20px -20px;
-}
-
-.cdao_card {
-  padding: 10px;
-  border-radius: 15px;
-  box-shadow: rgb(255 255 255 / 15%) -8px -8px 12px inset, rgb(174 174 192 / 35%) 8px 8px 30px,
-    rgb(255 255 255 / 15%) -8px -8px 12px inset, rgb(174 174 192 / 4%) 8px 8px 8px inset;
-}
-
-.banner-background {
-  width: 100%;
-  height: auto;
-  overflow: hidden;
-}
-
-.sider-offset {
-  margin-left: 80px;
-}
-
-.heavy {
-  font: bold 20px sans-serif;
-}
-.light {
-  font: 12px sans-serif;
-}
-
-.tright {
-  text-align: right;
-}
-
-.bond-bg-blue {
-  background-color: #348feb;
-}
-
-.ant-menu-item-selected {
-  background-color: rbg();
-}
-
-.shadow {
-  box-shadow: 0px 10px 20px -20px;
-}
-
-.banner-background {
-  width: 100%;
-  height: auto;
-  overflow: hidden;
-}
-
-.sider-offset {
-  margin-left: 80px;
-}
-
-.heavy {
-  font: bold 20px sans-serif;
-}
-.light {
-  font: 12px sans-serif;
-}
-.color-w {
-  fill: #fff;
-}
-
-.tright {
-  text-align: right;
-}
-
-.bond-bg-blue {
-  background-color: #348feb;
-}
-
-.br-15 {
-  border-radius: 15px;
-}
-
-.mb-1 {
-  margin-bottom: 1rem;
-}
-.mb-2 {
-  margin-bottom: 2rem;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
