@@ -7,29 +7,13 @@ const { ethers } = require("hardhat");
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
-  await deploy("CitizenFixedBond", {
-    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
-    from: deployer,
-    // args: [ "Hello", ethers.utils.parseEther("1.5") ],
-    log: true,
-  });
-  await deploy("CitizenBondManager", {
-    from: deployer,
-    log: true,
-  });
+
+
   await deploy("CitizenToken", {
     from: deployer,
     log: true,
   });
 
-  const citizenFixedBond = await ethers.getContract(
-    "CitizenFixedBond",
-    deployer
-  );
-  const citizenBondManager = await ethers.getContract(
-    "CitizenBondManager",
-    deployer
-  );
   const citizenToken = await ethers.getContract("CitizenToken", deployer);
 
   // Uncomment for local testing - james
