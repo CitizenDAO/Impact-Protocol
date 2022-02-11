@@ -5,30 +5,15 @@ import { Link } from 'react-router-dom';
 
 // displays a page header
 
-export default function InitiativeCard({
-  header,
-  subHeader,
-  CTAText,
-  CTALink,
-  initiativeData,
-  headerImg,
-  description,
-  onClick,
-}) {
+export default function InitiativeCard({ header, CTAText, CTALink, initiativeData, headerImg, description, onClick }) {
   const { Title, Text } = Typography;
   return (
-    <Card style={{ width: 'auto' }}>
-      <Row className="mb-1">
-        <Col span={24}>
-          <img class="br-15" style={{ width: '100%' }} src={headerImg} />
-        </Col>
-      </Row>
+    <Card style={{ width: 'auto' }} cover={<img alt="example" src={headerImg} />}>
       <Row className="mb-1">
         <Col span={24}>
           <Title level={3} style={{ textAlign: 'left' }}>
             {header}
           </Title>
-          <Title level={5}>{subHeader}</Title>
         </Col>
         <Col>
           <Text className="text-size-md">{description}</Text>

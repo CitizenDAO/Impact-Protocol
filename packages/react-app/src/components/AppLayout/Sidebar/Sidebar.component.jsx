@@ -10,37 +10,30 @@ const sidebarLinks = [
   {
     path: '/your-bonds',
     title: '💎 Your Bonds',
-    // icon: DashboardOutlined,
   },
   {
     path: '/initiatives/health',
     title: '❤️ Health',
-    // icon: MedicineBoxOutlined,
   },
   {
     path: '/initiatives/housing',
     title: '🏠 Housing',
-    // icon: HomeOutlined,
   },
   {
     path: '/initiatives/education',
     title: '📚 Education',
-    // icon: BookOutlined,
   },
   {
     path: '/initiatives/climate',
     title: '🌡️ Climate',
-    // icon: GlobalOutlined,
   },
   {
     path: '/initiatives/finance',
-    title: '📈 Finance',
-    // icon: BankOutlined,
+    title: '💰 Finance',
   },
   {
     path: '/initiatives/governance',
-    title: '📈 Governance',
-    // icon: BankOutlined,
+    title: '💼 Governance',
   },
 ];
 
@@ -60,7 +53,9 @@ export const Sidebar = () => {
           </a>
         </MenuItem>
         <MenuItem key="snapshot" target="_blank">
-          <a to="https://snapshot.org/#/citizendao.eth">Snapshot</a>
+          <a href="https://snapshot.org/#/citizendao.eth" target="_blank">
+            Snapshot
+          </a>
         </MenuItem>
         <MenuItem key="discourse">
           <a href="https://forum.citizendao.com" target="_blank">
