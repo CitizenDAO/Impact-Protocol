@@ -1,22 +1,13 @@
-import { Button, Card, Col, Row, Typography } from 'antd';
-import { Link } from 'react-router-dom';
+import { Col, Row, Typography } from 'antd';
 
 export default function YourBondView({ sector }) {
-  const { Text, Title } = Typography;
+  const { Title } = Typography;
   return (
-    <Row>
+    <Row justify="center" align="middle" style={{ height: '50%' }}>
       <Col>
-        <Card>
-          <Title>Your Bonds</Title>
-          <Text className="text-size-md">Looks like you dont have any bonds yet.</Text>
-          <Row>
-            <Link to="/goals">
-              <Button size="large" type="primary">
-                Invest in Goals
-              </Button>
-            </Link>
-          </Row>
-        </Card>
+        <Typography>
+          <Title level={3}>Ooops... looks like you don't have any bonds...</Title>
+        </Typography>
       </Col>
     </Row>
   );

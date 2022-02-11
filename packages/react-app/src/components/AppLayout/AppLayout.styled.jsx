@@ -5,12 +5,12 @@ const { Content, Header, Footer, Sider } = Layout;
 
 export const StyledAppLayout = styled(Layout)`
   background-color: white;
+  min-height: 100%;
 `;
 
 export const StyledContent = styled(Content)`
   padding: 24px;
-  height: 100%;
-  min-height: 100vh;
+  min-height: 100%;
 `;
 
 export const StyledHeader = styled(Header)`

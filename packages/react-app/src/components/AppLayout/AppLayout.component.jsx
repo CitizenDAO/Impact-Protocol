@@ -26,9 +26,7 @@ export const AppLayout = ({ children }) => {
         <Sider breakpoint="lg" collapsedWidth="0">
           <Sidebar />
         </Sider>
-        <StyledContent>
-          <div>{children}</div>
-        </StyledContent>
+        <StyledContent>{children}</StyledContent>
       </Layout>
     </StyledAppLayout>
   );
