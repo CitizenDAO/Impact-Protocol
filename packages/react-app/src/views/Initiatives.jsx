@@ -12,7 +12,7 @@ export default class Initiatives extends React.Component {
           'No one should go without basic healthcare, clean water, and nutritious food. We aim to build a decentralized health R&D fund to meet these needs.',
         CTAText: 'Learn More',
         CTALink: '/initiatives/health',
-        headerImg: 'sdg-icons/E-WEB-Goal-01.png',
+        headerImg: 'Initiatives-Health.png',
       },
       {
         header: '$Housing',
@@ -20,7 +20,7 @@ export default class Initiatives extends React.Component {
           'Everyone needs a roof, bed, and clean water to live optimally. We will leverage 3D printing, material science, and robotics to build houses 10x cheaper & 10x faster.',
         CTAText: 'Learn More',
         CTALink: '/initiatives/housing',
-        headerImg: 'sdg-icons/E-WEB-Goal-01.png',
+        headerImg: 'Initiatives-Housing.png',
       },
       {
         header: '$Education',
@@ -28,7 +28,7 @@ export default class Initiatives extends React.Component {
           'Everyone should be able to learn whatever they want and apply it to earn income. We will cultivate the best online learning methods and scale to people who want it.',
         CTAText: 'Learn More',
         CTALink: '/initiatives/education',
-        headerImg: 'sdg-icons/E-WEB-Goal-01.png',
+        headerImg: 'Initiatives-Education.png',
       },
       {
         header: '$Climate',
@@ -36,7 +36,7 @@ export default class Initiatives extends React.Component {
           'We’re all on this spinning rock together. It’s time we treat Earth better and start leveraging renewable energy',
         CTAText: 'Learn More',
         CTALink: '/initiatives/climate',
-        headerImg: 'sdg-icons/E-WEB-Goal-01.png',
+        headerImg: 'Initiatives-Climate.png',
       },
       {
         header: '$Finance',
@@ -44,7 +44,7 @@ export default class Initiatives extends React.Component {
           'We all should be able to store wealth securely away from governments. We’ll combine the best money legos to jumpstart financial prosperity.',
         CTAText: 'Learn More',
         CTALink: '/initiatives/finance',
-        headerImg: 'sdg-icons/E-WEB-Goal-01.png',
+        headerImg: 'Initiatives-Finance.png',
       },
       {
         header: '$Governance',
@@ -52,7 +52,7 @@ export default class Initiatives extends React.Component {
           'Are you happy with your government? We have a unique opportunity to rethink governance and build something better.',
         CTAText: 'Learn More',
         CTALink: '/initiatives/governance',
-        headerImg: 'sdg-icons/E-WEB-Goal-01.png',
+        headerImg: 'Initiatives-Governance.png',
       },
     ],
   };
@@ -76,13 +76,12 @@ export default class Initiatives extends React.Component {
   render() {
     const { Title } = Typography;
     const { active, initiatives } = this.state;
-    console.log(this.state.initiatives);
     return (
       <div>
         <Row gutter={[20, 40]} justify="center">
           {this.state.initiatives.map(item => {
             return (
-              <Col span={8}>
+              <Col xs={24} sm={24} md={24} lg={12} xl={8} style={{ display: 'flex' }}>
                 <InitiativeCard
                   headerImg={item.headerImg}
                   header={item.header}

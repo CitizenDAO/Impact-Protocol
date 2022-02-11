@@ -1,45 +1,30 @@
-import { Button, Card, Col, List, Row, Typography } from 'antd';
-import { capitalize } from 'lodash';
+import { Card, Col, Row, Typography } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// displays a page header
-
-export default function InitiativeCard({ header, CTAText, CTALink, initiativeData, headerImg, description, onClick }) {
+export default function InitiativeCard({ header, CTAText, CTALink, headerImg, description, onClick }) {
   const { Title, Text } = Typography;
   return (
-    <Card style={{ width: 'auto' }} cover={<img alt="example" src={headerImg} />}>
-      <Row className="mb-1">
-        <Col span={24}>
+    <Card cover={<img alt="initiative-image" src={headerImg} />}>
+      <Row>
+        <Col>
           <Title level={3} style={{ textAlign: 'left' }}>
             {header}
           </Title>
         </Col>
+      </Row>
+      <Row>
         <Col>
-          <Text className="text-size-md">{description}</Text>
+          <Text type="secondary">{description}</Text>
         </Col>
       </Row>
-      {/* <Divider /> */}
-      {initiativeData ? (
-        <List
-          style={{ textAlign: 'left' }}
-          grid={{ gutter: 24, sm: 1, md: 1, lg: 2 }}
-          dataSource={initiativeData}
-          renderItem={item => (
-            <List.Item>
-              <Title level={5}>
-                <b>{item.value}</b>
-              </Title>
-              {capitalize(item.text)}
-            </List.Item>
-          )}
-        />
-      ) : null}
-      <Link to={CTALink} onClick={onClick}>
-        <Button size="large" block>
-          {CTAText}
-        </Button>
-      </Link>
+      <Row justify="end" style={{ paddingTop: '24px' }}>
+        <Col>
+          <Link style={{ fontWeight: 600 }} to={CTALink}>
+            {CTAText}
+          </Link>
+        </Col>
+      </Row>
     </Card>
   );
 }

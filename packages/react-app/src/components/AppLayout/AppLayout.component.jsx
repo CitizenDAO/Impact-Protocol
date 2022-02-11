@@ -23,7 +23,7 @@ export const AppLayout = ({ children }) => {
         </Row>
       </StyledHeader>
       <Layout>
-        <Sider>
+        <Sider breakpoint="lg" collapsedWidth="0">
           <Sidebar />
         </Sider>
         <StyledContent>
