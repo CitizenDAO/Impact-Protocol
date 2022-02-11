@@ -19,10 +19,10 @@ export default function BondBuilder({ title, season, description, APY, CDAO }) {
   // const [bondMaturity, setBondMaturity] = useState(30);
 
   function onChangeEthInput(val) {
-    console.log(val);
-    setETHBondAmount(val);
-    setInitCDAO(val / CDAOPriceETH);
-    console.log(val / CDAOPriceETH);
+    if (val >= 0) {
+      setETHBondAmount(val);
+      setInitCDAO(val / CDAOPriceETH);
+    }
   }
 
   function onSelectBondMaturity(val) {
@@ -48,7 +48,7 @@ export default function BondBuilder({ title, season, description, APY, CDAO }) {
 
   return (
     <CardStyled style={styles.card}>
-      <Row justify="space-between" gutter={[24,24]}>
+      <Row justify="space-between" gutter={[24, 24]}>
         <Col lg={12}>
           <Title level={2}>{title}</Title>
           <Title level={5}>{season}</Title>
@@ -65,11 +65,6 @@ export default function BondBuilder({ title, season, description, APY, CDAO }) {
               <Text type="secondary">CDAO Left</Text>
               <br />
               <Text strong>69,420,522</Text>
-            </Col>
-            <Col lg={12}>
-              <Text type="secondary">CDAO Price</Text>
-              <br />
-              <Text strong>{CDAOPriceDollar}</Text>
             </Col>
           </Row>
         </Col>

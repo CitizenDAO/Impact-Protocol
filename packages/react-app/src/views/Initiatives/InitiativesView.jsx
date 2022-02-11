@@ -7,9 +7,10 @@ import NFTBondVisualizer from '../../components/NFTBondVisualizer';
 import { GlobalContext } from '../../context/GlobalState';
 
 export default function InitiativesView({ sector }) {
-  const { bondMaturity, bondAPY, sectorTextData, ETHBondAmount, initCDAO, CDAOPriceETH } = useContext(GlobalContext);
+  const { bondMaturity, bondAPY, initiatives, ETHBondAmount, initCDAO } = useContext(GlobalContext);
   const { initiative } = useParams();
-  const textData = sectorTextData[initiative];
+
+  const initiativeData = initiatives[initiative];
 
   const fv = (i, r, t, d) => {
     // future value
@@ -57,11 +58,11 @@ export default function InitiativesView({ sector }) {
   const { Text, Title } = Typography;
   return (
     <div>
-      <Row gutter={[24, 24]} style={{ marginBottom: '24px' }}>
-        <Col sm={24} md={24} lg={8}>
+      <Row justify="space-between" align="top" gutter={[24, 24]} style={{ marginBottom: '24px' }}>
+        <Col xs={24} sm={24} md={24} lg={8}>
           <NFTBondVisualizer
             className="cdao_card"
-            sector={textData.nft.title}
+            sector={initiativeData.title}
             bondMaturity={bondMaturity}
             totalCDAO={finalYield}
             APY={bondAPY}
@@ -72,42 +73,34 @@ export default function InitiativesView({ sector }) {
             topRight="Social Impact Bond"
             bottomLeft="CitizenDAO.com"
             bottomRight="@CitizenDAO"
-            background={textData.nft.background}
+            background={initiativeData.nft.background}
           />
         </Col>
-        <Col sm={24} md={24} lg={16}>
-          <BondBuilder title={textData.title} season="Season 1" APY={bondAPY} />
+        <Col xs={24} sm={24} md={24} lg={16}>
+          <BondBuilder title={initiativeData.title} season="Season 1" APY={bondAPY} />
         </Col>
-      </Row>
-      <Row gutter={[24, 24]}>
-        <Col sm={24} md={24} lg={8}>
-          {/* <InitiativesDetails pageDescriptions={textData.projects} /> */}
-          <a href={textData.description.forumLink} style={{ display: 'block' }} target="_blank">
-            <Card style={{ width: 'auto' }} className="hover">
-              <Row className="mb-1">
-                <Col span={24}>
-                  <img class="br-15" style={{ width: '100%' }} src={textData.description.img} />
-                </Col>
-              </Row>
-              <Row className="mb-1">
-                <Col span={24}>
-                  <Title level={3} style={{ textAlign: 'left' }}>
-                    {}
-                  </Title>
-                  <Title level={5}>{}</Title>
-                </Col>
-                <Col>
-                  <Text className="text-size-md">{textData.description.text}</Text>
-                  <br />
-                  <Text className="text-size-md">
-                    <a href={textData.description.forumLink} target="_blank">
-                      Learn more on our forum
-                    </a>
-                  </Text>
-                </Col>
-              </Row>
-            </Card>
-          </a>
+        <Col xs={24} sm={24} md={24} lg={8}>
+          <Card style={{ width: 'auto' }} className="hover">
+            <Row className="mb-1">
+              <Col span={24}>
+                <img class="br-15" style={{ width: '100%' }} src={''} />
+              </Col>
+            </Row>
+            <Row className="mb-1">
+              <Col span={24}>
+                <Title level={3} style={{ textAlign: 'left' }}>
+                  Sustainable Development Goals Targeted
+                </Title>
+              </Col>
+              <Col>
+                <Row>
+                  {initiativeData.targetedSDGs.map(item => {
+                    return <Col style={{ display: 'flex' }}>SDG {item}</Col>;
+                  })}
+                </Row>
+              </Col>
+            </Row>
+          </Card>
         </Col>
 
         <Col sm={24} md={24} lg={16}>
@@ -123,12 +116,3 @@ export default function InitiativesView({ sector }) {
     </div>
   );
 }
-
-const styles = {
-  card: {
-    padding: '0px',
-    borderRadius: '15px',
-    boxShadow:
-      'inset -8px -8px 12px rgb(255 255 255 / 15%), 8px 8px 30px rgb(174 174 192 / 35%), inset -8px -8px 12px rgb(255 255 255 / 15%), inset 8px 8px 8px rgb(174 174 192 / 4%)',
-  },
-};

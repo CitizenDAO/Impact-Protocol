@@ -47,7 +47,7 @@ export default function InitiativessChart({
         </Text>{' '}
         generates{' '}
         <Text strong underline>
-          {CDAOYield} CDAO
+          {CDAOYield.toLocaleString('en-US')} CDAO
         </Text>{' '}
         after{' '}
         <Text strong underline>
@@ -67,16 +67,28 @@ export default function InitiativessChart({
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid stroke="#ccc" />
           <XAxis dataKey="days">
             <Label value="Days" offset={-8} position="bottom" />
           </XAxis>
           {/* scale="log" domain={["auto", "auto"]} */}
-          <YAxis dataKey="futureValue" domain={[initCDAO, 'auto']}>
-            {/* <Label angle={-90} offset={-5} position="inside" value="Future Value (Amount of CDAOs)" /> */}
-          </YAxis>
-          <Tooltip />
-          <Line type="monotone" dataKey="futureValue" stroke="#8884d8" activeDot={{ r: 8 }} />
+          <YAxis
+            tickFormatter={tick => {
+              return tick.toLocaleString('en-US');
+            }}
+            dataKey="futureValue"
+            allowDecimals
+            domain={[initCDAO, 'auto']}
+          />
+          <Tooltip formatter={value => value.toLocaleString('en-US')} />
+          <Line
+            dot={false}
+            type="monotone"
+            dataKey="futureValue"
+            strokeWidth={3}
+            stroke="#01B574"
+            activeDot={{ r: 8 }}
+          />
         </LineChart>
       </ResponsiveContainer>
     </Card>

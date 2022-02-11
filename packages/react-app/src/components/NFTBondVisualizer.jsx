@@ -49,7 +49,7 @@ export default function NFTBondVisualizer({
       </text>
 
       <text x={textX} y="260" class="heavy color-w">
-        {totalCDAO} CDAO
+        {totalCDAO.toLocaleString('en-US')} CDAO
       </text>
       <text x={textX} y="280" class="heavy color-w">
         By {maturationDate}
