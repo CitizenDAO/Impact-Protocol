@@ -2,15 +2,16 @@ import { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
 
 const initialState = {
-  bondMaturity: 30,
+  bondMaturity: 60,
   bondAPY: 500,
-  ETHBondAmount: 0,
   CDAOPriceDollar: 0.1,
   CDAOPriceETH: 0.000025,
   initCDAO: 0,
   initiatives: {
     climate: {
       title: '$Climate',
+      description:
+        'We built $Climate bonds to fund emerging web3 & hard tech climate projects that can help heal our planet. All bond holders will receive $Climate index tokens in porportion to their investment.',
       projects: [
         { title: 'Planting Trees', content: "Working with Terraformation, we're planting as many trees as possible." },
         {
@@ -29,6 +30,7 @@ const initialState = {
     },
     health: {
       title: '$Health',
+      description: 'Lorem ipsum dolor samet',
       projects: [
         { title: 'Planting Trees', content: "Working with Terraformation, we're planting as many trees as possible." },
         {
@@ -47,6 +49,7 @@ const initialState = {
     },
     governance: {
       title: '$Governance',
+      description: 'Lorem ipsum dolor samet',
       projects: [
         { title: 'Planting Trees', content: "Working with Terraformation, we're planting as many trees as possible." },
         {
@@ -65,6 +68,7 @@ const initialState = {
     },
     finance: {
       title: '$Finance',
+      description: 'Lorem ipsum dolor samet',
       projects: [
         { title: 'Planting Trees', content: "Working with Terraformation, we're planting as many trees as possible." },
         {
@@ -83,6 +87,7 @@ const initialState = {
     },
     education: {
       title: '$Education',
+      description: 'Lorem ipsum dolor samet',
       projects: [
         { title: 'Planting Trees', content: "Working with Terraformation, we're planting as many trees as possible." },
         {
@@ -101,6 +106,7 @@ const initialState = {
     },
     housing: {
       title: '$Housing',
+      description: 'Lorem ipsum dolor samet',
       projects: [
         { title: 'Planting Trees', content: "Working with Terraformation, we're planting as many trees as possible." },
         {

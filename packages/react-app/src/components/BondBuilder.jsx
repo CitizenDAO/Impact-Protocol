@@ -29,10 +29,10 @@ export default function BondBuilder({ title, season, description, APY, CDAO }) {
     selectBondMaturity(val);
   }
 
-  const bondMaturityOptions = [30, 60, 90, 180, 360];
+  const bondMaturityOptions = [60, 90, 180, 365];
+  const ethOptions = [0.1, 1, 10, 100];
 
   function Options({ bondMaturity }) {
-    console.log('display options: ', bondMaturity);
     return bondMaturityOptions.map(n => (
       <Button
         key={n.toString()}
@@ -45,6 +45,20 @@ export default function BondBuilder({ title, season, description, APY, CDAO }) {
       </Button>
     ));
   }
+
+  const EthOptions = ({ selectedOption }) => {
+    return ethOptions.map(n => (
+      <Button
+        key={n}
+        style={{ marginRight: '6px' }}
+        type={n == selectedOption ? 'primary' : null}
+        value={n}
+        onClick={() => setETHBondAmount(n)}
+      >
+        {n}
+      </Button>
+    ));
+  };
 
   return (
     <CardStyled style={styles.card}>
@@ -72,18 +86,21 @@ export default function BondBuilder({ title, season, description, APY, CDAO }) {
       <Row>
         <Col>
           <Space direction="vertical">
-            <p>Amount of ETH to bond:</p>
+            <p>Choose an amount of ETH to invest:</p>
+            <EthOptions selectedOption={ETHBondAmount} />
             <InputNumber
               type="number"
+              min={0}
               style={{ width: '100%' }}
               size="large"
-              value={ETHBondAmount}
+              value={ethOptions.includes(ETHBondAmount) ? undefined : ETHBondAmount}
               onChange={onChangeEthInput}
+              placeholder="or custom amount"
             />
-            <p>Days until bond maturity:</p>
+            <p>Select days until bond maturity:</p>
             <Options bondMaturity={bondMaturity} />
             <Button type="secondary" style={{ width: '100%' }}>
-              Bond now
+              Mint Bond
             </Button>
           </Space>
         </Col>
