@@ -2,6 +2,7 @@ import { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
 
 const initialState = {
+  bondContractAddress: '',
   bondMaturity: 60,
   bondAPY: 500,
   CDAOPriceDollar: 0.1,
@@ -157,6 +158,7 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
+        bondContractAddress: '',
         bondMaturity: state.bondMaturity,
         bondAPY: state.bondAPY,
         ETHBondAmount: state.ETHBondAmount,

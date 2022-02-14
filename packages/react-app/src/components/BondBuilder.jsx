@@ -1,9 +1,9 @@
 import { Button, Col, InputNumber, Row, Space, Typography } from 'antd';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { GlobalContext } from '../context/GlobalState';
 import { CardStyled } from './Card/Card.styled';
 
-export default function BondBuilder({ title, season, description, APY, CDAO }) {
+export default function BondBuilder({ title, season, description, APY, CDAO, selectedProvider, writeContracts }) {
   const { Title, Text } = Typography;
   const {
     selectBondMaturity,
@@ -15,8 +15,25 @@ export default function BondBuilder({ title, season, description, APY, CDAO }) {
     CDAOPriceETH,
     initCDAO,
     setInitCDAO,
+    bondContractAddress,
   } = useContext(GlobalContext);
   // const [bondMaturity, setBondMaturity] = useState(30);
+
+  const [isMinting, setIsMinting] = useState(false);
+
+  const onMintBondClick = async () => {
+    setIsMinting(true);
+    console.log(writeContracts);
+
+    try {
+      let response = await writeContracts.CitizenNFTBond.purchaseBond(0, 100000);
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+
+    setIsMinting(false);
+  };
 
   function onChangeEthInput(val) {
     if (val >= 0) {
@@ -53,7 +70,7 @@ export default function BondBuilder({ title, season, description, APY, CDAO }) {
         style={{ marginRight: '6px' }}
         type={n == selectedOption ? 'primary' : null}
         value={n}
-        onClick={() => setETHBondAmount(n)}
+        onClick={() => onChangeEthInput(n)}
       >
         {n}
       </Button>
@@ -99,7 +116,7 @@ export default function BondBuilder({ title, season, description, APY, CDAO }) {
             />
             <p>Select days until bond maturity:</p>
             <Options bondMaturity={bondMaturity} />
-            <Button type="secondary" style={{ width: '100%' }}>
+            <Button type="secondary" style={{ width: '100%' }} onClick={onMintBondClick} loading={isMinting}>
               Mint Bond
             </Button>
           </Space>

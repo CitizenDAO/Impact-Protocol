@@ -147,6 +147,7 @@ function App(props) {
   // Use your injected provider from 🦊 Metamask or if you don't have it then instantly generate a 🔥 burner wallet.
   const userProviderAndSigner = useUserProviderAndSigner(injectedProvider, localProvider);
   const userSigner = userProviderAndSigner.signer;
+  const userProvider = userProviderAndSigner.provider;
 
   useEffect(() => {
     async function getAddress() {
@@ -439,7 +440,7 @@ function App(props) {
           </Route>
           <Route path="/initiatives/:initiative">
             <GlobalProvider>
-              <InitiativesView />
+              <InitiativesView selectedProvider={userProvider} writeContracts={writeContracts} />
             </GlobalProvider>
           </Route>
           <Route exact path="/initiatives">

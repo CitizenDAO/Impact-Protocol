@@ -16,7 +16,7 @@ const StyledCollapse = styled(Collapse)`
     rgb(255 255 255 / 15%) -8px -8px 12px inset, rgb(174 174 192 / 4%) 8px 8px 8px inse;
 `;
 
-export default function InitiativesView({ sector }) {
+export default function InitiativesView({ sector, selectedProvider, writeContracts }) {
   const { bondMaturity, bondAPY, initiatives, ETHBondAmount, initCDAO } = useContext(GlobalContext);
   const { initiative } = useParams();
 
@@ -87,7 +87,13 @@ export default function InitiativesView({ sector }) {
           />
         </Col>
         <Col xs={24} sm={24} md={24} lg={16}>
-          <BondBuilder title={initiativeData.title} season="Season 1" APY={bondAPY} />
+          <BondBuilder
+            title={initiativeData.title}
+            season="Season 1"
+            APY={bondAPY}
+            selectedProvider={selectedProvider}
+            writeContracts={writeContracts}
+          />
         </Col>
         <Col xs={24} sm={24} md={24} lg={8}>
           <StyledCollapse defaultActiveKey={['1', '2', '3']} bordered={false}>
@@ -144,7 +150,7 @@ export default function InitiativesView({ sector }) {
           <Card>
             <Row>
               <Col span={24}>
-                <img class="br-15" style={{ width: '100%' }} src={''} />
+                <img className="br-15" style={{ width: '100%' }} src={''} />
               </Col>
             </Row>
             <Row>
@@ -157,7 +163,7 @@ export default function InitiativesView({ sector }) {
                 <Row gutter={[8, 8]}>
                   {initiativeData.targetedSDGs.map(item => {
                     return (
-                      <Col style={{ display: 'flex' }}>
+                      <Col style={{ display: 'flex' }} key={item}>
                         <img width="80px" src={`sdg-icons/E-WEB-Goal-${item}.png`} />
                       </Col>
                     );
@@ -174,7 +180,7 @@ export default function InitiativesView({ sector }) {
             </Title>
             {initiativeData.projects.map(project => {
               return (
-                <Row justify="space-between">
+                <Row justify="space-between" key={project.title}>
                   <Col sm={24} md={8} lg={8}>
                     {project.title}
                   </Col>

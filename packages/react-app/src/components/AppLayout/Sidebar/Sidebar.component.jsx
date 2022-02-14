@@ -46,7 +46,7 @@ export const Sidebar = () => {
         </MenuItem>
       ))}
 
-      <StyledSubMenu title="👋 Community">
+      <StyledSubMenu title="👋 Community" key="community">
         <MenuItem key="discord">
           <a href="https://discord.gg/SVKqEmrnM4" target="_blank">
             Discord
