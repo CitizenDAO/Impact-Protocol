@@ -106,7 +106,7 @@ export default function Account({
 
   return (
     <div>
-      {/* {localProvider ? display : null} */}
+      {localProvider ? display : null}
       {modalButtons}
     </div>
   );

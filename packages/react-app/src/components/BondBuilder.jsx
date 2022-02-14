@@ -23,7 +23,6 @@ export default function BondBuilder({ title, season, description, APY, CDAO, sel
 
   const onMintBondClick = async () => {
     setIsMinting(true);
-    console.log(writeContracts);
 
     try {
       let response = await writeContracts.CitizenNFTBond.purchaseBond(0, 100000);

@@ -450,7 +450,7 @@ function App(props) {
             <Domains />
           </Route>
           <Route exact path="/your-bonds">
-            <YourBondView />
+            <YourBondView address={address} selectedProvider={userProvider} readContracts={readContracts} />
           </Route>
           <Route exact path="/bond">
             <Bond
@@ -494,7 +494,7 @@ function App(props) {
             logoutOfWeb3Modal={logoutOfWeb3Modal}
             blockExplorer={blockExplorer}
           />
-          {/* {faucetHint} */}
+          {faucetHint}
         </div>
       </AppLayout>
     </HashRouter>
