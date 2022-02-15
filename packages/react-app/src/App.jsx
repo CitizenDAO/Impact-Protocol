@@ -1,13 +1,6 @@
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { Alert, Button } from 'antd';
-import {
-  useBalance,
-  useContractLoader,
-  useContractReader,
-  useGasPrice,
-  useOnBlock,
-  useUserProviderAndSigner
-} from 'eth-hooks';
+import { useBalance, useContractLoader, useContractReader, useGasPrice, useUserProviderAndSigner } from 'eth-hooks';
 import { useExchangeEthPrice } from 'eth-hooks/dapps/dex';
 import { useEventListener } from 'eth-hooks/events/useEventListener';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -201,9 +194,11 @@ function App(props) {
   const mainnetContracts = useContractLoader(mainnetProvider, contractConfig);
 
   // If you want to call a function on a new block
+  /*
   useOnBlock(mainnetProvider, () => {
     console.log(`⛓ A new mainnet block is here: ${mainnetProvider._lastBlockNumber}`);
   });
+  */
 
   // Then read your DAI balance like:
   const myMainnetDAIBalance = useContractReader(mainnetContracts, 'DAI', 'balanceOf', [
@@ -414,24 +409,9 @@ function App(props) {
         <Switch>
           <Route exact path="/contracts">
             <Contract
-              name="CitizenFixedBond"
+              name="CitizenNFTBond"
               signer={userSigner}
-              provider={localProvider}
-              address={address}
-              blockExplorer={blockExplorer}
-              contractConfig={contractConfig}
-            />
-            <Contract
-              name="CitizenBondManager"
-              signer={userSigner}
-              provider={localProvider}
-              address={address}
-              blockExplorer={blockExplorer}
-              contractConfig={contractConfig}
-            />
-            <Contract
-              name="CitizenToken"
-              signer={userSigner}
+              customContract={readContracts.CitizenNFTBond}
               provider={localProvider}
               address={address}
               blockExplorer={blockExplorer}

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 export default function YourBondView({ sector, address, selectedProvider, readContracts }) {
   const { Title } = Typography;
 
+  console.log(address);
   const balance = useContractReader(readContracts, 'CitizenNFTBond', 'balanceOf', [address]);
   const yourBalance = balance && balance.toNumber && balance.toNumber();
   const [yourBonds, setYourBonds] = useState();
