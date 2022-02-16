@@ -59,10 +59,12 @@ contract CitizenNFTBond is ERC721Enumerable, AccessControl {
         payable
         returns (uint256)
     {
+        /*
         require(
             bondPoolId < poolCounter.current(),
             "CitizenNFTBond: invalid pool id"
         );
+        */
 
         /* uint256 bondId = bondPools[bondPoolId].poolManager.purchase{ */
         /*     value: msg.value */
