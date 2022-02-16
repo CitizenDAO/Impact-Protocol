@@ -8,6 +8,7 @@ const initialState = {
   CDAOPriceDollar: 0.1,
   CDAOPriceETH: 0.000025,
   initCDAO: 0,
+  poolId: 0,
   initiatives: {
     climate: {
       title: '$Climate',
@@ -165,6 +166,7 @@ export const GlobalProvider = ({ children }) => {
         setETHBondAmount,
         selectBondMaturity,
         setInitCDAO,
+        poolId: state.poolId,
         initiatives: state.initiatives,
         CDAOPriceDollar: state.CDAOPriceDollar,
         CDAOPriceETH: state.CDAOPriceETH,

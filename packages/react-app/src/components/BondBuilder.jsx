@@ -3,7 +3,16 @@ import { useContext, useState } from 'react';
 import { GlobalContext } from '../context/GlobalState';
 import { CardStyled } from './Card/Card.styled';
 
-export default function BondBuilder({ title, season, description, APY, CDAO, selectedProvider, writeContracts }) {
+export default function BondBuilder({
+  title,
+  season,
+  description,
+  APY,
+  CDAO,
+  selectedProvider,
+  writeContracts,
+  poolId,
+}) {
   const { Title, Text } = Typography;
   const {
     selectBondMaturity,
@@ -25,7 +34,7 @@ export default function BondBuilder({ title, season, description, APY, CDAO, sel
     setIsMinting(true);
 
     try {
-      let response = await writeContracts.CitizenNFTBond.purchaseBond(0, 100000);
+      let response = await writeContracts.CitizenNFTBond.purchaseBond(poolId, 100000);
       console.log(response);
     } catch (err) {
       console.log(err);
