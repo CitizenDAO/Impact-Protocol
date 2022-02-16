@@ -67,8 +67,8 @@ contract CitizenNFTBond is ERC721Enumerable, AccessControl {
         /* uint256 bondId = bondPools[bondPoolId].poolManager.purchase{ */
         /*     value: msg.value */
         /* }(bondPools[bondPoolId].poolId, msg.sender, maturityDate); */
-        /* uint256 nftId = bondCounter.current(); */
-        /* bondCounter.increment(); */
+        uint256 nftId = bondCounter.current();
+        bondCounter.increment();
         /* bonds[nftId].pool = bondPools[bondPoolId]; */
         /* bonds[nftId].bondId = bondId; */
 
