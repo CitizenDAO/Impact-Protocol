@@ -1,4 +1,5 @@
 import { Button, Col, InputNumber, Row, Space, Typography } from 'antd';
+import { utils } from 'ethers';
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../context/GlobalState';
 import { CardStyled } from './Card/Card.styled';
@@ -34,7 +35,10 @@ export default function BondBuilder({
     setIsMinting(true);
 
     try {
-      let response = await writeContracts.CitizenNFTBond.purchaseBond(poolId, 100000);
+      let response = await writeContracts.CitizenNFTBond.purchaseBond(0, 1000, {
+        value: utils.parseEther('0.1'),
+      });
+
       console.log(response);
     } catch (err) {
       console.log(err);
