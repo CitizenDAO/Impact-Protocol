@@ -3,7 +3,6 @@ pragma solidity >=0.8.0 <0.9.0;
 
 import "./IFundingPoolManager.sol";
 import "./FixedTermBondIssuer.sol";
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -12,7 +11,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract FundingPoolManager is IFundingPoolManager, AccessControl {
     using Counters for Counters.Counter;
 
-    AggregatorV3Interface internal priceFeed;
+    //    AggregatorV3Interface internal priceFeed;
     FixedTermBondIssuer internal bondIssuer;
     
 
@@ -25,8 +24,6 @@ contract FundingPoolManager is IFundingPoolManager, AccessControl {
     mapping (uint256 => Pool) private pools;
 
     constructor(FixedTermBondIssuer issuer) {
-        // KOVAN
-        priceFeed = AggregatorV3Interface(0x9326BFA02ADD2366b30bacB125260Af641031331);
         bondIssuer = issuer;
     }
 
@@ -49,15 +46,7 @@ contract FundingPoolManager is IFundingPoolManager, AccessControl {
     }
 
     function getTokenAmount(uint256 ethIn) public view returns (uint256) {
-        // using chainlink
-        (
-         uint80 roundID,
-         int price,
-         uint startedAt,
-         uint timeStamp,
-                     uint80 answeredInRound
-         ) = priceFeed.latestRoundData();
-        return uint256(price) * 10 * ethIn;
+        return ethIn * 10**4;
     }
 
     function redeem(uint256 poolId, uint256 bondId) external override returns (bool) {
