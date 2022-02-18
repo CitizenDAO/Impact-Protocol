@@ -1,6 +1,7 @@
 import { Card, Col, Row, Typography } from 'antd';
 import { useContractReader } from 'eth-hooks';
 import { useEffect, useState } from 'react';
+import NFTBondVisualizer from '../components/NFTBondVisualizer';
 
 export default function YourBondView({ sector, address, selectedProvider, readContracts }) {
   const { Title } = Typography;
@@ -43,7 +44,18 @@ export default function YourBondView({ sector, address, selectedProvider, readCo
               {yourBonds.map(bond => {
                 return (
                   <Card>
-                    <Col>BOND: {JSON.stringify(bond)}</Col>
+                    <Col>
+                      <NFTBondVisualizer
+                        className="cdao_card"
+                        sector={'Health'}
+                        bondMaturity={360}
+                        totalCDAO={10000}
+                        APY={500}
+                        tokenNum="1"
+                        mintDate={'2.22.2022'}
+                        maturationDate={'2.22.2022'}
+                      />
+                    </Col>
                   </Card>
                 );
               })}

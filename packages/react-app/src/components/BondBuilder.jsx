@@ -141,6 +141,9 @@ export default function BondBuilder({
 
 const styles = {
   card: {
+    width: '100%',
+    height: '100%',
+    maxHeight: '500px',
     padding: '10px',
     borderRadius: '15px',
     boxShadow:

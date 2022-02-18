@@ -68,7 +68,7 @@ export default function InitiativesView({ sector, selectedProvider, writeContrac
   const { Text, Title } = Typography;
   return (
     <div>
-      <Row justify="space-between" align="top" gutter={[24, 24]} style={{ marginBottom: '24px' }}>
+      <Row justify="space-between" align="stretch" gutter={[24, 24]} style={{ marginBottom: '24px' }}>
         <Col xs={24} sm={24} md={24} lg={8}>
           <NFTBondVisualizer
             className="cdao_card"
@@ -79,11 +79,6 @@ export default function InitiativesView({ sector, selectedProvider, writeContrac
             tokenNum="1"
             mintDate={mintDate}
             maturationDate={maturationStr}
-            topLeft="Citizen DAO Season 1"
-            topRight="Social Impact Bond"
-            bottomLeft="CitizenDAO.com"
-            bottomRight="@CitizenDAO"
-            background={initiativeData.nft.background}
           />
         </Col>
         <Col xs={24} sm={24} md={24} lg={16}>
@@ -95,6 +90,8 @@ export default function InitiativesView({ sector, selectedProvider, writeContrac
             writeContracts={writeContracts}
           />
         </Col>
+      </Row>
+      <Row justify="space-between" align="stretch" gutter={[24, 24]} style={{ marginBottom: '24px' }}>
         <Col xs={24} sm={24} md={24} lg={8}>
           <StyledCollapse defaultActiveKey={['1', '2', '3']} bordered={false}>
             <Panel header={`About ${initiativeData.title} bonds`} key="1">
@@ -145,7 +142,7 @@ export default function InitiativesView({ sector, selectedProvider, writeContrac
           />
         </Col>
       </Row>
-      <Row justify="space-between" align="top" gutter={[24, 24]} style={{ marginBottom: '24px' }}>
+      <Row justify="space-between" align="stretch" gutter={[24, 24]}>
         <Col xs={24} sm={24} md={24} lg={8}>
           <Card>
             <Row>
@@ -174,7 +171,7 @@ export default function InitiativesView({ sector, selectedProvider, writeContrac
           </Card>
         </Col>
         <Col sm={24} md={24} lg={16}>
-          <Card>
+          <Card style={{ width: '100%', height: '100%' }}>
             <Title level={4} style={{ textAlign: 'left' }}>
               Projects funded by this bond
             </Title>
