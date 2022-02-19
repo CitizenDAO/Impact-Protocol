@@ -59,23 +59,28 @@ contract CitizenNFTBond is ERC721Enumerable, AccessControl {
         payable
         returns (uint256)
     {
-        /*
+        
         require(
             bondPoolId < poolCounter.current(),
             "CitizenNFTBond: invalid pool id"
         );
-        */
+        
 
-        /* uint256 bondId = bondPools[bondPoolId].poolManager.purchase{ */
-        /*     value: msg.value */
-        /* }(bondPools[bondPoolId].poolId, msg.sender, maturityDate); */
+        uint256 bondId = bondPools[bondPoolId].poolManager.purchase{
+            value: msg.value
+        }(bondPools[bondPoolId].poolId, msg.sender, maturityDate);
         uint256 nftId = bondCounter.current();
         bondCounter.increment();
-        /* bonds[nftId].pool = bondPools[bondPoolId]; */
-        /* bonds[nftId].bondId = bondId; */
+        bonds[nftId].pool = bondPools[bondPoolId];
+        bonds[nftId].bondId = bondId;
 
         _safeMint(msg.sender, nftId);
         return nftId;
+    }
+
+    function getTokenInfo(uint256 nftId) public view returns (memory string, uint256, uint256, uint256) {
+        require(nftId < bondCounter.current(), "CitizenNFTBond: invalid NFT id");
+        return ("pool id", block.timestamp, 1000, 1000);
     }
 
     function redeemBond(uint256 nftId) external returns (bool) {
