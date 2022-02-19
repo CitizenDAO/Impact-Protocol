@@ -55,7 +55,7 @@ export default function InitiativessChart({
         </Text>
       </div>
 
-      <ResponsiveContainer width="100%" height={475}>
+      <ResponsiveContainer width="100%" height={300}>
         <LineChart
           width="100%"
           height="100%"

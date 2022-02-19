@@ -25,9 +25,6 @@ const initialState = {
           content: 'A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.',
         },
       ],
-      nft: {
-        background: '#b5ebc1',
-      },
       targetedSDGs: [13, 15, 11, 12, 14, 7, 6],
     },
     health: {
@@ -44,9 +41,6 @@ const initialState = {
           content: 'A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.',
         },
       ],
-      nft: {
-        background: '#2a6df2',
-      },
       targetedSDGs: [13, 15, 11, 12, 14, 7, 6],
     },
     governance: {
@@ -63,9 +57,6 @@ const initialState = {
           content: 'A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.',
         },
       ],
-      nft: {
-        background: '#ebb3ff',
-      },
       targetedSDGs: [13, 15, 11, 12, 14, 7, 6],
     },
     finance: {
@@ -82,9 +73,6 @@ const initialState = {
           content: 'A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.',
         },
       ],
-      nft: {
-        background: '#ffb3b3',
-      },
       targetedSDGs: [13, 15, 11, 12, 14, 7, 6],
     },
     education: {
@@ -101,9 +89,6 @@ const initialState = {
           content: 'A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.',
         },
       ],
-      nft: {
-        background: 'rgb(215 195 255)',
-      },
       targetedSDGs: [13, 15, 11, 12, 14, 7, 6],
     },
     housing: {
@@ -120,9 +105,6 @@ const initialState = {
           content: 'A Citizen DAO project to convert household waste to graphene for use in geopolymer concrete.',
         },
       ],
-      nft: {
-        background: 'rgb(192 211 255)',
-      },
       targetedSDGs: [13, 15, 11, 12, 14, 7, 6],
     },
   },

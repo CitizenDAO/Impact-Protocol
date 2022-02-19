@@ -6,53 +6,36 @@ export default function NFTBondVisualizer({
   maturationDate,
   tokenNum,
   mintDate,
-  topLeft,
-  topRight,
-  bottomLeft,
-  bottomRight,
   className,
-  background,
 }) {
-  const textX = '40';
+  const textX = '10';
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 400 400 "
+      viewBox="0 0 350 500"
       className={className}
-      style={{ borderRadius: '15px', background: background }}
+      style={{ borderRadius: '15px', background: 'white', maxHeight: '500px' }}
     >
-      <text x="20" y="35" className="light color-w">
-        {topLeft}
-      </text>
-      <text x="280" y="35" className="light tright color-w">
-        {topRight}
-      </text>
-      <text x="20" y="380" className="light color-w">
-        {bottomLeft}
-      </text>
-      <text x="305" y="380" className="light tright color-w">
-        {bottomRight}
-      </text>
-
-      <text x={textX} y="140" className="heavy color-w">
+      <text x={textX} y="240" className="heavy color-w">
         {sector} Bond #{tokenNum}
       </text>
-      <text x={textX} y="160" className="heavy color-w">
+      <text x={textX} y="260" className="heavy color-w">
         Minted {mintDate}
       </text>
 
-      <text x={textX} y="200" className="heavy color-w">
+      <text x={textX} y="300" className="heavy color-w">
         {bondMaturity} Days @ {APY}% APY
       </text>
-      <text x={textX} y="220" className="heavy color-w">
-        Compounding Daily
+
+      <text x={textX} y="320" className="heavy color-w">
+        {totalCDAO.toLocaleString('en-US')} CDAO by {maturationDate}
       </text>
 
-      <text x={textX} y="260" className="heavy color-w">
-        {totalCDAO.toLocaleString('en-US')} CDAO
+      <text x={textX} y="490" className="light color-w">
+        CitizenDAO.io
       </text>
-      <text x={textX} y="280" className="heavy color-w">
-        By {maturationDate}
+      <text x="250" y="490" className="light tright color-w">
+        @CitizenDAO
       </text>
     </svg>
   );
