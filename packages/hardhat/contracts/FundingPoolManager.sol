@@ -25,6 +25,7 @@ contract FundingPoolManager is IFundingPoolManager, AccessControl {
 
     constructor(FixedTermBondIssuer issuer) {
         bondIssuer = issuer;
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
     function addPool(IERC20 token, uint256 apr, address fundingAddress)
