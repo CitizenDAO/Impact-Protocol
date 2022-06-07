@@ -7,7 +7,7 @@
 
 **Solution:** A new way to fund public advancement via Social Impact Bonds. SIBs are dynamic NFTs that fund projects both prospectively & retrospectively. 
 
-![Innovative Funding Models](https://citizendao.com/wp-content/uploads/2021/10/Innovative-Funding-Models.jpg)
+![Innovative Funding Models](https://citizendao.io/wp-content/uploads/2021/10/Innovative-Funding-Models.jpg)
 
 ## Social Impact Bonds
 
@@ -23,17 +23,17 @@ We at Citizen DAO believe Social Impact Bonds can be much better than they are.
 
 ### Enter Web3
 
-![Social Impact Bonds](https://citizendao.com/wp-content/uploads/2021/10/Crypto-Philanthropy3.jpg)
+![Social Impact Bonds](https://citizendao.io/wp-content/uploads/2021/10/Crypto-Philanthropy3.jpg)
 
 Our bonds are ERC-1155 non-fungible tokens. Bonds are unique financial assets that fund projects in the following categories of health, housing, education, climate, finance, & governance.
 
 Citizen DAO members will curate, refine, & decide on which projects get funding. Each bond can be minted with any amount of ETH. Yield is in CDAO, which is the governance & utiliity token of Citizen DAO. 
 
-![Bond Revenue Flow](https://citizendao.com/wp-content/uploads/2021/10/Dynamic-NFTs-1.jpg)
+![Bond Revenue Flow](https://citizendao.io/wp-content/uploads/2021/10/Dynamic-NFTs-1.jpg)
 
 ## How it works
 
-1. Go to [app.citizendao.com](https://app.citizendao.com/)
+1. Go to [app.citizendao.io](https://app.citizendao.io/)
 2. Connect wallet, find the bond you want, & customize it.
 3. When the bond matures, come to the same place to redeem it and claim the CDAO yield.
 4. Or you can sell your bond on secondary markets before maturity.
